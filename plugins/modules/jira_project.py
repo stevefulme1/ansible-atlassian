@@ -178,6 +178,7 @@ options:
       - >-
         Previous project keys to be released from the current project. Released keys must belong to the...
     type: list
+    elements: str
 
   url:
     description:
@@ -669,6 +670,7 @@ def main():
 
             key=dict(
                 type="str",
+                no_log=False,
 
             ),
 
@@ -752,6 +754,8 @@ def main():
 
             releasedProjectKeys=dict(
                 type="list",
+                elements="str",
+                no_log=False,
 
             ),
 

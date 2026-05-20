@@ -31,6 +31,7 @@ options:
       - >-
         The edit permissions for the dashboard.
     type: list
+    elements: dict
 
     required: true
 
@@ -47,6 +48,7 @@ options:
       - >-
         The share permissions for the dashboard.
     type: list
+    elements: dict
 
     required: true
 
@@ -267,7 +269,7 @@ def main():
 
             editPermissions=dict(
                 type="list",
-
+                elements="dict",
                 required=True,
 
             ),
@@ -281,7 +283,7 @@ def main():
 
             sharePermissions=dict(
                 type="list",
-
+                elements="dict",
                 required=True,
 
             ),

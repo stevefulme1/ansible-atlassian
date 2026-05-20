@@ -61,6 +61,7 @@ options:
       - >-
         The permissions for the new space. If no permissions are provided, the Confluence default space...
     type: list
+    elements: dict
 
   status:
     description:
@@ -328,6 +329,7 @@ def main():
 
             key=dict(
                 type="str",
+                no_log=False,
 
             ),
 
@@ -338,6 +340,7 @@ def main():
 
             permissions=dict(
                 type="list",
+                elements="dict",
 
             ),
 

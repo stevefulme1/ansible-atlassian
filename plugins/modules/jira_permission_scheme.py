@@ -57,6 +57,7 @@ options:
       - >-
         The permission scheme to create or update. See About permission schemes and...
     type: list
+    elements: dict
 
   scope:
     description:
@@ -267,6 +268,7 @@ def main():
 
             permissions=dict(
                 type="list",
+                elements="dict",
 
             ),
 

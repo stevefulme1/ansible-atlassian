@@ -51,6 +51,7 @@ options:
       - >-
         The groups and projects that can edit the filter.
     type: list
+    elements: dict
 
   favourite:
     description:
@@ -99,6 +100,7 @@ options:
       - >-
         The groups and projects that the filter is shared with.
     type: list
+    elements: dict
 
   sharedUsers:
     description:
@@ -386,6 +388,7 @@ def main():
 
             editPermissions=dict(
                 type="list",
+                elements="dict",
 
             ),
 
@@ -426,6 +429,7 @@ def main():
 
             sharePermissions=dict(
                 type="list",
+                elements="dict",
 
             ),
 

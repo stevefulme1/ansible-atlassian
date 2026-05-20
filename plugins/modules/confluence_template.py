@@ -71,6 +71,7 @@ options:
       - >-
         Labels for the template.
     type: list
+    elements: str
 
   space:
     description:
@@ -305,6 +306,7 @@ def main():
 
             labels=dict(
                 type="list",
+                elements="str",
 
             ),
 

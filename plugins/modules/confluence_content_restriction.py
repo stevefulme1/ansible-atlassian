@@ -31,6 +31,7 @@ options:
       - >-
 
     type: list
+    elements: dict
 
     required: true
 
@@ -221,7 +222,7 @@ def main():
 
             results=dict(
                 type="list",
-
+                elements="dict",
                 required=True,
 
             ),

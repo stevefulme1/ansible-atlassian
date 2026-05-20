@@ -39,6 +39,7 @@ options:
       - >-
         The list of statuses that will be updated.
     type: list
+    elements: dict
 
     required: true
 
@@ -187,7 +188,7 @@ def main():
 
             statuses=dict(
                 type="list",
-
+                elements="dict",
                 required=True,
 
             ),

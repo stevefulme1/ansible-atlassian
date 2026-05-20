@@ -43,6 +43,7 @@ options:
       - >-
         Details of issue properties to be add or update.
     type: list
+    elements: dict
 
   transition:
     description:
@@ -269,6 +270,7 @@ def main():
 
             properties=dict(
                 type="list",
+                elements="dict",
 
             ),
 
