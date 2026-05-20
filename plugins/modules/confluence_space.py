@@ -1,0 +1,570 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# Copyright: (c) 2024, Steve Fulmer
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+from __future__ import absolute_import, division, print_function
+
+__metaclass__ = type
+
+DOCUMENTATION = r"""
+---
+module: confluence_space
+short_description: Manage space
+version_added: "1.0.0"
+description:
+  - Create, update, and delete space resources.
+  - Supports check mode and diff mode for safe operations.
+author:
+  - "Steve Fulmer"
+options:
+  state:
+    description:
+      - Desired state of the space resource.
+    type: str
+    choices: ['present', 'absent']
+    default: present
+
+  alias:
+    description:
+      - >-
+        This field will be used as the new identifier for the space in confluence page URLs. If the...
+    type: str
+
+
+
+
+
+  description:
+    description:
+      - >-
+        The description of the new/updated space. Note, only the 'plain' representation can be used for...
+    type: dict
+
+
+
+
+
+  homepage:
+    description:
+      - >-
+        The updated homepage for this space
+    type: dict
+
+
+
+
+
+  key:
+    description:
+      - >-
+        The key for the new space. Format: See Space keys. If alias is not provided, this is required.
+    type: str
+
+
+
+
+
+  name:
+    description:
+      - >-
+        The updated name of the space.
+    type: str
+
+
+
+
+
+  permissions:
+    description:
+      - >-
+        The permissions for the new space. If no permissions are provided, the Confluence default space...
+    type: list
+
+
+
+
+
+  status:
+    description:
+      - >-
+        The updated status for this space.
+    type: str
+
+
+
+
+
+  type:
+    description:
+      - >-
+        The updated type for this space.
+    type: str
+
+
+
+
+
+extends_documentation_fragment:
+  - stevefulme1.atlassian.auth
+"""
+
+EXAMPLES = r"""
+
+- name: Create a space
+  stevefulme1.atlassian.confluence_space:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    state: present
+  # API: POST /wiki/rest/api/space
+
+
+
+- name: Update a space
+  stevefulme1.atlassian.confluence_space:
+    id: "existing_id"
+
+
+    alias: "updated_alias"
+
+
+
+    description: "updated_description"
+
+
+
+    homepage: "updated_homepage"
+
+
+
+    key: "updated_key"
+
+
+
+    name: "updated_name"
+
+
+
+    permissions: "updated_permissions"
+
+
+
+    status: "updated_status"
+
+
+
+    type: "updated_type"
+
+
+    state: present
+  # API:  
+
+
+
+- name: Delete a space
+  stevefulme1.atlassian.confluence_space:
+    id: "existing_id"
+    state: absent
+  # API: DELETE /wiki/rest/api/space/{spaceKey}
+
+"""
+
+RETURN = r"""
+
+id:
+  description: >-
+    
+  returned: success
+  type: int
+
+
+key:
+  description: >-
+    
+  returned: success
+  type: str
+
+
+alias:
+  description: >-
+    
+  returned: success
+  type: str
+
+
+name:
+  description: >-
+    
+  returned: success
+  type: str
+
+
+icon:
+  description: >-
+    This object represents an icon. If used as a profilePicture, this may be returned as null,...
+  returned: success
+  type: dict
+
+
+description:
+  description: >-
+    
+  returned: success
+  type: dict
+
+
+homepage:
+  description: >-
+    Base object for all content types.
+  returned: success
+  type: dict
+
+
+type:
+  description: >-
+    
+  returned: success
+  type: str
+
+
+metadata:
+  description: >-
+    
+  returned: success
+  type: dict
+
+
+operations:
+  description: >-
+    
+  returned: success
+  type: list
+
+
+permissions:
+  description: >-
+    
+  returned: success
+  type: list
+
+
+status:
+  description: >-
+    
+  returned: success
+  type: str
+
+
+settings:
+  description: >-
+    
+  returned: success
+  type: dict
+
+
+theme:
+  description: >-
+    
+  returned: success
+  type: dict
+
+
+lookAndFeel:
+  description: >-
+    
+  returned: success
+  type: dict
+
+
+history:
+  description: >-
+    
+  returned: success
+  type: dict
+
+
+_expandable:
+  description: >-
+    
+  returned: success
+  type: dict
+
+
+_links:
+  description: >-
+    
+  returned: success
+  type: dict
+
+
+"""
+
+from ansible.module_utils.basic import AnsibleModule
+from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client import (
+    Client,
+    ClientError,
+    argument_spec as auth_argument_spec,
+)
+
+
+def get_current_state(client, module):
+    """Retrieve the current state of the space via GET."""
+
+    return None
+
+
+
+def needs_update(current, desired):
+    """Compare current state against desired params and return True if an update is needed."""
+    if current is None:
+        return True
+    for key, value in desired.items():
+        if value is None:
+            continue
+        current_value = current.get(key)
+        if current_value != value:
+            return True
+    return False
+
+
+def build_payload(module):
+    """Build the API request payload from module params."""
+    payload = {}
+
+    if module.params.get("alias") is not None:
+        payload["alias"] = module.params["alias"]
+
+    if module.params.get("description") is not None:
+        payload["description"] = module.params["description"]
+
+    if module.params.get("homepage") is not None:
+        payload["homepage"] = module.params["homepage"]
+
+    if module.params.get("key") is not None:
+        payload["key"] = module.params["key"]
+
+    if module.params.get("name") is not None:
+        payload["name"] = module.params["name"]
+
+    if module.params.get("permissions") is not None:
+        payload["permissions"] = module.params["permissions"]
+
+    if module.params.get("status") is not None:
+        payload["status"] = module.params["status"]
+
+    if module.params.get("type") is not None:
+        payload["type"] = module.params["type"]
+
+    return payload
+
+
+def main():
+    spec = auth_argument_spec()
+    spec.update(
+        dict(
+            state=dict(type="str", choices=["present", "absent"], default="present"),
+
+            alias=dict(
+                type="str",
+
+
+
+
+
+            ),
+
+            description=dict(
+                type="dict",
+
+
+
+
+
+            ),
+
+            homepage=dict(
+                type="dict",
+
+
+
+
+
+            ),
+
+            key=dict(
+                type="str",
+
+
+
+
+
+            ),
+
+            name=dict(
+                type="str",
+
+
+
+
+
+            ),
+
+            permissions=dict(
+                type="list",
+
+
+
+
+
+            ),
+
+            status=dict(
+                type="str",
+
+
+
+
+
+            ),
+
+            type=dict(
+                type="str",
+
+
+
+
+
+            ),
+
+        )
+    )
+
+    module = AnsibleModule(
+        argument_spec=spec,
+        supports_check_mode=True,
+
+    )
+
+    state = module.params["state"]
+    result = dict(changed=False, diff=dict(before={}, after={}))
+
+    try:
+        client = Client(module)
+        current = get_current_state(client, module)
+
+        if state == "present":
+            desired = build_payload(module)
+
+            if current is None:
+                # Resource does not exist — create it
+                result["changed"] = True
+                result["diff"]["before"] = {}
+                result["diff"]["after"] = desired
+
+                if not module.check_mode:
+
+                    response = client.POST(
+                        "/wiki/rest/api/space",
+                        data=desired,
+                    )
+                    result.update(response if isinstance(response, dict) else {})
+
+
+            elif needs_update(current, desired):
+                # Resource exists but needs updating
+                result["changed"] = True
+                result["diff"]["before"] = current
+                result["diff"]["after"] = dict(current, **{k: v for k, v in desired.items() if v is not None})
+
+                if not module.check_mode:
+
+                    identifier = current.get("id")
+                    path = "".replace(
+                        "{id}", str(identifier)
+                    )
+                    response = client.put(
+                        path,
+                        data=desired,
+                    )
+                    result.update(response if isinstance(response, dict) else {})
+
+
+            else:
+                # Resource exists and is up-to-date
+
+                result["id"] = current.get("id")
+
+                result["key"] = current.get("key")
+
+                result["alias"] = current.get("alias")
+
+                result["name"] = current.get("name")
+
+                result["icon"] = current.get("icon")
+
+                result["description"] = current.get("description")
+
+                result["homepage"] = current.get("homepage")
+
+                result["type"] = current.get("type")
+
+                result["metadata"] = current.get("metadata")
+
+                result["operations"] = current.get("operations")
+
+                result["permissions"] = current.get("permissions")
+
+                result["status"] = current.get("status")
+
+                result["settings"] = current.get("settings")
+
+                result["theme"] = current.get("theme")
+
+                result["lookAndFeel"] = current.get("lookAndFeel")
+
+                result["history"] = current.get("history")
+
+                result["_expandable"] = current.get("_expandable")
+
+                result["_links"] = current.get("_links")
+
+
+        elif state == "absent":
+            if current is not None:
+                result["changed"] = True
+                result["diff"]["before"] = current
+                result["diff"]["after"] = {}
+
+                if not module.check_mode:
+
+                    identifier = current.get("id")
+                    path = "/wiki/rest/api/space/{spaceKey}".replace(
+                        "{id}", str(identifier)
+                    )
+                    client.delete(path)
+
+
+    except ClientError as e:
+        module.fail_json(msg=str(e), **result)
+
+    module.exit_json(**result)
+
+
+if __name__ == "__main__":
+    main()
