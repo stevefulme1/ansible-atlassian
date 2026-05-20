@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,18 +11,21 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: confluence_content_label_info
-short_description: Retrieve information about content_label resources
+short_description: >-
+  Retrieve information about confluence content label resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single content_label by its identifier, or list all content_label resources.
+  - >-
+    Retrieve a single confluence content label by its identifier,
+    or list all confluence content label resources.
   - This module always reports C(changed=False).
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the content_label to retrieve.
-      - When omitted, all content_label resources are listed.
+      - The unique identifier of the confluence content label to retrieve.
+      - When omitted, all confluence content label resources are listed.
     type: str
     required: false
 
@@ -31,6 +34,7 @@ options:
       - Filter results by name.
     type: str
     required: false
+
 
   page:
     description:
@@ -49,24 +53,23 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific content_label
+- name: Get a specific confluence content label
   stevefulme1.atlassian.confluence_content_label_info:
     id: "example_id"
   register: result
 
-
-- name: List all content_label resources
+- name: List all confluence content label resources
   stevefulme1.atlassian.confluence_content_label_info:
   register: result
 
 
-- name: List content_label resources filtered by name
+- name: List confluence content label resources filtered by name
   stevefulme1.atlassian.confluence_content_label_info:
-    name: "my_content_label"
+    name: "my_confluence content label"
   register: result
 
 
-- name: List content_label resources with pagination
+- name: List confluence content label resources with pagination
   stevefulme1.atlassian.confluence_content_label_info:
     page: 1
     page_size: 50
@@ -74,8 +77,8 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-content_labels:
-  description: List of content_label resources matching the query.
+confluence_content_labels:
+  description: List of confluence content label resources matching the query.
   returned: always
   type: list
   elements: dict
@@ -83,23 +86,28 @@ content_labels:
 
     prefix:
       description: >-
-
+        
       type: str
+
 
     name:
       description: >-
-
+        
       type: str
+
 
     id:
       description: >-
-
+        
       type: str
+
 
     label:
       description: >-
-
+        
       type: str
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -111,15 +119,17 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single content_label by identifier."""
+    """Retrieve a single confluence content label by identifier."""
 
     raise ClientError("GET by identifier is not supported for this resource")
 
 
+
 def fetch_list(client, module):
-    """List content_label resources with optional filtering and pagination."""
+    """List confluence content label resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
+
 
 
 def main():
@@ -129,6 +139,7 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -146,7 +157,7 @@ def main():
 
     result = dict(
         changed=False,
-        content_labels=[],
+        confluence_content_labels=[],
     )
 
     try:
@@ -155,9 +166,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["content_labels"] = [item] if item else []
+            result["confluence_content_labels"] = [item] if item else []
         else:
-            result["content_labels"] = fetch_list(client, module)
+            result["confluence_content_labels"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

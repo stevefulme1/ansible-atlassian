@@ -1,161 +1,309 @@
+
 ---
 # Integration tests for stevefulme1.atlassian.confluence_attachment
 #
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
 # A live API endpoint is required.
+
 - name: Set test variables
   ansible.builtin.set_fact:
-    test_attachment_params:
-      file: "{{ test_file | default('test_file_value') }}"
-      id: "{{ test_id | default('test_id_value') }}"
-      minorEdit: "{{ test_minorEdit | default('test_minorEdit_value') }}"
-      type: "{{ test_type | default('test_type_value') }}"
-      version: "{{ test_version | default('test_version_value') }}"
+    test_confluence attachment_params:
+
+
+      file: "{{ test_file | default("test_file_value") }}"
+
+
+
+      id: "{{ test_id | default("test_id_value") }}"
+
+
+
+      minorEdit: "{{ test_minorEdit | default("test_minorEdit_value") }}"
+
+
+
+      type: "{{ test_type | default("test_type_value") }}"
+
+
+
+      version: "{{ test_version | default("test_version_value") }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create attachment (check mode)
+- name: Create confluence attachment (check mode)
   stevefulme1.atlassian.confluence_attachment:
+    "{{ test_confluence attachment_params }}"
+
     state: present
-  args: "{{ test_attachment_params }}"
   check_mode: true
   register: create_check
+
 - name: Assert create in check mode reports changed
   ansible.builtin.assert:
     that:
       - create_check is changed
     fail_msg: "Create in check mode should report changed=true"
-- name: Verify attachment was NOT actually created (check mode) # noqa: args[module]
+
+- name: Verify confluence attachment was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_attachment_info:
-    title: "{{ test_title | default('test_title_value') }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    title: "{{ test_title | default("test_title_value") }}"
+
+
   register: check_verify
+
 - name: Assert resource does not exist after check mode create
   ansible.builtin.assert:
     that:
-      - check_verify.attachments | length == 0
+      - check_verify.confluence attachments | length == 0
     fail_msg: "Resource should not exist after check mode create"
+
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create attachment
+- name: Create confluence attachment
   stevefulme1.atlassian.confluence_attachment:
+    "{{ test_confluence attachment_params }}"
+
     state: present
-  args: "{{ test_attachment_params }}"
   register: create_result
+
 - name: Assert create reports changed
   ansible.builtin.assert:
     that:
       - create_result is changed
     fail_msg: "Create should report changed=true"
+
 - name: Record created resource identifier
   ansible.builtin.set_fact:
     created_id: "{{ create_result.id }}"
+
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create attachment again (idempotency)
+- name: Create confluence attachment again (idempotency)
   stevefulme1.atlassian.confluence_attachment:
+    "{{ test_confluence attachment_params }}"
+
     state: present
-  args: "{{ test_attachment_params }}"
   register: create_idempotent
+
 - name: Assert create is idempotent
   ansible.builtin.assert:
     that:
       - create_idempotent is not changed
     fail_msg: "Repeated create with same params should report changed=false"
+
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get attachment info # noqa: args[module]
+- name: Get confluence attachment info
   stevefulme1.atlassian.confluence_attachment_info:
     id: "{{ created_id }}"
   register: info_result
+
 - name: Assert resource exists and has expected data
   ansible.builtin.assert:
     that:
-      - info_result.attachments | length == 1
-      - info_result.attachments[0].file == test_attachment_params.file
-      - info_result.attachments[0].id == test_attachment_params.id
-      - info_result.attachments[0].minorEdit == test_attachment_params.minorEdit
-      - info_result.attachments[0].type == test_attachment_params.type
-      - info_result.attachments[0].version == test_attachment_params.version
+      - info_result.confluence attachments | length == 1
+
+
+      - info_result.confluence attachments[0].file == test_confluence attachment_params.file
+
+
+
+      - info_result.confluence attachments[0].id == test_confluence attachment_params.id
+
+
+
+      - info_result.confluence attachments[0].minorEdit == test_confluence attachment_params.minorEdit
+
+
+
+      - info_result.confluence attachments[0].type == test_confluence attachment_params.type
+
+
+
+      - info_result.confluence attachments[0].version == test_confluence attachment_params.version
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     fail_msg: "Created resource does not match expected values"
+
 # ============================================================
 # UPDATE
 # ============================================================
-- name: Update attachment # noqa: args[module]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- name: Update confluence attachment
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
+
     comment: "updated_comment_value"
+
     status: "updated_status_value"
+
     title: "updated_title_value"
+
     state: present
   register: update_result
+
 - name: Assert update reports changed
   ansible.builtin.assert:
     that:
       - update_result is changed
     fail_msg: "Update should report changed=true"
+
 # ============================================================
 # UPDATE - idempotency
 # ============================================================
-- name: Update attachment again (idempotency) # noqa: args[module]
+- name: Update confluence attachment again (idempotency)
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
+
     comment: "updated_comment_value"
+
     status: "updated_status_value"
+
     title: "updated_title_value"
+
     state: present
   register: update_idempotent
+
 - name: Assert update is idempotent
   ansible.builtin.assert:
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
+
+
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete attachment (check mode) # noqa: args[module]
+- name: Delete confluence attachment (check mode)
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
     state: absent
   check_mode: true
   register: delete_check
+
 - name: Assert delete in check mode reports changed
   ansible.builtin.assert:
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify attachment still exists after check mode delete # noqa: args[module]
+
+- name: Verify confluence attachment still exists after check mode delete
   stevefulme1.atlassian.confluence_attachment_info:
     id: "{{ created_id }}"
   register: delete_check_verify
+
 - name: Assert resource still exists after check mode delete
   ansible.builtin.assert:
     that:
-      - delete_check_verify.attachments | length == 1
+      - delete_check_verify.confluence attachments | length == 1
     fail_msg: "Resource should still exist after check mode delete"
+
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete attachment # noqa: args[module]
+- name: Delete confluence attachment
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
     state: absent
   register: delete_result
+
 - name: Assert delete reports changed
   ansible.builtin.assert:
     that:
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
+
 # ============================================================
 # DELETE - idempotency
 # ============================================================
-- name: Delete attachment again (idempotency) # noqa: args[module]
+- name: Delete confluence attachment again (idempotency)
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
     state: absent
   register: delete_idempotent
+
 - name: Assert delete is idempotent
   ansible.builtin.assert:
     that:

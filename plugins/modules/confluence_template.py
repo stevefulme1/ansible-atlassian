@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,14 +14,14 @@ module: confluence_template
 short_description: Manage template
 version_added: "1.0.0"
 description:
-  - Create, update, and delete template resources.
+  - Create, update, and delete confluence template resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the template resource.
+      - Desired state of the confluence template resource.
     type: str
     choices: ['present', 'absent']
     default: present
@@ -34,6 +34,10 @@ options:
 
     required: true
 
+
+
+
+
   name:
     description:
       - >-
@@ -41,6 +45,10 @@ options:
     type: str
 
     required: true
+
+
+
+
 
   templateId:
     description:
@@ -50,6 +58,10 @@ options:
 
     required: true
 
+
+
+
+
   templateType:
     description:
       - >-
@@ -58,7 +70,11 @@ options:
 
     required: true
 
+
     choices: ["page"]
+
+
+
 
   description:
     description:
@@ -66,12 +82,19 @@ options:
         A description of the template.
     type: str
 
+
+
+
+
   labels:
     description:
       - >-
         Labels for the template.
     type: list
-    elements: str
+
+
+
+
 
   space:
     description:
@@ -80,109 +103,143 @@ options:
     type: dict
 
 
+
+
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
 
-- name: Create a template
+- name: Create a confluence template
   stevefulme1.atlassian.confluence_template:
+
 
     body: "example_body"
 
+
+
     name: "example_name"
+
+
 
     templateId: "example_templateId"
 
+
+
     templateType: "example_templateType"
+
+
+
+
+
+
+
 
     state: present
   # API: POST /wiki/rest/api/template
 
 
-- name: Update a template
+
+- name: Update a confluence template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
 
+
+
+
+
+
+
+
+
+
     description: "updated_description"
+
+
 
     labels: "updated_labels"
 
+
+
     space: "updated_space"
 
+
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a template
+
+- name: Delete a confluence template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
     state: absent
   # API: DELETE /wiki/rest/api/template/{contentTemplateId}
+
 """
 
 RETURN = r"""
 
 templateId:
   description: >-
-
+    
   returned: success
   type: str
 
 
 originalTemplate:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 referencingBlueprint:
   description: >-
-
+    
   returned: success
   type: str
 
 
 name:
   description: >-
-
+    
   returned: success
   type: str
 
 
 description:
   description: >-
-
+    
   returned: success
   type: str
 
 
 space:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 labels:
   description: >-
-
+    
   returned: success
   type: list
 
 
 templateType:
   description: >-
-
+    
   returned: success
   type: str
 
 
 editorVersion:
   description: >-
-
+    
   returned: success
   type: str
 
@@ -196,16 +253,18 @@ body:
 
 _expandable:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 _links:
   description: >-
-
+    
   returned: success
   type: dict
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -217,9 +276,10 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the template via GET."""
+    """Retrieve the current state of the confluence template via GET."""
 
     return None
+
 
 
 def needs_update(current, desired):
@@ -274,12 +334,20 @@ def main():
 
                 required=True,
 
+
+
+
+
             ),
 
             name=dict(
                 type="str",
 
                 required=True,
+
+
+
+
 
             ),
 
@@ -288,6 +356,10 @@ def main():
 
                 required=True,
 
+
+
+
+
             ),
 
             templateType=dict(
@@ -295,23 +367,38 @@ def main():
 
                 required=True,
 
+
                 choices=['page'],
+
+
+
 
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
             ),
 
             labels=dict(
                 type="list",
-                elements="str",
+
+
+
+
 
             ),
 
             space=dict(
                 type="dict",
+
+
+
+
 
             ),
 
@@ -348,6 +435,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -365,6 +453,7 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             else:
                 # Resource exists and is up-to-date
@@ -393,6 +482,8 @@ def main():
 
                 result["_links"] = current.get("_links")
 
+                pass
+
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -406,6 +497,7 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

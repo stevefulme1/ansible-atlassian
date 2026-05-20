@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,14 +14,14 @@ module: jira_version
 short_description: Manage project versions
 version_added: "1.0.0"
 description:
-  - Create, update, and delete version resources.
+  - Create, update, and delete jira version resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the version resource.
+      - Desired state of the jira version resource.
     type: str
     choices: ['present', 'absent']
     default: present
@@ -31,7 +31,10 @@ options:
       - >-
         If the expand option approvers is used, returns a list containing the approvers for this version.
     type: list
-    elements: dict
+
+
+
+
 
   archived:
     description:
@@ -39,11 +42,19 @@ options:
         Indicates that the version is archived. Optional when creating or updating a version.
     type: bool
 
+
+
+
+
   description:
     description:
       - >-
         The description of the version. Optional when creating or updating a version. The maximum size...
     type: str
+
+
+
+
 
   driver:
     description:
@@ -51,11 +62,19 @@ options:
         The Atlassian account ID of the version driver. Optional when creating or updating a version. If...
     type: str
 
+
+
+
+
   expand:
     description:
       - >-
         Use expand(em>expansion) to include additional information about version in the response. This...
     type: str
+
+
+
+
 
   id:
     description:
@@ -63,11 +82,19 @@ options:
         The ID of the version.
     type: str
 
+
+
+
+
   issuesStatusForFixVersion:
     description:
       - >-
         Counts of the number of issues in various statuses.
     type: dict
+
+
+
+
 
   moveUnfixedIssuesTo:
     description:
@@ -75,18 +102,29 @@ options:
         The URL of the self link to the version to which all unfixed issues are moved when a version is...
     type: str
 
+
+
+
+
   name:
     description:
       - >-
         The unique name of the version. Required when creating a version. Optional when updating a...
     type: str
 
+
+
+
+
   operations:
     description:
       - >-
         If the expand option operations is used, returns the list of operations available for this version.
     type: list
-    elements: dict
+
+
+
+
 
   overdue:
     description:
@@ -94,11 +132,19 @@ options:
         Indicates that the version is overdue.
     type: bool
 
+
+
+
+
   project:
     description:
       - >-
         Deprecated. Use projectId.
     type: str
+
+
+
+
 
   projectId:
     description:
@@ -106,11 +152,19 @@ options:
         The ID of the project to which this version is attached. Required when creating a version. Not...
     type: int
 
+
+
+
+
   releaseDate:
     description:
       - >-
         The release date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when...
     type: str
+
+
+
+
 
   released:
     description:
@@ -118,11 +172,19 @@ options:
         Indicates that the version is released. If the version is released a request to release again is...
     type: bool
 
+
+
+
+
   self:
     description:
       - >-
         The URL of the version.
     type: str
+
+
+
+
 
   startDate:
     description:
@@ -130,11 +192,19 @@ options:
         The start date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when creating...
     type: str
 
+
+
+
+
   userReleaseDate:
     description:
       - >-
         The date on which work on this version is expected to finish, expressed in the instance's...
     type: str
+
+
+
+
 
   userStartDate:
     description:
@@ -143,68 +213,150 @@ options:
     type: str
 
 
+
+
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
 
-- name: Create a version
+- name: Create a jira version
   stevefulme1.atlassian.jira_version:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     state: present
   # API: POST /rest/api/3/version
 
 
-- name: Update a version
+
+- name: Update a jira version
   stevefulme1.atlassian.jira_version:
     id: "existing_id"
 
+
     approvers: "updated_approvers"
+
+
 
     archived: "updated_archived"
 
+
+
     description: "updated_description"
+
+
 
     driver: "updated_driver"
 
+
+
     expand: "updated_expand"
+
+
+
+
 
     issuesStatusForFixVersion: "updated_issuesStatusForFixVersion"
 
+
+
     moveUnfixedIssuesTo: "updated_moveUnfixedIssuesTo"
+
+
 
     name: "updated_name"
 
+
+
     operations: "updated_operations"
+
+
 
     overdue: "updated_overdue"
 
+
+
     project: "updated_project"
+
+
 
     projectId: "updated_projectId"
 
+
+
     releaseDate: "updated_releaseDate"
+
+
 
     released: "updated_released"
 
+
+
     self: "updated_self"
+
+
 
     startDate: "updated_startDate"
 
+
+
     userReleaseDate: "updated_userReleaseDate"
+
+
 
     userStartDate: "updated_userStartDate"
 
+
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a version
+
+- name: Delete a jira version
   stevefulme1.atlassian.jira_version:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/version/{id}
+
 """
 
 RETURN = r"""
@@ -214,7 +366,6 @@ approvers:
     If the expand option approvers is used, returns a list containing the approvers for this version.
   returned: success
   type: list
-  elements: dict
 
 
 archived:
@@ -278,7 +429,6 @@ operations:
     If the expand option operations is used, returns the list of operations available for this version.
   returned: success
   type: list
-  elements: dict
 
 
 overdue:
@@ -342,6 +492,8 @@ userStartDate:
     The date on which work on this version is expected to start, expressed in the instance's...
   returned: success
   type: str
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -353,9 +505,10 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the version via GET."""
+    """Retrieve the current state of the jira version via GET."""
 
     return None
+
 
 
 def needs_update(current, desired):
@@ -442,97 +595,173 @@ def main():
             state=dict(type="str", choices=["present", "absent"], default="present"),
 
             approvers=dict(
-                type="list", elements="dict",
+                type="list",
+
+
+
+
 
             ),
 
             archived=dict(
                 type="bool",
 
+
+
+
+
             ),
 
             description=dict(
                 type="str",
+
+
+
+
 
             ),
 
             driver=dict(
                 type="str",
 
+
+
+
+
             ),
 
             expand=dict(
                 type="str",
+
+
+
+
 
             ),
 
             id=dict(
                 type="str",
 
+
+
+
+
             ),
 
             issuesStatusForFixVersion=dict(
                 type="dict",
+
+
+
+
 
             ),
 
             moveUnfixedIssuesTo=dict(
                 type="str",
 
+
+
+
+
             ),
 
             name=dict(
                 type="str",
 
+
+
+
+
             ),
 
             operations=dict(
-                type="list", elements="dict",
+                type="list",
+
+
+
+
 
             ),
 
             overdue=dict(
                 type="bool",
 
+
+
+
+
             ),
 
             project=dict(
                 type="str",
+
+
+
+
 
             ),
 
             projectId=dict(
                 type="int",
 
+
+
+
+
             ),
 
             releaseDate=dict(
                 type="str",
+
+
+
+
 
             ),
 
             released=dict(
                 type="bool",
 
+
+
+
+
             ),
 
             self=dict(
                 type="str",
+
+
+
+
 
             ),
 
             startDate=dict(
                 type="str",
 
+
+
+
+
             ),
 
             userReleaseDate=dict(
                 type="str",
 
+
+
+
+
             ),
 
             userStartDate=dict(
                 type="str",
+
+
+
+
 
             ),
 
@@ -569,6 +798,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -586,6 +816,7 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             else:
                 # Resource exists and is up-to-date
@@ -628,6 +859,8 @@ def main():
 
                 result["userStartDate"] = current.get("userStartDate")
 
+                pass
+
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -641,6 +874,7 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

@@ -1,167 +1,401 @@
+
 ---
 # Integration tests for stevefulme1.atlassian.jira_version
 #
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
 # A live API endpoint is required.
+
 - name: Set test variables
   ansible.builtin.set_fact:
-    test_version_params: {}
+    test_jira version_params:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create version (check mode)
+- name: Create jira version (check mode)
   stevefulme1.atlassian.jira_version:
+    "{{ test_jira version_params }}"
+
     state: present
-  args: "{{ test_version_params }}"
   check_mode: true
   register: create_check
+
 - name: Assert create in check mode reports changed
   ansible.builtin.assert:
     that:
       - create_check is changed
     fail_msg: "Create in check mode should report changed=true"
-- name: Verify version was NOT actually created (check mode) # noqa: args[module]
+
+- name: Verify jira version was NOT actually created (check mode)
   stevefulme1.atlassian.jira_version_info:
-    name: "{{ test_name | default('test_name_value') }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    name: "{{ test_name | default("test_name_value") }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   register: check_verify
+
 - name: Assert resource does not exist after check mode create
   ansible.builtin.assert:
     that:
-      - check_verify.versions | length == 0
+      - check_verify.jira versions | length == 0
     fail_msg: "Resource should not exist after check mode create"
+
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create version
+- name: Create jira version
   stevefulme1.atlassian.jira_version:
+    "{{ test_jira version_params }}"
+
     state: present
-  args: "{{ test_version_params }}"
   register: create_result
+
 - name: Assert create reports changed
   ansible.builtin.assert:
     that:
       - create_result is changed
     fail_msg: "Create should report changed=true"
+
 - name: Record created resource identifier
   ansible.builtin.set_fact:
     created_id: "{{ create_result.id }}"
+
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create version again (idempotency)
+- name: Create jira version again (idempotency)
   stevefulme1.atlassian.jira_version:
+    "{{ test_jira version_params }}"
+
     state: present
-  args: "{{ test_version_params }}"
   register: create_idempotent
+
 - name: Assert create is idempotent
   ansible.builtin.assert:
     that:
       - create_idempotent is not changed
     fail_msg: "Repeated create with same params should report changed=false"
+
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get version info # noqa: args[module]
+- name: Get jira version info
   stevefulme1.atlassian.jira_version_info:
     id: "{{ created_id }}"
   register: info_result
+
 - name: Assert resource exists and has expected data
   ansible.builtin.assert:
     that:
-      - info_result.versions | length == 1
+      - info_result.jira versions | length == 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     fail_msg: "Created resource does not match expected values"
+
 # ============================================================
 # UPDATE
 # ============================================================
-- name: Update version # noqa: args[module]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- name: Update jira version
   stevefulme1.atlassian.jira_version:
     id: "{{ created_id }}"
+
     description: "updated_description_value"
+
     driver: "updated_driver_value"
+
     expand: "updated_expand_value"
+
     moveUnfixedIssuesTo: "updated_moveUnfixedIssuesTo_value"
+
     name: "updated_name_value"
+
     project: "updated_project_value"
+
     releaseDate: "updated_releaseDate_value"
+
     self: "updated_self_value"
+
     startDate: "updated_startDate_value"
+
     userReleaseDate: "updated_userReleaseDate_value"
+
     userStartDate: "updated_userStartDate_value"
+
     state: present
   register: update_result
+
 - name: Assert update reports changed
   ansible.builtin.assert:
     that:
       - update_result is changed
     fail_msg: "Update should report changed=true"
+
 # ============================================================
 # UPDATE - idempotency
 # ============================================================
-- name: Update version again (idempotency) # noqa: args[module]
+- name: Update jira version again (idempotency)
   stevefulme1.atlassian.jira_version:
     id: "{{ created_id }}"
+
     description: "updated_description_value"
+
     driver: "updated_driver_value"
+
     expand: "updated_expand_value"
+
     moveUnfixedIssuesTo: "updated_moveUnfixedIssuesTo_value"
+
     name: "updated_name_value"
+
     project: "updated_project_value"
+
     releaseDate: "updated_releaseDate_value"
+
     self: "updated_self_value"
+
     startDate: "updated_startDate_value"
+
     userReleaseDate: "updated_userReleaseDate_value"
+
     userStartDate: "updated_userStartDate_value"
+
     state: present
   register: update_idempotent
+
 - name: Assert update is idempotent
   ansible.builtin.assert:
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
+
+
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete version (check mode) # noqa: args[module]
+- name: Delete jira version (check mode)
   stevefulme1.atlassian.jira_version:
     id: "{{ created_id }}"
     state: absent
   check_mode: true
   register: delete_check
+
 - name: Assert delete in check mode reports changed
   ansible.builtin.assert:
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify version still exists after check mode delete # noqa: args[module]
+
+- name: Verify jira version still exists after check mode delete
   stevefulme1.atlassian.jira_version_info:
     id: "{{ created_id }}"
   register: delete_check_verify
+
 - name: Assert resource still exists after check mode delete
   ansible.builtin.assert:
     that:
-      - delete_check_verify.versions | length == 1
+      - delete_check_verify.jira versions | length == 1
     fail_msg: "Resource should still exist after check mode delete"
+
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete version # noqa: args[module]
+- name: Delete jira version
   stevefulme1.atlassian.jira_version:
     id: "{{ created_id }}"
     state: absent
   register: delete_result
+
 - name: Assert delete reports changed
   ansible.builtin.assert:
     that:
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
+
 # ============================================================
 # DELETE - idempotency
 # ============================================================
-- name: Delete version again (idempotency) # noqa: args[module]
+- name: Delete jira version again (idempotency)
   stevefulme1.atlassian.jira_version:
     id: "{{ created_id }}"
     state: absent
   register: delete_idempotent
+
 - name: Assert delete is idempotent
   ansible.builtin.assert:
     that:

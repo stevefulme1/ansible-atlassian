@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,20 +11,36 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: confluence_content_restriction_info
-short_description: Retrieve information about content_restriction resources
+short_description: >-
+  Retrieve information about confluence content restriction resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single content_restriction by its identifier, or list all content_restriction resources.
+  - >-
+    Retrieve a single confluence content restriction by its identifier,
+    or list all confluence content restriction resources.
   - This module always reports C(changed=False).
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the content_restriction to retrieve.
-      - When omitted, all content_restriction resources are listed.
+      - The unique identifier of the confluence content restriction to retrieve.
+      - When omitted, all confluence content restriction resources are listed.
     type: str
     required: false
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   page:
     description:
@@ -43,18 +59,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific content_restriction
+- name: Get a specific confluence content restriction
   stevefulme1.atlassian.confluence_content_restriction_info:
     id: "example_id"
   register: result
 
-
-- name: List all content_restriction resources
+- name: List all confluence content restriction resources
   stevefulme1.atlassian.confluence_content_restriction_info:
   register: result
 
 
-- name: List content_restriction resources with pagination
+
+- name: List confluence content restriction resources with pagination
   stevefulme1.atlassian.confluence_content_restriction_info:
     page: 1
     page_size: 50
@@ -62,8 +78,8 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-content_restrictions:
-  description: List of content_restriction resources matching the query.
+confluence_content_restrictions:
+  description: List of confluence content restriction resources matching the query.
   returned: always
   type: list
   elements: dict
@@ -71,28 +87,34 @@ content_restrictions:
 
     operation:
       description: >-
-
+        
       type: str
+
 
     restrictions:
       description: >-
-
+        
       type: dict
+
 
     content:
       description: >-
         Base object for all content types.
       type: dict
 
+
     _expandable:
       description: >-
-
+        
       type: dict
+
 
     _links:
       description: >-
-
+        
       type: dict
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -104,7 +126,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single content_restriction by identifier."""
+    """Retrieve a single confluence content restriction by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/wiki/rest/api/content/{id}/restriction")
@@ -116,10 +138,27 @@ def fetch_single(client, identifier):
     return None
 
 
+
 def fetch_list(client, module):
-    """List content_restriction resources with optional filtering and pagination."""
+    """List confluence content restriction resources with optional filtering and pagination."""
 
     params = {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -137,11 +176,25 @@ def fetch_list(client, module):
         return client.get_paginated("/wiki/rest/api/content/{id}/restriction", params=params)
 
 
+
 def main():
     spec = auth_argument_spec()
     spec.update(
         dict(
             id=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -159,7 +212,7 @@ def main():
 
     result = dict(
         changed=False,
-        content_restrictions=[],
+        confluence_content_restrictions=[],
     )
 
     try:
@@ -168,9 +221,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["content_restrictions"] = [item] if item else []
+            result["confluence_content_restrictions"] = [item] if item else []
         else:
-            result["content_restrictions"] = fetch_list(client, module)
+            result["confluence_content_restrictions"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,20 +11,24 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: bitbucket_environment_info
-short_description: Retrieve information about environment resources
+short_description: >-
+  Retrieve information about bitbucket environment resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single environment by its identifier, or list all environment resources.
+  - >-
+    Retrieve a single bitbucket environment by its identifier,
+    or list all bitbucket environment resources.
   - This module always reports C(changed=False).
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the environment to retrieve.
-      - When omitted, all environment resources are listed.
+      - The unique identifier of the bitbucket environment to retrieve.
+      - When omitted, all bitbucket environment resources are listed.
     type: str
     required: false
+
 
   page:
     description:
@@ -43,18 +47,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific environment
+- name: Get a specific bitbucket environment
   stevefulme1.atlassian.bitbucket_environment_info:
     id: "example_id"
   register: result
 
-
-- name: List all environment resources
+- name: List all bitbucket environment resources
   stevefulme1.atlassian.bitbucket_environment_info:
   register: result
 
 
-- name: List environment resources with pagination
+
+- name: List bitbucket environment resources with pagination
   stevefulme1.atlassian.bitbucket_environment_info:
     page: 1
     page_size: 50
@@ -62,12 +66,13 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-environments:
-  description: List of environment resources matching the query.
+bitbucket_environments:
+  description: List of bitbucket environment resources matching the query.
   returned: always
   type: list
   elements: dict
   contains:
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -79,7 +84,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single environment by identifier."""
+    """Retrieve a single bitbucket environment by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/repositories/{workspace}/{repo_slug}/environments")
@@ -91,10 +96,15 @@ def fetch_single(client, identifier):
     return None
 
 
+
 def fetch_list(client, module):
-    """List environment resources with optional filtering and pagination."""
+    """List bitbucket environment resources with optional filtering and pagination."""
 
     params = {}
+
+
+
+
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -112,11 +122,13 @@ def fetch_list(client, module):
         return client.get_paginated("/repositories/{workspace}/{repo_slug}/environments", params=params)
 
 
+
 def main():
     spec = auth_argument_spec()
     spec.update(
         dict(
             id=dict(type="str", required=False),
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -134,7 +146,7 @@ def main():
 
     result = dict(
         changed=False,
-        environments=[],
+        bitbucket_environments=[],
     )
 
     try:
@@ -143,9 +155,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["environments"] = [item] if item else []
+            result["bitbucket_environments"] = [item] if item else []
         else:
-            result["environments"] = fetch_list(client, module)
+            result["bitbucket_environments"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

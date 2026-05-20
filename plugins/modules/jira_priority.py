@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,14 +14,14 @@ module: jira_priority
 short_description: Manage issue priorities
 version_added: "1.0.0"
 description:
-  - Create, update, and delete priority resources.
+  - Create, update, and delete jira priority resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the priority resource.
+      - Desired state of the jira priority resource.
     type: str
     choices: ['present', 'absent']
     default: present
@@ -32,44 +32,82 @@ options:
         The ID for the avatar for the priority. This parameter is nullable and both iconUrl and avatarId...
     type: int
 
+
+
+
+
   description:
     description:
       - >-
         The description of the priority.
     type: str
 
+
+
+
+
   iconUrl:
     description:
       - >-
         The URL of an icon for the priority. Accepted protocols are HTTP and HTTPS. Built in icons can...
     type: str
+
+
     choices:
-      - /images/icons/priorities/blocker.png
-      - /images/icons/priorities/critical.png
-      - /images/icons/priorities/high.png
-      - /images/icons/priorities/highest.png
-      - /images/icons/priorities/low.png
-      - /images/icons/priorities/lowest.png
-      - /images/icons/priorities/major.png
-      - /images/icons/priorities/medium.png
-      - /images/icons/priorities/minor.png
-      - /images/icons/priorities/trivial.png
-      - /images/icons/priorities/blocker_new.png
-      - /images/icons/priorities/critical_new.png
-      - /images/icons/priorities/high_new.png
-      - /images/icons/priorities/highest_new.png
-      - /images/icons/priorities/low_new.png
-      - /images/icons/priorities/lowest_new.png
-      - /images/icons/priorities/major_new.png
-      - /images/icons/priorities/medium_new.png
-      - /images/icons/priorities/minor_new.png
-      - /images/icons/priorities/trivial_new.png
+
+      - "/images/icons/priorities/blocker.png"
+
+      - "/images/icons/priorities/critical.png"
+
+      - "/images/icons/priorities/high.png"
+
+      - "/images/icons/priorities/highest.png"
+
+      - "/images/icons/priorities/low.png"
+
+      - "/images/icons/priorities/lowest.png"
+
+      - "/images/icons/priorities/major.png"
+
+      - "/images/icons/priorities/medium.png"
+
+      - "/images/icons/priorities/minor.png"
+
+      - "/images/icons/priorities/trivial.png"
+
+      - "/images/icons/priorities/blocker_new.png"
+
+      - "/images/icons/priorities/critical_new.png"
+
+      - "/images/icons/priorities/high_new.png"
+
+      - "/images/icons/priorities/highest_new.png"
+
+      - "/images/icons/priorities/low_new.png"
+
+      - "/images/icons/priorities/lowest_new.png"
+
+      - "/images/icons/priorities/major_new.png"
+
+      - "/images/icons/priorities/medium_new.png"
+
+      - "/images/icons/priorities/minor_new.png"
+
+      - "/images/icons/priorities/trivial_new.png"
+
+
+
+
 
   name:
     description:
       - >-
         The name of the priority. Must be unique.
     type: str
+
+
+
+
 
   statusColor:
     description:
@@ -78,42 +116,68 @@ options:
     type: str
 
 
+
+
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
 
-- name: Create a priority
+- name: Create a jira priority
   stevefulme1.atlassian.jira_priority:
+
+
+
+
+
+
+
+
+
+
 
     state: present
   # API: POST /rest/api/3/priority
 
 
-- name: Update a priority
+
+- name: Update a jira priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
 
+
     avatarId: "updated_avatarId"
+
+
 
     description: "updated_description"
 
+
+
     iconUrl: "updated_iconUrl"
+
+
 
     name: "updated_name"
 
+
+
     statusColor: "updated_statusColor"
 
+
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a priority
+
+- name: Delete a jira priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/priority/{id}
+
 """
 
 RETURN = r"""
@@ -162,7 +226,7 @@ name:
 
 schemes:
   description: >-
-
+    
   returned: success
   type: dict
 
@@ -179,6 +243,8 @@ statusColor:
     The color used to indicate the issue priority.
   returned: success
   type: str
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -190,7 +256,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the priority via GET."""
+    """Retrieve the current state of the jira priority via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -213,6 +279,7 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
+
 
 
 def needs_update(current, desired):
@@ -259,46 +326,89 @@ def main():
             avatarId=dict(
                 type="int",
 
+
+
+
+
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
             ),
 
             iconUrl=dict(
                 type="str",
+
+
                 choices=[
-                    '/images/icons/priorities/blocker.png',
-                    '/images/icons/priorities/critical.png',
-                    '/images/icons/priorities/high.png',
-                    '/images/icons/priorities/highest.png',
-                    '/images/icons/priorities/low.png',
-                    '/images/icons/priorities/lowest.png',
-                    '/images/icons/priorities/major.png',
-                    '/images/icons/priorities/medium.png',
-                    '/images/icons/priorities/minor.png',
-                    '/images/icons/priorities/trivial.png',
-                    '/images/icons/priorities/blocker_new.png',
-                    '/images/icons/priorities/critical_new.png',
-                    '/images/icons/priorities/high_new.png',
-                    '/images/icons/priorities/highest_new.png',
-                    '/images/icons/priorities/low_new.png',
-                    '/images/icons/priorities/lowest_new.png',
-                    '/images/icons/priorities/major_new.png',
-                    '/images/icons/priorities/medium_new.png',
-                    '/images/icons/priorities/minor_new.png',
-                    '/images/icons/priorities/trivial_new.png',
+
+                    "/images/icons/priorities/blocker.png",
+
+                    "/images/icons/priorities/critical.png",
+
+                    "/images/icons/priorities/high.png",
+
+                    "/images/icons/priorities/highest.png",
+
+                    "/images/icons/priorities/low.png",
+
+                    "/images/icons/priorities/lowest.png",
+
+                    "/images/icons/priorities/major.png",
+
+                    "/images/icons/priorities/medium.png",
+
+                    "/images/icons/priorities/minor.png",
+
+                    "/images/icons/priorities/trivial.png",
+
+                    "/images/icons/priorities/blocker_new.png",
+
+                    "/images/icons/priorities/critical_new.png",
+
+                    "/images/icons/priorities/high_new.png",
+
+                    "/images/icons/priorities/highest_new.png",
+
+                    "/images/icons/priorities/low_new.png",
+
+                    "/images/icons/priorities/lowest_new.png",
+
+                    "/images/icons/priorities/major_new.png",
+
+                    "/images/icons/priorities/medium_new.png",
+
+                    "/images/icons/priorities/minor_new.png",
+
+                    "/images/icons/priorities/trivial_new.png",
+
                 ],
+
+
+
+
             ),
 
             name=dict(
                 type="str",
 
+
+
+
+
             ),
 
             statusColor=dict(
                 type="str",
+
+
+
+
 
             ),
 
@@ -335,6 +445,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -352,6 +463,7 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             else:
                 # Resource exists and is up-to-date
@@ -374,6 +486,8 @@ def main():
 
                 result["statusColor"] = current.get("statusColor")
 
+                pass
+
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -387,6 +501,7 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

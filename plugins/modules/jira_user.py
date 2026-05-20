@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,14 +14,14 @@ module: jira_user
 short_description: Manage users
 version_added: "1.0.0"
 description:
-  - Create, update, and delete user resources.
+  - Create, update, and delete jira user resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the user resource.
+      - Desired state of the jira user resource.
     type: str
     choices: ['present', 'absent']
     default: present
@@ -34,21 +34,31 @@ options:
 
     required: true
 
+
+
+
+
   products:
     description:
       - >-
         Products the new user has access to. Valid products are: jira-core, jira-servicedesk,...
     type: list
-    elements: str
 
     required: true
+
+
+
+
 
   applicationKeys:
     description:
       - >-
         Deprecated, do not use.
     type: list
-    elements: str
+
+
+
+
 
   displayName:
     description:
@@ -56,11 +66,19 @@ options:
         This property is no longer available. If the user has an Atlassian account, their display name...
     type: str
 
+
+
+
+
   key:
     description:
       - >-
         This property is no longer available. See the migration guide for details.
     type: str
+
+
+
+
 
   name:
     description:
@@ -68,11 +86,19 @@ options:
         This property is no longer available. See the migration guide for details.
     type: str
 
+
+
+
+
   password:
     description:
       - >-
         This property is no longer available. If the user has an Atlassian account, their password is...
     type: str
+
+
+
+
 
   self:
     description:
@@ -81,46 +107,84 @@ options:
     type: str
 
 
+
+
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
 
-- name: Create a user
+- name: Create a jira user
   stevefulme1.atlassian.jira_user:
+
 
     emailAddress: "example_emailAddress"
 
+
+
     products: "example_products"
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     state: present
   # API: POST /rest/api/3/user
 
 
-- name: Update a user
+
+- name: Update a jira user
   stevefulme1.atlassian.jira_user:
     key: "existing_id"
 
+
+
+
+
+
     applicationKeys: "updated_applicationKeys"
+
+
 
     displayName: "updated_displayName"
 
+
+
+
+
     name: "updated_name"
+
+
 
     password: "updated_password"
 
+
+
     self: "updated_self"
 
+
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a user
+
+- name: Delete a jira user
   stevefulme1.atlassian.jira_user:
     key: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/user
+
 """
 
 RETURN = r"""
@@ -155,28 +219,28 @@ appType:
 
 applicationRoles:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 avatarUrls:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 displayName:
   description: >-
-    The display name of the user. Depending on the user's privacy setting, this may return an...
+    The display name of the user. Depending on the user’s privacy setting, this may return an...
   returned: success
   type: str
 
 
 emailAddress:
   description: >-
-    The email address of the user. Depending on the user's privacy setting, this may be returned as null.
+    The email address of the user. Depending on the user’s privacy setting, this may be returned as null.
   returned: success
   type: str
 
@@ -190,7 +254,7 @@ expand:
 
 groups:
   description: >-
-
+    
   returned: success
   type: dict
 
@@ -211,7 +275,7 @@ key:
 
 locale:
   description: >-
-    The locale of the user. Depending on the user's privacy setting, this may be returned as null.
+    The locale of the user. Depending on the user’s privacy setting, this may be returned as null.
   returned: success
   type: str
 
@@ -235,6 +299,8 @@ timeZone:
     The time zone specified in the user's profile. If the user's time zone is not visible to the...
   returned: success
   type: str
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -246,7 +312,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the user via GET."""
+    """Retrieve the current state of the jira user via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("key")
@@ -269,6 +335,7 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
+
 
 
 def needs_update(current, desired):
@@ -326,39 +393,74 @@ def main():
 
                 required=True,
 
+
+
+
+
             ),
 
             products=dict(
-                type="list", elements="str",
+                type="list",
 
                 required=True,
+
+
+
+
 
             ),
 
             applicationKeys=dict(
-                type="list", elements="str", no_log=False,
+                type="list",
+
+
+
+
+
             ),
 
             displayName=dict(
                 type="str",
 
+
+
+
+
             ),
 
             key=dict(
-                type="str", no_log=False,
+                type="str",
+
+
+
+
+
             ),
 
             name=dict(
                 type="str",
 
+
+
+
+
             ),
 
             password=dict(
-                type="str", no_log=True,
+                type="str",
+
+
+
+
+
             ),
 
             self=dict(
                 type="str",
+
+
+
+
 
             ),
 
@@ -395,6 +497,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -412,6 +515,7 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             else:
                 # Resource exists and is up-to-date
@@ -448,6 +552,8 @@ def main():
 
                 result["timeZone"] = current.get("timeZone")
 
+                pass
+
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -461,6 +567,7 @@ def main():
                         "{key}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

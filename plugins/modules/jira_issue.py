@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,14 +14,14 @@ module: jira_issue
 short_description: Manage issues
 version_added: "1.0.0"
 description:
-  - Create, update, and delete issue resources.
+  - Create, update, and delete jira issue resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the issue resource.
+      - Desired state of the jira issue resource.
     type: str
     choices: ['present', 'absent']
     default: present
@@ -32,24 +32,39 @@ options:
         List of issue screen fields to update, specifying the sub-field to update and its value for each...
     type: dict
 
+
+
+
+
   historyMetadata:
     description:
       - >-
         Details of issue history metadata.
     type: dict
 
+
+
+
+
   properties:
     description:
       - >-
         Details of issue properties to be add or update.
     type: list
-    elements: dict
+
+
+
+
 
   transition:
     description:
       - >-
         Details of an issue transition.
     type: dict
+
+
+
+
 
   update:
     description:
@@ -58,42 +73,68 @@ options:
     type: dict
 
 
+
+
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
 
-- name: Create a issue
+- name: Create a jira issue
   stevefulme1.atlassian.jira_issue:
+
+
+
+
+
+
+
+
+
+
 
     state: present
   # API: POST /rest/api/3/issue
 
 
-- name: Update a issue
+
+- name: Update a jira issue
   stevefulme1.atlassian.jira_issue:
     id: "existing_id"
 
+
     fields: "updated_fields"
+
+
 
     historyMetadata: "updated_historyMetadata"
 
+
+
     properties: "updated_properties"
+
+
 
     transition: "updated_transition"
 
+
+
     update: "updated_update"
 
+
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a issue
+
+- name: Delete a jira issue
   stevefulme1.atlassian.jira_issue:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/issue/{issueIdOrKey}
+
 """
 
 RETURN = r"""
@@ -121,14 +162,14 @@ expand:
 
 fields:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 fieldsToInclude:
   description: >-
-
+    
   returned: success
   type: dict
 
@@ -201,6 +242,8 @@ versionedRepresentations:
     The versions of each field on the issue.
   returned: success
   type: dict
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -212,9 +255,10 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the issue via GET."""
+    """Retrieve the current state of the jira issue via GET."""
 
     return None
+
 
 
 def needs_update(current, desired):
@@ -261,26 +305,45 @@ def main():
             fields=dict(
                 type="dict",
 
+
+
+
+
             ),
 
             historyMetadata=dict(
                 type="dict",
 
+
+
+
+
             ),
 
             properties=dict(
                 type="list",
-                elements="dict",
+
+
+
+
 
             ),
 
             transition=dict(
                 type="dict",
 
+
+
+
+
             ),
 
             update=dict(
                 type="dict",
+
+
+
+
 
             ),
 
@@ -317,6 +380,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -334,6 +398,7 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             else:
                 # Resource exists and is up-to-date
@@ -368,6 +433,8 @@ def main():
 
                 result["versionedRepresentations"] = current.get("versionedRepresentations")
 
+                pass
+
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -381,6 +448,7 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

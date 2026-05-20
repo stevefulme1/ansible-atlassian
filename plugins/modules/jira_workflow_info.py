@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,20 +11,30 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: jira_workflow_info
-short_description: Retrieve information about workflow resources
+short_description: >-
+  Retrieve information about jira workflow resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single workflow by its identifier, or list all workflow resources.
+  - >-
+    Retrieve a single jira workflow by its identifier,
+    or list all jira workflow resources.
   - This module always reports C(changed=False).
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the workflow to retrieve.
-      - When omitted, all workflow resources are listed.
+      - The unique identifier of the jira workflow to retrieve.
+      - When omitted, all jira workflow resources are listed.
     type: str
     required: false
+
+
+
+
+
+
+
 
   page:
     description:
@@ -43,18 +53,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific workflow
+- name: Get a specific jira workflow
   stevefulme1.atlassian.jira_workflow_info:
     id: "example_id"
   register: result
 
-
-- name: List all workflow resources
+- name: List all jira workflow resources
   stevefulme1.atlassian.jira_workflow_info:
   register: result
 
 
-- name: List workflow resources with pagination
+
+- name: List jira workflow resources with pagination
   stevefulme1.atlassian.jira_workflow_info:
     page: 1
     page_size: 50
@@ -62,8 +72,8 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-workflows:
-  description: List of workflow resources matching the query.
+jira_workflows:
+  description: List of jira workflow resources matching the query.
   returned: always
   type: list
   elements: dict
@@ -74,10 +84,13 @@ workflows:
         List of statuses.
       type: list
 
+
     workflows:
       description: >-
         List of workflows.
       type: list
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -89,15 +102,17 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single workflow by identifier."""
+    """Retrieve a single jira workflow by identifier."""
 
     raise ClientError("GET by identifier is not supported for this resource")
 
 
+
 def fetch_list(client, module):
-    """List workflow resources with optional filtering and pagination."""
+    """List jira workflow resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
+
 
 
 def main():
@@ -105,6 +120,13 @@ def main():
     spec.update(
         dict(
             id=dict(type="str", required=False),
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -122,7 +144,7 @@ def main():
 
     result = dict(
         changed=False,
-        workflows=[],
+        jira_workflows=[],
     )
 
     try:
@@ -131,9 +153,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["workflows"] = [item] if item else []
+            result["jira_workflows"] = [item] if item else []
         else:
-            result["workflows"] = fetch_list(client, module)
+            result["jira_workflows"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

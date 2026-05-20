@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,14 +14,14 @@ module: jira_filter
 short_description: Manage filters
 version_added: "1.0.0"
 description:
-  - Create, update, and delete filter resources.
+  - Create, update, and delete jira filter resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the filter resource.
+      - Desired state of the jira filter resource.
     type: str
     choices: ['present', 'absent']
     default: present
@@ -34,11 +34,19 @@ options:
 
     required: true
 
+
+
+
+
   approximateLastUsed:
     description:
       - >-
         \Experimental\ Approximate last used time. Returns the date and time when the filter was last...
     type: str
+
+
+
+
 
   description:
     description:
@@ -46,12 +54,19 @@ options:
         A description of the filter.
     type: str
 
+
+
+
+
   editPermissions:
     description:
       - >-
         The groups and projects that can edit the filter.
     type: list
-    elements: dict
+
+
+
+
 
   favourite:
     description:
@@ -59,11 +74,19 @@ options:
         Whether the filter is selected as a favorite.
     type: bool
 
+
+
+
+
   favouritedCount:
     description:
       - >-
         The count of how many users have selected this filter as a favorite, including the filter owner.
     type: int
+
+
+
+
 
   id:
     description:
@@ -71,11 +94,19 @@ options:
         The unique identifier for the filter.
     type: str
 
+
+
+
+
   jql:
     description:
       - >-
         The JQL query for the filter. For example, project = SSP AND issuetype = Bug.
     type: str
+
+
+
+
 
   owner:
     description:
@@ -83,11 +114,19 @@ options:
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
 
+
+
+
+
   searchUrl:
     description:
       - >-
         A URL to view the filter results in Jira, using the Search for issues using...
     type: str
+
+
+
+
 
   self:
     description:
@@ -95,12 +134,19 @@ options:
         The URL of the filter.
     type: str
 
+
+
+
+
   sharePermissions:
     description:
       - >-
         The groups and projects that the filter is shared with.
     type: list
-    elements: dict
+
+
+
+
 
   sharedUsers:
     description:
@@ -108,11 +154,19 @@ options:
         A paginated list of users sharing the filter. This includes users that are members of the groups...
     type: dict
 
+
+
+
+
   subscriptions:
     description:
       - >-
         A paginated list of subscriptions to a filter.
     type: dict
+
+
+
+
 
   viewUrl:
     description:
@@ -121,60 +175,126 @@ options:
     type: str
 
 
+
+
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
 
-- name: Create a filter
+- name: Create a jira filter
   stevefulme1.atlassian.jira_filter:
 
+
     name: "example_name"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     state: present
   # API: POST /rest/api/3/filter
 
 
-- name: Update a filter
+
+- name: Update a jira filter
   stevefulme1.atlassian.jira_filter:
     id: "existing_id"
 
+
+
+
     approximateLastUsed: "updated_approximateLastUsed"
+
+
 
     description: "updated_description"
 
+
+
     editPermissions: "updated_editPermissions"
+
+
 
     favourite: "updated_favourite"
 
+
+
     favouritedCount: "updated_favouritedCount"
+
+
+
+
 
     jql: "updated_jql"
 
+
+
     owner: "updated_owner"
+
+
 
     searchUrl: "updated_searchUrl"
 
+
+
     self: "updated_self"
+
+
 
     sharePermissions: "updated_sharePermissions"
 
+
+
     sharedUsers: "updated_sharedUsers"
+
+
 
     subscriptions: "updated_subscriptions"
 
+
+
     viewUrl: "updated_viewUrl"
 
+
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a filter
+
+- name: Delete a jira filter
   stevefulme1.atlassian.jira_filter:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/filter/{id}
+
 """
 
 RETURN = r"""
@@ -282,6 +402,8 @@ viewUrl:
     A URL to view the filter results in Jira, using the ID of the filter. For example,...
   returned: success
   type: str
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -293,9 +415,10 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the filter via GET."""
+    """Retrieve the current state of the jira filter via GET."""
 
     return None
+
 
 
 def needs_update(current, desired):
@@ -374,77 +497,135 @@ def main():
 
                 required=True,
 
+
+
+
+
             ),
 
             approximateLastUsed=dict(
                 type="str",
+
+
+
+
 
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
             ),
 
             editPermissions=dict(
                 type="list",
-                elements="dict",
+
+
+
+
 
             ),
 
             favourite=dict(
                 type="bool",
 
+
+
+
+
             ),
 
             favouritedCount=dict(
                 type="int",
+
+
+
+
 
             ),
 
             id=dict(
                 type="str",
 
+
+
+
+
             ),
 
             jql=dict(
                 type="str",
+
+
+
+
 
             ),
 
             owner=dict(
                 type="dict",
 
+
+
+
+
             ),
 
             searchUrl=dict(
                 type="str",
+
+
+
+
 
             ),
 
             self=dict(
                 type="str",
 
+
+
+
+
             ),
 
             sharePermissions=dict(
                 type="list",
-                elements="dict",
+
+
+
+
 
             ),
 
             sharedUsers=dict(
                 type="dict",
 
+
+
+
+
             ),
 
             subscriptions=dict(
                 type="dict",
 
+
+
+
+
             ),
 
             viewUrl=dict(
                 type="str",
+
+
+
+
 
             ),
 
@@ -481,6 +662,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -498,6 +680,7 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             else:
                 # Resource exists and is up-to-date
@@ -532,6 +715,8 @@ def main():
 
                 result["viewUrl"] = current.get("viewUrl")
 
+                pass
+
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -545,6 +730,7 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

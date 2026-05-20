@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,20 +11,28 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: jira_screen_info
-short_description: Retrieve information about screen resources
+short_description: >-
+  Retrieve information about jira screen resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single screen by its identifier, or list all screen resources.
+  - >-
+    Retrieve a single jira screen by its identifier,
+    or list all jira screen resources.
   - This module always reports C(changed=False).
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the screen to retrieve.
-      - When omitted, all screen resources are listed.
+      - The unique identifier of the jira screen to retrieve.
+      - When omitted, all jira screen resources are listed.
     type: str
     required: false
+
+
+
+
+
 
   page:
     description:
@@ -43,18 +51,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific screen
+- name: Get a specific jira screen
   stevefulme1.atlassian.jira_screen_info:
     id: "example_id"
   register: result
 
-
-- name: List all screen resources
+- name: List all jira screen resources
   stevefulme1.atlassian.jira_screen_info:
   register: result
 
 
-- name: List screen resources with pagination
+
+- name: List jira screen resources with pagination
   stevefulme1.atlassian.jira_screen_info:
     page: 1
     page_size: 50
@@ -62,8 +70,8 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-screens:
-  description: List of screen resources matching the query.
+jira_screens:
+  description: List of jira screen resources matching the query.
   returned: always
   type: list
   elements: dict
@@ -74,35 +82,43 @@ screens:
         Whether this is the last page.
       type: bool
 
+
     maxResults:
       description: >-
         The maximum number of items that could be returned.
       type: int
+
 
     nextPage:
       description: >-
         If there is another page of results, the URL of the next page.
       type: str
 
+
     self:
       description: >-
         The URL of the page.
       type: str
+
 
     startAt:
       description: >-
         The index of the first item returned.
       type: int
 
+
     total:
       description: >-
         The number of items returned.
       type: int
 
+
     values:
       description: >-
         The list of items.
       type: list
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -114,7 +130,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single screen by identifier."""
+    """Retrieve a single jira screen by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/rest/api/3/screens")
@@ -126,10 +142,19 @@ def fetch_single(client, identifier):
     return None
 
 
+
 def fetch_list(client, module):
-    """List screen resources with optional filtering and pagination."""
+    """List jira screen resources with optional filtering and pagination."""
 
     params = {}
+
+
+
+
+
+
+
+
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -147,11 +172,17 @@ def fetch_list(client, module):
         return client.get_paginated("/rest/api/3/screens", params=params)
 
 
+
 def main():
     spec = auth_argument_spec()
     spec.update(
         dict(
             id=dict(type="str", required=False),
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -169,7 +200,7 @@ def main():
 
     result = dict(
         changed=False,
-        screens=[],
+        jira_screens=[],
     )
 
     try:
@@ -178,9 +209,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["screens"] = [item] if item else []
+            result["jira_screens"] = [item] if item else []
         else:
-            result["screens"] = fetch_list(client, module)
+            result["jira_screens"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

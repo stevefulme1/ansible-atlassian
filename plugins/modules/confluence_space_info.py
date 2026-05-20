@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,18 +11,21 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: confluence_space_info
-short_description: Retrieve information about space resources
+short_description: >-
+  Retrieve information about confluence space resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single space by its identifier, or list all space resources.
+  - >-
+    Retrieve a single confluence space by its identifier,
+    or list all confluence space resources.
   - This module always reports C(changed=False).
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the space to retrieve.
-      - When omitted, all space resources are listed.
+      - The unique identifier of the confluence space to retrieve.
+      - When omitted, all confluence space resources are listed.
     type: str
     required: false
 
@@ -31,6 +34,17 @@ options:
       - Filter results by name.
     type: str
     required: false
+
+
+
+
+
+
+
+
+
+
+
 
   page:
     description:
@@ -49,24 +63,23 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific space
+- name: Get a specific confluence space
   stevefulme1.atlassian.confluence_space_info:
     id: "example_id"
   register: result
 
-
-- name: List all space resources
+- name: List all confluence space resources
   stevefulme1.atlassian.confluence_space_info:
   register: result
 
 
-- name: List space resources filtered by name
+- name: List confluence space resources filtered by name
   stevefulme1.atlassian.confluence_space_info:
-    name: "my_space"
+    name: "my_confluence space"
   register: result
 
 
-- name: List space resources with pagination
+- name: List confluence space resources with pagination
   stevefulme1.atlassian.confluence_space_info:
     page: 1
     page_size: 50
@@ -74,8 +87,8 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-spaces:
-  description: List of space resources matching the query.
+confluence_spaces:
+  description: List of confluence space resources matching the query.
   returned: always
   type: list
   elements: dict
@@ -83,93 +96,112 @@ spaces:
 
     id:
       description: >-
-
+        
       type: int
+
 
     key:
       description: >-
-
+        
       type: str
+
 
     alias:
       description: >-
-
+        
       type: str
+
 
     name:
       description: >-
-
+        
       type: str
+
 
     icon:
       description: >-
         This object represents an icon. If used as a profilePicture, this may be returned as null,...
       type: dict
 
+
     description:
       description: >-
-
+        
       type: dict
+
 
     homepage:
       description: >-
         Base object for all content types.
       type: dict
 
+
     type:
       description: >-
-
+        
       type: str
+
 
     metadata:
       description: >-
-
+        
       type: dict
+
 
     operations:
       description: >-
-
+        
       type: list
+
 
     permissions:
       description: >-
-
+        
       type: list
+
 
     status:
       description: >-
-
+        
       type: str
+
 
     settings:
       description: >-
-
+        
       type: dict
+
 
     theme:
       description: >-
-
+        
       type: dict
+
 
     lookAndFeel:
       description: >-
-
+        
       type: dict
+
 
     history:
       description: >-
-
+        
       type: dict
+
 
     _expandable:
       description: >-
-
+        
       type: dict
+
 
     _links:
       description: >-
-
+        
       type: dict
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -181,15 +213,17 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single space by identifier."""
+    """Retrieve a single confluence space by identifier."""
 
     raise ClientError("GET by identifier is not supported for this resource")
 
 
+
 def fetch_list(client, module):
-    """List space resources with optional filtering and pagination."""
+    """List confluence space resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
+
 
 
 def main():
@@ -199,6 +233,17 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -216,7 +261,7 @@ def main():
 
     result = dict(
         changed=False,
-        spaces=[],
+        confluence_spaces=[],
     )
 
     try:
@@ -225,9 +270,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["spaces"] = [item] if item else []
+            result["confluence_spaces"] = [item] if item else []
         else:
-            result["spaces"] = fetch_list(client, module)
+            result["confluence_spaces"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

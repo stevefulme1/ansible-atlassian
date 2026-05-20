@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,14 +14,14 @@ module: jira_workflow
 short_description: Manage workflows
 version_added: "1.0.0"
 description:
-  - Create, update, and delete workflow resources.
+  - Create, update, and delete jira workflow resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the workflow resource.
+      - Desired state of the jira workflow resource.
     type: str
     choices: ['present', 'absent']
     default: present
@@ -31,21 +31,29 @@ options:
       - >-
         The list of projects and issue types to query.
     type: list
-    elements: dict
+
+
+
+
 
   workflowIds:
     description:
       - >-
         The list of workflow IDs to query.
     type: list
-    elements: str
+
+
+
+
 
   workflowNames:
     description:
       - >-
         The list of workflow names to query.
     type: list
-    elements: str
+
+
+
 
 
 extends_documentation_fragment:
@@ -54,32 +62,47 @@ extends_documentation_fragment:
 
 EXAMPLES = r"""
 
-- name: Create a workflow
+- name: Create a jira workflow
   stevefulme1.atlassian.jira_workflow:
+
+
+
+
+
+
 
     state: present
   # API: POST /rest/api/3/workflows
 
 
-- name: Update a workflow
+
+- name: Update a jira workflow
   stevefulme1.atlassian.jira_workflow:
     id: "existing_id"
 
+
     projectAndIssueTypes: "updated_projectAndIssueTypes"
+
+
 
     workflowIds: "updated_workflowIds"
 
+
+
     workflowNames: "updated_workflowNames"
 
+
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a workflow
+
+- name: Delete a jira workflow
   stevefulme1.atlassian.jira_workflow:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/workflow/{entityId}
+
 """
 
 RETURN = r"""
@@ -89,7 +112,6 @@ statuses:
     List of statuses.
   returned: success
   type: list
-  elements: dict
 
 
 workflows:
@@ -97,7 +119,8 @@ workflows:
     List of workflows.
   returned: success
   type: list
-  elements: dict
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -109,9 +132,10 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the workflow via GET."""
+    """Retrieve the current state of the jira workflow via GET."""
 
     return None
+
 
 
 def needs_update(current, desired):
@@ -150,17 +174,29 @@ def main():
             state=dict(type="str", choices=["present", "absent"], default="present"),
 
             projectAndIssueTypes=dict(
-                type="list", elements="dict",
+                type="list",
+
+
+
+
 
             ),
 
             workflowIds=dict(
-                type="list", elements="str",
+                type="list",
+
+
+
+
 
             ),
 
             workflowNames=dict(
-                type="list", elements="str",
+                type="list",
+
+
+
+
 
             ),
 
@@ -197,6 +233,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -215,12 +252,15 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             else:
                 # Resource exists and is up-to-date
 
                 result["statuses"] = current.get("statuses")
 
                 result["workflows"] = current.get("workflows")
+
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -235,6 +275,7 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

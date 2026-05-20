@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,18 +14,17 @@ module: confluence_content_label
 short_description: Manage content labels
 version_added: "1.0.0"
 description:
-  - Create, update, and delete content_label resources.
+  - Create, update, and delete confluence content label resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the content_label resource.
+      - Desired state of the confluence content label resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -33,56 +32,61 @@ extends_documentation_fragment:
 
 EXAMPLES = r"""
 
-- name: Create a content_label
+- name: Create a confluence content label
   stevefulme1.atlassian.confluence_content_label:
 
     state: present
   # API: POST /wiki/rest/api/content/{id}/label
 
 
-- name: Update a content_label
+
+- name: Update a confluence content label
   stevefulme1.atlassian.confluence_content_label:
     id: "existing_id"
 
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a content_label
+
+- name: Delete a confluence content label
   stevefulme1.atlassian.confluence_content_label:
     id: "existing_id"
     state: absent
   # API: DELETE /wiki/rest/api/content/{id}/label/{label}
+
 """
 
 RETURN = r"""
 
 prefix:
   description: >-
-
+    
   returned: success
   type: str
 
 
 name:
   description: >-
-
+    
   returned: success
   type: str
 
 
 id:
   description: >-
-
+    
   returned: success
   type: str
 
 
 label:
   description: >-
-
+    
   returned: success
   type: str
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -94,9 +98,10 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the content_label via GET."""
+    """Retrieve the current state of the confluence content label via GET."""
 
     return None
+
 
 
 def needs_update(current, desired):
@@ -158,6 +163,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -176,6 +182,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             else:
                 # Resource exists and is up-to-date
 
@@ -186,6 +193,8 @@ def main():
                 result["id"] = current.get("id")
 
                 result["label"] = current.get("label")
+
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -200,6 +209,7 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

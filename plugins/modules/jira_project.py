@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,14 +14,14 @@ module: jira_project
 short_description: Manage projects
 version_added: "1.0.0"
 description:
-  - Create, update, and delete project resources.
+  - Create, update, and delete jira project resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the project resource.
+      - Desired state of the jira project resource.
     type: str
     choices: ['present', 'absent']
     default: present
@@ -32,7 +32,11 @@ options:
         The default assignee when creating issues for this project.
     type: str
 
+
     choices: ["PROJECT_LEAD", "UNASSIGNED"]
+
+
+
 
   avatarId:
     description:
@@ -40,11 +44,19 @@ options:
         An integer value for the project's avatar.
     type: int
 
+
+
+
+
   categoryId:
     description:
       - >-
         The ID of the project's category. A complete list of category IDs is found using the Get all...
     type: int
+
+
+
+
 
   description:
     description:
@@ -52,11 +64,19 @@ options:
         A brief description of the project.
     type: str
 
+
+
+
+
   fieldConfigurationScheme:
     description:
       - >-
         Deprecated use fieldScheme instead. The ID of the field configuration scheme for the project....
     type: int
+
+
+
+
 
   fieldScheme:
     description:
@@ -64,11 +84,19 @@ options:
         The ID of the field scheme for the project. Use the Get field...
     type: int
 
+
+
+
+
   issueSecurityScheme:
     description:
       - >-
         The ID of the issue security scheme for the project, which enables you to control who can and...
     type: int
+
+
+
+
 
   issueTypeScheme:
     description:
@@ -76,11 +104,19 @@ options:
         The ID of the issue type scheme for the project. Use the Get all issue type...
     type: int
 
+
+
+
+
   issueTypeScreenScheme:
     description:
       - >-
         The ID of the issue type screen scheme for the project. Use the Get all issue type screen...
     type: int
+
+
+
+
 
   key:
     description:
@@ -88,11 +124,19 @@ options:
         Project keys must be unique and start with an uppercase letter followed by one or more uppercase...
     type: str
 
+
+
+
+
   lead:
     description:
       - >-
         This parameter is deprecated because of privacy changes. Use leadAccountId instead. See the...
     type: str
+
+
+
+
 
   leadAccountId:
     description:
@@ -100,11 +144,19 @@ options:
         The account ID of the project lead. Cannot be provided with lead.
     type: str
 
+
+
+
+
   name:
     description:
       - >-
         The name of the project.
     type: str
+
+
+
+
 
   notificationScheme:
     description:
@@ -112,58 +164,112 @@ options:
         The ID of the notification scheme for the project. Use the Get notification...
     type: int
 
+
+
+
+
   permissionScheme:
     description:
       - >-
         The ID of the permission scheme for the project. Use the Get all permission...
     type: int
 
+
+
+
+
   projectTemplateKey:
     description:
       - >-
         A predefined configuration for a project. The type of the projectTemplateKey must match with the...
     type: str
+
+
     choices:
-      - com.pyxis.greenhopper.jira:gh-simplified-agility-kanban
-      - com.pyxis.greenhopper.jira:gh-simplified-agility-scrum
-      - com.pyxis.greenhopper.jira:gh-simplified-basic
-      - com.pyxis.greenhopper.jira:gh-simplified-kanban-classic
-      - com.pyxis.greenhopper.jira:gh-simplified-scrum-classic
-      - com.pyxis.greenhopper.jira:gh-cross-team-template
-      - com.pyxis.greenhopper.jira:gh-cross-team-planning-template
-      - com.atlassian.servicedesk:simplified-it-service-management
-      - com.atlassian.servicedesk:simplified-it-service-management-basic
-      - com.atlassian.servicedesk:simplified-it-service-management-operations
-      - com.atlassian.servicedesk:simplified-internal-service-desk
-      - com.atlassian.servicedesk:simplified-external-service-desk
-      - com.atlassian.servicedesk:simplified-hr-service-desk
-      - com.atlassian.servicedesk:simplified-facilities-service-desk
-      - com.atlassian.servicedesk:simplified-legal-service-desk
-      - com.atlassian.servicedesk:simplified-marketing-service-desk
-      - com.atlassian.servicedesk:simplified-finance-service-desk
-      - com.atlassian.servicedesk:simplified-analytics-service-desk
-      - com.atlassian.servicedesk:simplified-design-service-desk
-      - com.atlassian.servicedesk:simplified-sales-service-desk
-      - com.atlassian.servicedesk:simplified-halp-service-desk
-      - com.atlassian.servicedesk:next-gen-it-service-desk
-      - com.atlassian.servicedesk:next-gen-hr-service-desk
-      - com.atlassian.servicedesk:next-gen-legal-service-desk
-      - com.atlassian.servicedesk:next-gen-marketing-service-desk
-      - com.atlassian.servicedesk:next-gen-facilities-service-desk
-      - com.atlassian.servicedesk:next-gen-general-service-desk
-      - com.atlassian.servicedesk:next-gen-analytics-service-desk
-      - com.atlassian.servicedesk:next-gen-finance-service-desk
-      - com.atlassian.servicedesk:next-gen-design-service-desk
-      - com.atlassian.servicedesk:next-gen-sales-service-desk
-      - com.atlassian.jira-core-project-templates:jira-core-simplified-content-management
-      - com.atlassian.jira-core-project-templates:jira-core-simplified-document-approval
-      - com.atlassian.jira-core-project-templates:jira-core-simplified-lead-tracking
-      - com.atlassian.jira-core-project-templates:jira-core-simplified-process-control
-      - com.atlassian.jira-core-project-templates:jira-core-simplified-procurement
-      - com.atlassian.jira-core-project-templates:jira-core-simplified-project-management
-      - com.atlassian.jira-core-project-templates:jira-core-simplified-recruitment
-      - com.atlassian.jira-core-project-templates:jira-core-simplified-task-
-      - com.atlassian.jcs:customer-service-management
+
+      - "com.pyxis.greenhopper.jira:gh-simplified-agility-kanban"
+
+      - "com.pyxis.greenhopper.jira:gh-simplified-agility-scrum"
+
+      - "com.pyxis.greenhopper.jira:gh-simplified-basic"
+
+      - "com.pyxis.greenhopper.jira:gh-simplified-kanban-classic"
+
+      - "com.pyxis.greenhopper.jira:gh-simplified-scrum-classic"
+
+      - "com.pyxis.greenhopper.jira:gh-cross-team-template"
+
+      - "com.pyxis.greenhopper.jira:gh-cross-team-planning-template"
+
+      - "com.atlassian.servicedesk:simplified-it-service-management"
+
+      - "com.atlassian.servicedesk:simplified-it-service-management-basic"
+
+      - "com.atlassian.servicedesk:simplified-it-service-management-operations"
+
+      - "com.atlassian.servicedesk:simplified-internal-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-external-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-hr-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-facilities-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-legal-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-marketing-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-finance-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-analytics-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-design-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-sales-service-desk"
+
+      - "com.atlassian.servicedesk:simplified-halp-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-it-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-hr-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-legal-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-marketing-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-facilities-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-general-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-analytics-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-finance-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-design-service-desk"
+
+      - "com.atlassian.servicedesk:next-gen-sales-service-desk"
+
+      - "com.atlassian.jira-core-project-templates:jira-core-simplified-content-management"
+
+      - "com.atlassian.jira-core-project-templates:jira-core-simplified-document-approval"
+
+      - "com.atlassian.jira-core-project-templates:jira-core-simplified-lead-tracking"
+
+      - "com.atlassian.jira-core-project-templates:jira-core-simplified-process-control"
+
+      - "com.atlassian.jira-core-project-templates:jira-core-simplified-procurement"
+
+      - "com.atlassian.jira-core-project-templates:jira-core-simplified-project-management"
+
+      - "com.atlassian.jira-core-project-templates:jira-core-simplified-recruitment"
+
+      - "com.atlassian.jira-core-project-templates:jira-core-simplified-task-"
+
+      - "com.atlassian.jcs:customer-service-management"
+
+
+
+
 
   projectTypeKey:
     description:
@@ -171,20 +277,31 @@ options:
         The project type, which defines the application-specific feature set. If you don't specify the...
     type: str
 
+
     choices: ["software", "service_desk", "business"]
+
+
+
 
   releasedProjectKeys:
     description:
       - >-
         Previous project keys to be released from the current project. Released keys must belong to the...
     type: list
-    elements: str
+
+
+
+
 
   url:
     description:
       - >-
         A link to information about this project, such as project documentation
     type: str
+
+
+
+
 
   workflowScheme:
     description:
@@ -193,72 +310,158 @@ options:
     type: int
 
 
+
+
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
 
-- name: Create a project
+- name: Create a jira project
   stevefulme1.atlassian.jira_project:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     state: present
   # API: POST /rest/api/3/project
 
 
-- name: Update a project
+
+- name: Update a jira project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
 
+
     assigneeType: "updated_assigneeType"
+
+
 
     avatarId: "updated_avatarId"
 
+
+
     categoryId: "updated_categoryId"
+
+
 
     description: "updated_description"
 
+
+
     fieldConfigurationScheme: "updated_fieldConfigurationScheme"
+
+
 
     fieldScheme: "updated_fieldScheme"
 
+
+
     issueSecurityScheme: "updated_issueSecurityScheme"
+
+
 
     issueTypeScheme: "updated_issueTypeScheme"
 
+
+
     issueTypeScreenScheme: "updated_issueTypeScreenScheme"
+
+
 
     key: "updated_key"
 
+
+
     lead: "updated_lead"
+
+
 
     leadAccountId: "updated_leadAccountId"
 
+
+
     name: "updated_name"
+
+
 
     notificationScheme: "updated_notificationScheme"
 
+
+
     permissionScheme: "updated_permissionScheme"
+
+
 
     projectTemplateKey: "updated_projectTemplateKey"
 
+
+
     projectTypeKey: "updated_projectTypeKey"
+
+
 
     releasedProjectKeys: "updated_releasedProjectKeys"
 
+
+
     url: "updated_url"
+
+
 
     workflowScheme: "updated_workflowScheme"
 
+
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a project
+
+- name: Delete a jira project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/project/{projectIdOrKey}
+
 """
 
 RETURN = r"""
@@ -293,7 +496,7 @@ assigneeType:
 
 avatarUrls:
   description: >-
-
+    
   returned: success
   type: dict
 
@@ -398,7 +601,7 @@ key:
 
 landingPageInfo:
   description: >-
-
+    
   returned: success
   type: dict
 
@@ -499,6 +702,8 @@ versions:
     The versions defined in the project. For more information, see Create...
   returned: success
   type: list
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -510,7 +715,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the project via GET."""
+    """Retrieve the current state of the jira project via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -533,6 +738,7 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
+
 
 
 def needs_update(current, desired):
@@ -624,148 +830,268 @@ def main():
             assigneeType=dict(
                 type="str",
 
+
                 choices=['PROJECT_LEAD', 'UNASSIGNED'],
+
+
+
 
             ),
 
             avatarId=dict(
                 type="int",
 
+
+
+
+
             ),
 
             categoryId=dict(
                 type="int",
+
+
+
+
 
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
             ),
 
             fieldConfigurationScheme=dict(
                 type="int",
+
+
+
+
 
             ),
 
             fieldScheme=dict(
                 type="int",
 
+
+
+
+
             ),
 
             issueSecurityScheme=dict(
                 type="int",
+
+
+
+
 
             ),
 
             issueTypeScheme=dict(
                 type="int",
 
+
+
+
+
             ),
 
             issueTypeScreenScheme=dict(
                 type="int",
 
+
+
+
+
             ),
 
             key=dict(
                 type="str",
-                no_log=False,
+
+
+
+
 
             ),
 
             lead=dict(
                 type="str",
 
+
+
+
+
             ),
 
             leadAccountId=dict(
                 type="str",
+
+
+
+
 
             ),
 
             name=dict(
                 type="str",
 
+
+
+
+
             ),
 
             notificationScheme=dict(
                 type="int",
+
+
+
+
 
             ),
 
             permissionScheme=dict(
                 type="int",
 
+
+
+
+
             ),
 
             projectTemplateKey=dict(
                 type="str",
+
+
                 choices=[
-                    'com.pyxis.greenhopper.jira:gh-simplified-agility-kanban',
-                    'com.pyxis.greenhopper.jira:gh-simplified-agility-scrum',
-                    'com.pyxis.greenhopper.jira:gh-simplified-basic',
-                    'com.pyxis.greenhopper.jira:gh-simplified-kanban-classic',
-                    'com.pyxis.greenhopper.jira:gh-simplified-scrum-classic',
-                    'com.pyxis.greenhopper.jira:gh-cross-team-template',
-                    'com.pyxis.greenhopper.jira:gh-cross-team-planning-template',
-                    'com.atlassian.servicedesk:simplified-it-service-management',
-                    'com.atlassian.servicedesk:simplified-it-service-management-basic',
-                    'com.atlassian.servicedesk:simplified-it-service-management-operations',
-                    'com.atlassian.servicedesk:simplified-internal-service-desk',
-                    'com.atlassian.servicedesk:simplified-external-service-desk',
-                    'com.atlassian.servicedesk:simplified-hr-service-desk',
-                    'com.atlassian.servicedesk:simplified-facilities-service-desk',
-                    'com.atlassian.servicedesk:simplified-legal-service-desk',
-                    'com.atlassian.servicedesk:simplified-marketing-service-desk',
-                    'com.atlassian.servicedesk:simplified-finance-service-desk',
-                    'com.atlassian.servicedesk:simplified-analytics-service-desk',
-                    'com.atlassian.servicedesk:simplified-design-service-desk',
-                    'com.atlassian.servicedesk:simplified-sales-service-desk',
-                    'com.atlassian.servicedesk:simplified-halp-service-desk',
-                    'com.atlassian.servicedesk:next-gen-it-service-desk',
-                    'com.atlassian.servicedesk:next-gen-hr-service-desk',
-                    'com.atlassian.servicedesk:next-gen-legal-service-desk',
-                    'com.atlassian.servicedesk:next-gen-marketing-service-desk',
-                    'com.atlassian.servicedesk:next-gen-facilities-service-desk',
-                    'com.atlassian.servicedesk:next-gen-general-service-desk',
-                    'com.atlassian.servicedesk:next-gen-analytics-service-desk',
-                    'com.atlassian.servicedesk:next-gen-finance-service-desk',
-                    'com.atlassian.servicedesk:next-gen-design-service-desk',
-                    'com.atlassian.servicedesk:next-gen-sales-service-desk',
-                    'com.atlassian.jira-core-project-templates:jira-core-simplified-content-management',
-                    'com.atlassian.jira-core-project-templates:jira-core-simplified-document-approval',
-                    'com.atlassian.jira-core-project-templates:jira-core-simplified-lead-tracking',
-                    'com.atlassian.jira-core-project-templates:jira-core-simplified-process-control',
-                    'com.atlassian.jira-core-project-templates:jira-core-simplified-procurement',
-                    'com.atlassian.jira-core-project-templates:jira-core-simplified-project-management',
-                    'com.atlassian.jira-core-project-templates:jira-core-simplified-recruitment',
-                    'com.atlassian.jira-core-project-templates:jira-core-simplified-task-',
-                    'com.atlassian.jcs:customer-service-management',
+
+                    "com.pyxis.greenhopper.jira:gh-simplified-agility-kanban",
+
+                    "com.pyxis.greenhopper.jira:gh-simplified-agility-scrum",
+
+                    "com.pyxis.greenhopper.jira:gh-simplified-basic",
+
+                    "com.pyxis.greenhopper.jira:gh-simplified-kanban-classic",
+
+                    "com.pyxis.greenhopper.jira:gh-simplified-scrum-classic",
+
+                    "com.pyxis.greenhopper.jira:gh-cross-team-template",
+
+                    "com.pyxis.greenhopper.jira:gh-cross-team-planning-template",
+
+                    "com.atlassian.servicedesk:simplified-it-service-management",
+
+                    "com.atlassian.servicedesk:simplified-it-service-management-basic",
+
+                    "com.atlassian.servicedesk:simplified-it-service-management-operations",
+
+                    "com.atlassian.servicedesk:simplified-internal-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-external-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-hr-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-facilities-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-legal-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-marketing-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-finance-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-analytics-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-design-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-sales-service-desk",
+
+                    "com.atlassian.servicedesk:simplified-halp-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-it-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-hr-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-legal-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-marketing-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-facilities-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-general-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-analytics-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-finance-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-design-service-desk",
+
+                    "com.atlassian.servicedesk:next-gen-sales-service-desk",
+
+                    "com.atlassian.jira-core-project-templates:jira-core-simplified-content-management",
+
+                    "com.atlassian.jira-core-project-templates:jira-core-simplified-document-approval",
+
+                    "com.atlassian.jira-core-project-templates:jira-core-simplified-lead-tracking",
+
+                    "com.atlassian.jira-core-project-templates:jira-core-simplified-process-control",
+
+                    "com.atlassian.jira-core-project-templates:jira-core-simplified-procurement",
+
+                    "com.atlassian.jira-core-project-templates:jira-core-simplified-project-management",
+
+                    "com.atlassian.jira-core-project-templates:jira-core-simplified-recruitment",
+
+                    "com.atlassian.jira-core-project-templates:jira-core-simplified-task-",
+
+                    "com.atlassian.jcs:customer-service-management",
+
                 ],
+
+
+
+
             ),
 
             projectTypeKey=dict(
                 type="str",
 
+
                 choices=['software', 'service_desk', 'business'],
+
+
+
 
             ),
 
             releasedProjectKeys=dict(
                 type="list",
-                elements="str",
-                no_log=False,
+
+
+
+
 
             ),
 
             url=dict(
                 type="str",
 
+
+
+
+
             ),
 
             workflowScheme=dict(
                 type="int",
+
+
+
+
 
             ),
 
@@ -802,6 +1128,7 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
+
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -819,6 +1146,7 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             else:
                 # Resource exists and is up-to-date
@@ -891,6 +1219,8 @@ def main():
 
                 result["versions"] = current.get("versions")
 
+                pass
+
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -904,6 +1234,7 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

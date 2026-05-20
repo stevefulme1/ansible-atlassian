@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,17 +14,29 @@ module: confluence_space
 short_description: Manage space
 version_added: "1.0.0"
 description:
-  - Create, update, and delete space resources.
+  - Create, update, and delete confluence space resources.
   - Supports check mode and diff mode for safe operations.
 author:
   - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the space resource.
+      - Desired state of the confluence space resource.
     type: str
     choices: ['present', 'absent']
     default: present
+
+  name:
+    description:
+      - >-
+        The name of the new space.
+    type: str
+
+    required: true
+
+
+
+
 
   alias:
     description:
@@ -32,17 +44,19 @@ options:
         This field will be used as the new identifier for the space in confluence page URLs. If the...
     type: str
 
+
+
+
+
   description:
     description:
       - >-
         The description of the new/updated space. Note, only the 'plain' representation can be used for...
     type: dict
 
-  homepage:
-    description:
-      - >-
-        The updated homepage for this space
-    type: dict
+
+
+
 
   key:
     description:
@@ -50,30 +64,18 @@ options:
         The key for the new space. Format: See Space keys. If alias is not provided, this is required.
     type: str
 
-  name:
-    description:
-      - >-
-        The updated name of the space.
-    type: str
+
+
+
 
   permissions:
     description:
       - >-
         The permissions for the new space. If no permissions are provided, the Confluence default space...
     type: list
-    elements: dict
 
-  status:
-    description:
-      - >-
-        The updated status for this space.
-    type: str
 
-  type:
-    description:
-      - >-
-        The updated type for this space.
-    type: str
+
 
 
 extends_documentation_fragment:
@@ -82,70 +84,81 @@ extends_documentation_fragment:
 
 EXAMPLES = r"""
 
-- name: Create a space
+- name: Create a confluence space
   stevefulme1.atlassian.confluence_space:
+
+
+    name: "example_name"
+
+
+
+
+
+
+
+
+
 
     state: present
-  # API: POST /wiki/rest/api/space
+  # API: POST /wiki/rest/api/space/_private
 
 
-- name: Update a space
+
+- name: Update a confluence space
   stevefulme1.atlassian.confluence_space:
     id: "existing_id"
+
+
+
 
     alias: "updated_alias"
 
+
+
     description: "updated_description"
 
-    homepage: "updated_homepage"
+
 
     key: "updated_key"
 
-    name: "updated_name"
+
 
     permissions: "updated_permissions"
 
-    status: "updated_status"
-
-    type: "updated_type"
 
     state: present
-  # API:
+  # API:  
 
 
-- name: Delete a space
-  stevefulme1.atlassian.confluence_space:
-    id: "existing_id"
-    state: absent
-  # API: DELETE /wiki/rest/api/space/{spaceKey}
+
 """
 
 RETURN = r"""
 
 id:
   description: >-
-
+    
   returned: success
   type: int
 
 
 key:
   description: >-
-
+    
   returned: success
   type: str
 
 
 alias:
   description: >-
-
+    
   returned: success
   type: str
 
 
 name:
   description: >-
-
+    
   returned: success
   type: str
 
@@ -159,7 +172,7 @@ icon:
 
 description:
   description: >-
-
+    
   returned: success
   type: dict
 
@@ -173,79 +186,81 @@ homepage:
 
 type:
   description: >-
-
+    
   returned: success
   type: str
 
 
 metadata:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 operations:
   description: >-
-
+    
   returned: success
   type: list
 
 
 permissions:
   description: >-
-
+    
   returned: success
   type: list
 
 
 status:
   description: >-
-
+    
   returned: success
   type: str
 
 
 settings:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 theme:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 lookAndFeel:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 history:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 _expandable:
   description: >-
-
+    
   returned: success
   type: dict
 
 
 _links:
   description: >-
-
+    
   returned: success
   type: dict
+
+
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -257,9 +272,10 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the space via GET."""
+    """Retrieve the current state of the confluence space via GET."""
 
     return None
+
 
 
 def needs_update(current, desired):
@@ -279,29 +295,20 @@ def build_payload(module):
     """Build the API request payload from module params."""
     payload = {}
 
+    if module.params.get("name") is not None:
+        payload["name"] = module.params["name"]
+
     if module.params.get("alias") is not None:
         payload["alias"] = module.params["alias"]
 
     if module.params.get("description") is not None:
         payload["description"] = module.params["description"]
 
-    if module.params.get("homepage") is not None:
-        payload["homepage"] = module.params["homepage"]
-
     if module.params.get("key") is not None:
         payload["key"] = module.params["key"]
 
-    if module.params.get("name") is not None:
-        payload["name"] = module.params["name"]
-
     if module.params.get("permissions") is not None:
         payload["permissions"] = module.params["permissions"]
-
-    if module.params.get("status") is not None:
-        payload["status"] = module.params["status"]
-
-    if module.params.get("type") is not None:
-        payload["type"] = module.params["type"]
 
     return payload
 
@@ -312,45 +319,50 @@ def main():
         dict(
             state=dict(type="str", choices=["present", "absent"], default="present"),
 
+            name=dict(
+                type="str",
+
+                required=True,
+
+
+
+
+
+            ),
+
             alias=dict(
                 type="str",
+
+
+
+
 
             ),
 
             description=dict(
                 type="dict",
 
-            ),
 
-            homepage=dict(
-                type="dict",
+
+
 
             ),
 
             key=dict(
                 type="str",
-                no_log=False,
 
-            ),
 
-            name=dict(
-                type="str",
+
+
 
             ),
 
             permissions=dict(
                 type="list",
-                elements="dict",
 
-            ),
 
-            status=dict(
-                type="str",
 
-            ),
 
-            type=dict(
-                type="str",
 
             ),
 
@@ -382,10 +394,11 @@ def main():
                 if not module.check_mode:
 
                     response = client.POST(
-                        "/wiki/rest/api/space",
+                        "/wiki/rest/api/space/_private",
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             elif needs_update(current, desired):
                 # Resource exists but needs updating
@@ -404,6 +417,7 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
+
 
             else:
                 # Resource exists and is up-to-date
@@ -444,6 +458,8 @@ def main():
 
                 result["_links"] = current.get("_links")
 
+                pass
+
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -452,11 +468,8 @@ def main():
 
                 if not module.check_mode:
 
-                    identifier = current.get("id")
-                    path = "/wiki/rest/api/space/{spaceKey}".replace(
-                        "{id}", str(identifier)
-                    )
-                    client.delete(path)
+                    pass
+
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)
