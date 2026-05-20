@@ -31,6 +31,7 @@ options:
       - >-
         If the expand option approvers is used, returns a list containing the approvers for this version.
     type: list
+    elements: dict
 
   archived:
     description:
@@ -85,6 +86,7 @@ options:
       - >-
         If the expand option operations is used, returns the list of operations available for this version.
     type: list
+    elements: dict
 
   overdue:
     description:
@@ -212,6 +214,7 @@ approvers:
     If the expand option approvers is used, returns a list containing the approvers for this version.
   returned: success
   type: list
+  elements: dict
 
 
 archived:
@@ -275,6 +278,7 @@ operations:
     If the expand option operations is used, returns the list of operations available for this version.
   returned: success
   type: list
+  elements: dict
 
 
 overdue:
@@ -438,7 +442,7 @@ def main():
             state=dict(type="str", choices=["present", "absent"], default="present"),
 
             approvers=dict(
-                type="list",
+                type="list", elements="dict",
 
             ),
 
@@ -483,7 +487,7 @@ def main():
             ),
 
             operations=dict(
-                type="list",
+                type="list", elements="dict",
 
             ),
 

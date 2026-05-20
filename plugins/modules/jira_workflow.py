@@ -31,18 +31,21 @@ options:
       - >-
         The list of projects and issue types to query.
     type: list
+    elements: dict
 
   workflowIds:
     description:
       - >-
         The list of workflow IDs to query.
     type: list
+    elements: str
 
   workflowNames:
     description:
       - >-
         The list of workflow names to query.
     type: list
+    elements: str
 
 
 extends_documentation_fragment:
@@ -86,6 +89,7 @@ statuses:
     List of statuses.
   returned: success
   type: list
+  elements: dict
 
 
 workflows:
@@ -93,6 +97,7 @@ workflows:
     List of workflows.
   returned: success
   type: list
+  elements: dict
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -145,17 +150,17 @@ def main():
             state=dict(type="str", choices=["present", "absent"], default="present"),
 
             projectAndIssueTypes=dict(
-                type="list",
+                type="list", elements="dict",
 
             ),
 
             workflowIds=dict(
-                type="list",
+                type="list", elements="str",
 
             ),
 
             workflowNames=dict(
-                type="list",
+                type="list", elements="str",
 
             ),
 

@@ -39,6 +39,7 @@ options:
       - >-
         Products the new user has access to. Valid products are: jira-core, jira-servicedesk,...
     type: list
+    elements: str
 
     required: true
 
@@ -47,6 +48,7 @@ options:
       - >-
         Deprecated, do not use.
     type: list
+    elements: str
 
   displayName:
     description:
@@ -327,16 +329,16 @@ def main():
             ),
 
             products=dict(
-                type="list",
+                type="list", elements="str",
 
                 required=True,
 
             ),
 
             applicationKeys=dict(
-                type="list",
+                type="list", elements="str",
 
-            ),
+            , no_log=False),
 
             displayName=dict(
                 type="str",
@@ -346,7 +348,7 @@ def main():
             key=dict(
                 type="str",
 
-            ),
+            , no_log=False),
 
             name=dict(
                 type="str",
@@ -356,7 +358,7 @@ def main():
             password=dict(
                 type="str",
 
-            ),
+            , no_log=True),
 
             self=dict(
                 type="str",
