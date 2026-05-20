@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira user resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -67,6 +69,7 @@ options:
       - >-
         The URL of the user.
     type: str
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -78,6 +81,7 @@ EXAMPLES = r"""
     products: "example_products"
     state: present
   # API: POST /rest/api/3/user
+
 - name: Update a jira user
   stevefulme1.atlassian.jira_user:
     key: "existing_id"
@@ -88,6 +92,7 @@ EXAMPLES = r"""
     self: "updated_self"
     state: present
   # API:
+
 - name: Delete a jira user
   stevefulme1.atlassian.jira_user:
     key: "existing_id"
@@ -101,73 +106,88 @@ accountId:
     The account ID of the user, which uniquely identifies the user across all Atlassian products....
   returned: success
   type: str
+
 accountType:
   description: >-
     The user account type. Can take the following values: atlassian regular Atlassian user account...
   returned: success
   type: str
+
 active:
   description: >-
     Whether the user is active.
   returned: success
   type: bool
+
 appType:
   description: >-
     The app type of the user account when accountType is 'app'. Can take the following values:...
   returned: success
   type: str
+
 applicationRoles:
   description: >-
   returned: success
   type: dict
+
 avatarUrls:
   description: >-
   returned: success
   type: dict
+
 displayName:
   description: >-
-    The display name of the user. Depending on the user’s privacy setting, this may return an...
+    The display name of the user. Depending on the user's privacy setting, this may return an...
   returned: success
   type: str
+
 emailAddress:
   description: >-
-    The email address of the user. Depending on the user’s privacy setting, this may be returned as null.
+    The email address of the user. Depending on the user's privacy setting, this may be returned as null.
   returned: success
   type: str
+
 expand:
   description: >-
     Expand options that include additional user details in the response.
   returned: success
   type: str
+
 groups:
   description: >-
   returned: success
   type: dict
+
 guest:
   description: >-
     Whether the user is a guest.
   returned: success
   type: bool
+
 key:
   description: >-
     This property is no longer available and will be removed from the documentation soon. See the...
   returned: success
   type: str
+
 locale:
   description: >-
-    The locale of the user. Depending on the user’s privacy setting, this may be returned as null.
+    The locale of the user. Depending on the user's privacy setting, this may be returned as null.
   returned: success
   type: str
+
 name:
   description: >-
     This property is no longer available and will be removed from the documentation soon. See the...
   returned: success
   type: str
+
 self:
   description: >-
     The URL of the user.
   returned: success
   type: str
+
 timeZone:
   description: >-
     The time zone specified in the user's profile. If the user's time zone is not visible to the...
@@ -180,6 +200,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -264,7 +285,6 @@ def main():
 
                 required=True,
 
-
             ),
 
             products=dict(
@@ -272,42 +292,35 @@ def main():
 
                 required=True,
 
-
             ),
 
             applicationKeys=dict(
                 type="list",
-
 
             ),
 
             displayName=dict(
                 type="str",
 
-
             ),
 
             key=dict(
                 type="str",
-
 
             ),
 
             name=dict(
                 type="str",
 
-
             ),
 
             password=dict(
                 type="str",
 
-
             ),
 
             self=dict(
                 type="str",
-
 
             ),
 
@@ -344,7 +357,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -362,7 +374,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -414,7 +425,6 @@ def main():
                         "{key}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

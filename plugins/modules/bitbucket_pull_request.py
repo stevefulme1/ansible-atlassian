@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete bitbucket pull request resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -25,6 +27,7 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -34,6 +37,7 @@ EXAMPLES = r"""
   stevefulme1.atlassian.bitbucket_pull_request:
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/pullrequests
+
 - name: Update a bitbucket pull request
   stevefulme1.atlassian.bitbucket_pull_request:
     id: "existing_id"
@@ -50,6 +54,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -137,7 +142,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -156,7 +160,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             else:
                 # Resource exists and is up-to-date
 
@@ -171,7 +174,6 @@ def main():
                 if not module.check_mode:
 
                     pass
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

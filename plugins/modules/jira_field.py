@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira field resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -60,6 +62,7 @@ options:
       - "com.atlassian.jira.plugin.system.customfieldtypes:textsearcher"
       - "com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher"
       - "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher"
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -70,6 +73,7 @@ EXAMPLES = r"""
     type: "example_type"
     state: present
   # API: POST /rest/api/3/field
+
 - name: Update a jira field
   stevefulme1.atlassian.jira_field:
     id: "existing_id"
@@ -78,6 +82,7 @@ EXAMPLES = r"""
     searcherKey: "updated_searcherKey"
     state: present
   # API:
+
 - name: Delete a jira field
   stevefulme1.atlassian.jira_field:
     id: "existing_id"
@@ -91,31 +96,37 @@ isLast:
     Whether this is the last page.
   returned: success
   type: bool
+
 maxResults:
   description: >-
     The maximum number of items that could be returned.
   returned: success
   type: int
+
 nextPage:
   description: >-
     If there is another page of results, the URL of the next page.
   returned: success
   type: str
+
 self:
   description: >-
     The URL of the page.
   returned: success
   type: str
+
 startAt:
   description: >-
     The index of the first item returned.
   returned: success
   type: int
+
 total:
   description: >-
     The number of items returned.
   returned: success
   type: int
+
 values:
   description: >-
     The list of items.
@@ -128,6 +139,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -199,24 +211,20 @@ def main():
 
                 required=True,
 
-
             ),
 
             description=dict(
                 type="str",
-
 
             ),
 
             name=dict(
                 type="str",
 
-
             ),
 
             searcherKey=dict(
                 type="str",
-
 
                 choices=[
 
@@ -247,7 +255,6 @@ def main():
                     "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher",
 
                 ],
-
 
             ),
 
@@ -284,7 +291,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -302,7 +308,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -336,7 +341,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

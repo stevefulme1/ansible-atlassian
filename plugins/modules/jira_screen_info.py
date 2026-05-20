@@ -13,14 +13,17 @@ DOCUMENTATION = r"""
 module: jira_screen_info
 short_description: >-
   Retrieve information about jira screen resources
+
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single jira screen by its identifier,
     or list all jira screen resources.
   - This module always reports C(changed=False).
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   id:
     description:
@@ -40,6 +43,7 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -49,9 +53,11 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_screen_info:
     id: "example_id"
   register: result
+
 - name: List all jira screen resources
   stevefulme1.atlassian.jira_screen_info:
   register: result
+
 - name: List jira screen resources with pagination
   stevefulme1.atlassian.jira_screen_info:
     page: 1
@@ -101,6 +107,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -121,7 +128,6 @@ def fetch_list(client, module):
     """List jira screen resources with optional filtering and pagination."""
 
     params = {}
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -144,7 +150,6 @@ def main():
     spec.update(
         dict(
             id=dict(type="str", required=False),
-
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),

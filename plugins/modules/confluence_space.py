@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete confluence space resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -51,6 +53,7 @@ options:
       - >-
         The permissions for the new space. If no permissions are provided, the Confluence default space...
     type: list
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -61,6 +64,7 @@ EXAMPLES = r"""
     name: "example_name"
     state: present
   # API: POST /wiki/rest/api/space/_private
+
 - name: Update a confluence space
   stevefulme1.atlassian.confluence_space:
     id: "existing_id"
@@ -77,72 +81,89 @@ id:
   description: >-
   returned: success
   type: int
+
 key:
   description: >-
   returned: success
   type: str
+
 alias:
   description: >-
   returned: success
   type: str
+
 name:
   description: >-
   returned: success
   type: str
+
 icon:
   description: >-
     This object represents an icon. If used as a profilePicture, this may be returned as null,...
   returned: success
   type: dict
+
 description:
   description: >-
   returned: success
   type: dict
+
 homepage:
   description: >-
     Base object for all content types.
   returned: success
   type: dict
+
 type:
   description: >-
   returned: success
   type: str
+
 metadata:
   description: >-
   returned: success
   type: dict
+
 operations:
   description: >-
   returned: success
   type: list
+
 permissions:
   description: >-
   returned: success
   type: list
+
 status:
   description: >-
   returned: success
   type: str
+
 settings:
   description: >-
   returned: success
   type: dict
+
 theme:
   description: >-
   returned: success
   type: dict
+
 lookAndFeel:
   description: >-
   returned: success
   type: dict
+
 history:
   description: >-
   returned: success
   type: dict
+
 _expandable:
   description: >-
   returned: success
   type: dict
+
 _links:
   description: >-
   returned: success
@@ -154,6 +175,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -209,30 +231,25 @@ def main():
 
                 required=True,
 
-
             ),
 
             alias=dict(
                 type="str",
-
 
             ),
 
             description=dict(
                 type="dict",
 
-
             ),
 
             key=dict(
                 type="str",
 
-
             ),
 
             permissions=dict(
                 type="list",
-
 
             ),
 
@@ -269,7 +286,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -287,7 +303,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -339,7 +354,6 @@ def main():
                 if not module.check_mode:
 
                     pass
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

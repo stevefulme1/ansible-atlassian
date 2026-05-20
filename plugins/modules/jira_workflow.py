@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira workflow resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -40,6 +42,7 @@ options:
       - >-
         The list of workflow names to query.
     type: list
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -49,6 +52,7 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_workflow:
     state: present
   # API: POST /rest/api/3/workflows
+
 - name: Update a jira workflow
   stevefulme1.atlassian.jira_workflow:
     id: "existing_id"
@@ -57,6 +61,7 @@ EXAMPLES = r"""
     workflowNames: "updated_workflowNames"
     state: present
   # API:
+
 - name: Delete a jira workflow
   stevefulme1.atlassian.jira_workflow:
     id: "existing_id"
@@ -70,6 +75,7 @@ statuses:
     List of statuses.
   returned: success
   type: list
+
 workflows:
   description: >-
     List of workflows.
@@ -82,6 +88,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -129,18 +136,15 @@ def main():
             projectAndIssueTypes=dict(
                 type="list",
 
-
             ),
 
             workflowIds=dict(
                 type="list",
 
-
             ),
 
             workflowNames=dict(
                 type="list",
-
 
             ),
 
@@ -177,7 +181,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -195,7 +198,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -219,7 +221,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

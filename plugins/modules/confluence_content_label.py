@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete confluence content label resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -25,6 +27,7 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -34,11 +37,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_content_label:
     state: present
   # API: POST /wiki/rest/api/content/{id}/label
+
 - name: Update a confluence content label
   stevefulme1.atlassian.confluence_content_label:
     id: "existing_id"
     state: present
   # API:
+
 - name: Delete a confluence content label
   stevefulme1.atlassian.confluence_content_label:
     id: "existing_id"
@@ -51,14 +56,17 @@ prefix:
   description: >-
   returned: success
   type: str
+
 name:
   description: >-
   returned: success
   type: str
+
 id:
   description: >-
   returned: success
   type: str
+
 label:
   description: >-
   returned: success
@@ -70,6 +78,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -138,7 +147,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -156,7 +164,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -184,7 +191,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

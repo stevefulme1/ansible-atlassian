@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete confluence attachment resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -79,6 +81,7 @@ options:
     description:
       - >-
     type: str
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -93,6 +96,7 @@ EXAMPLES = r"""
     version: "example_version"
     state: present
   # API: POST /wiki/rest/api/content/{id}/child/attachment
+
 - name: Update a confluence attachment
   stevefulme1.atlassian.confluence_attachment:
     id: "existing_id"
@@ -111,82 +115,101 @@ id:
   description: >-
   returned: success
   type: str
+
 type:
   description: >-
     Can be "page", "blogpost", "attachment" or "content"
   returned: success
   type: str
+
 status:
   description: >-
   returned: success
   type: str
+
 title:
   description: >-
   returned: success
   type: str
+
 space:
   description: >-
   returned: success
   type: dict
+
 history:
   description: >-
   returned: success
   type: dict
+
 version:
   description: >-
   returned: success
   type: dict
+
 ancestors:
   description: >-
   returned: success
   type: list
+
 operations:
   description: >-
   returned: success
   type: list
+
 children:
   description: >-
   returned: success
   type: dict
+
 childTypes:
   description: >-
     Shows whether a piece of content has attachments, comments, or child pages/whiteboards. Note,...
   returned: success
   type: dict
+
 descendants:
   description: >-
   returned: success
   type: dict
+
 container:
   description: >-
     Container for content. This can be either a space (containing a page or blogpost) or a page/blog...
   returned: success
   type: dict
+
 body:
   description: >-
   returned: success
   type: dict
+
 restrictions:
   description: >-
   returned: success
   type: dict
+
 metadata:
   description: >-
     Metadata object for page, blogpost, comment content
   returned: success
   type: dict
+
 macroRenderedOutput:
   description: >-
   returned: success
   type: dict
+
 extensions:
   description: >-
   returned: success
   type: dict
+
 _expandable:
   description: >-
   returned: success
   type: dict
+
 _links:
   description: >-
   returned: success
@@ -198,6 +221,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -271,14 +295,12 @@ def main():
 
                 required=True,
 
-
             ),
 
             id=dict(
                 type="str",
 
                 required=True,
-
 
             ),
 
@@ -287,14 +309,12 @@ def main():
 
                 required=True,
 
-
             ),
 
             type=dict(
                 type="str",
 
                 required=True,
-
 
             ),
 
@@ -303,42 +323,35 @@ def main():
 
                 required=True,
 
-
             ),
 
             comment=dict(
                 type="str",
-
 
             ),
 
             container=dict(
                 type="dict",
 
-
             ),
 
             extensions=dict(
                 type="dict",
-
 
             ),
 
             metadata=dict(
                 type="dict",
 
-
             ),
 
             status=dict(
                 type="str",
 
-
             ),
 
             title=dict(
                 type="str",
-
 
             ),
 
@@ -375,7 +388,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -393,7 +405,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -449,7 +460,6 @@ def main():
                 if not module.check_mode:
 
                     pass
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

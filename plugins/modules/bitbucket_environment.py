@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete bitbucket environment resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -25,6 +27,7 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -34,11 +37,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.bitbucket_environment:
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/environments
+
 - name: Update a bitbucket environment
   stevefulme1.atlassian.bitbucket_environment:
     id: "existing_id"
     state: present
   # API:
+
 - name: Delete a bitbucket environment
   stevefulme1.atlassian.bitbucket_environment:
     id: "existing_id"
@@ -55,6 +60,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -142,7 +148,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -160,7 +165,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -180,7 +184,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

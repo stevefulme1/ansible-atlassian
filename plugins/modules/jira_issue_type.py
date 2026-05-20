@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira issue type resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -51,6 +53,7 @@ options:
         Deprecated. Use hierarchyLevel instead. See the deprecation notice for details. Whether the...
     type: str
     choices: ["subtask", "standard"]
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -60,6 +63,7 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_issue_type:
     state: present
   # API: POST /rest/api/3/issuetype
+
 - name: Update a jira issue type
   stevefulme1.atlassian.jira_issue_type:
     id: "existing_id"
@@ -70,6 +74,7 @@ EXAMPLES = r"""
     type: "updated_type"
     state: present
   # API:
+
 - name: Delete a jira issue type
   stevefulme1.atlassian.jira_issue_type:
     id: "existing_id"
@@ -83,46 +88,55 @@ avatarId:
     The ID of the issue type's avatar.
   returned: success
   type: int
+
 description:
   description: >-
     The description of the issue type.
   returned: success
   type: str
+
 entityId:
   description: >-
     Unique ID for next-gen projects.
   returned: success
   type: str
+
 hierarchyLevel:
   description: >-
     Hierarchy level of the issue type.
   returned: success
   type: int
+
 iconUrl:
   description: >-
     The URL of the issue type's avatar.
   returned: success
   type: str
+
 id:
   description: >-
     The ID of the issue type.
   returned: success
   type: str
+
 name:
   description: >-
     The name of the issue type.
   returned: success
   type: str
+
 scope:
   description: >-
     The projects the item is associated with. Indicated for items associated with next-gen projects.
   returned: success
   type: dict
+
 self:
   description: >-
     The URL of these issue type details.
   returned: success
   type: str
+
 subtask:
   description: >-
     Whether this issue type is used to create subtasks.
@@ -135,6 +149,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -208,33 +223,27 @@ def main():
             avatarId=dict(
                 type="int",
 
-
             ),
 
             description=dict(
                 type="str",
-
 
             ),
 
             hierarchyLevel=dict(
                 type="int",
 
-
             ),
 
             name=dict(
                 type="str",
-
 
             ),
 
             type=dict(
                 type="str",
 
-
                 choices=['subtask', 'standard'],
-
 
             ),
 
@@ -271,7 +280,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -289,7 +297,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -329,7 +336,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

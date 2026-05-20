@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira version resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -120,6 +122,7 @@ options:
       - >-
         The date on which work on this version is expected to start, expressed in the instance's...
     type: str
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -129,6 +132,7 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_version:
     state: present
   # API: POST /rest/api/3/version
+
 - name: Update a jira version
   stevefulme1.atlassian.jira_version:
     id: "existing_id"
@@ -152,6 +156,7 @@ EXAMPLES = r"""
     userStartDate: "updated_userStartDate"
     state: present
   # API:
+
 - name: Delete a jira version
   stevefulme1.atlassian.jira_version:
     id: "existing_id"
@@ -165,91 +170,109 @@ approvers:
     If the expand option approvers is used, returns a list containing the approvers for this version.
   returned: success
   type: list
+
 archived:
   description: >-
     Indicates that the version is archived. Optional when creating or updating a version.
   returned: success
   type: bool
+
 description:
   description: >-
     The description of the version. Optional when creating or updating a version. The maximum size...
   returned: success
   type: str
+
 driver:
   description: >-
     The Atlassian account ID of the version driver. Optional when creating or updating a version. If...
   returned: success
   type: str
+
 expand:
   description: >-
     Use expand(em>expansion) to include additional information about version in the response. This...
   returned: success
   type: str
+
 id:
   description: >-
     The ID of the version.
   returned: success
   type: str
+
 issuesStatusForFixVersion:
   description: >-
     Counts of the number of issues in various statuses.
   returned: success
   type: dict
+
 moveUnfixedIssuesTo:
   description: >-
     The URL of the self link to the version to which all unfixed issues are moved when a version is...
   returned: success
   type: str
+
 name:
   description: >-
     The unique name of the version. Required when creating a version. Optional when updating a...
   returned: success
   type: str
+
 operations:
   description: >-
     If the expand option operations is used, returns the list of operations available for this version.
   returned: success
   type: list
+
 overdue:
   description: >-
     Indicates that the version is overdue.
   returned: success
   type: bool
+
 project:
   description: >-
     Deprecated. Use projectId.
   returned: success
   type: str
+
 projectId:
   description: >-
     The ID of the project to which this version is attached. Required when creating a version. Not...
   returned: success
   type: int
+
 releaseDate:
   description: >-
     The release date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when...
   returned: success
   type: str
+
 released:
   description: >-
     Indicates that the version is released. If the version is released a request to release again is...
   returned: success
   type: bool
+
 self:
   description: >-
     The URL of the version.
   returned: success
   type: str
+
 startDate:
   description: >-
     The start date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when creating...
   returned: success
   type: str
+
 userReleaseDate:
   description: >-
     The date on which work on this version is expected to finish, expressed in the instance's...
   returned: success
   type: str
+
 userStartDate:
   description: >-
     The date on which work on this version is expected to start, expressed in the instance's...
@@ -262,6 +285,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -357,114 +381,95 @@ def main():
             approvers=dict(
                 type="list",
 
-
             ),
 
             archived=dict(
                 type="bool",
-
 
             ),
 
             description=dict(
                 type="str",
 
-
             ),
 
             driver=dict(
                 type="str",
-
 
             ),
 
             expand=dict(
                 type="str",
 
-
             ),
 
             id=dict(
                 type="str",
-
 
             ),
 
             issuesStatusForFixVersion=dict(
                 type="dict",
 
-
             ),
 
             moveUnfixedIssuesTo=dict(
                 type="str",
-
 
             ),
 
             name=dict(
                 type="str",
 
-
             ),
 
             operations=dict(
                 type="list",
-
 
             ),
 
             overdue=dict(
                 type="bool",
 
-
             ),
 
             project=dict(
                 type="str",
-
 
             ),
 
             projectId=dict(
                 type="int",
 
-
             ),
 
             releaseDate=dict(
                 type="str",
-
 
             ),
 
             released=dict(
                 type="bool",
 
-
             ),
 
             self=dict(
                 type="str",
-
 
             ),
 
             startDate=dict(
                 type="str",
 
-
             ),
 
             userReleaseDate=dict(
                 type="str",
 
-
             ),
 
             userStartDate=dict(
                 type="str",
-
 
             ),
 
@@ -501,7 +506,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -519,7 +523,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -577,7 +580,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

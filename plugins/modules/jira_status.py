@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira status resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -37,6 +39,7 @@ options:
         The list of statuses that will be updated.
     type: list
     required: true
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -48,11 +51,13 @@ EXAMPLES = r"""
     statuses: "example_statuses"
     state: present
   # API: POST /rest/api/3/statuses
+
 - name: Update a jira status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
     state: present
   # API:
+
 - name: Delete a jira status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
@@ -66,21 +71,25 @@ description:
     The description of the status.
   returned: success
   type: str
+
 id:
   description: >-
     The ID of the status.
   returned: success
   type: str
+
 name:
   description: >-
     The name of the status.
   returned: success
   type: str
+
 scope:
   description: >-
     The scope of the status.
   returned: success
   type: dict
+
 statusCategory:
   description: >-
     The category of the status.
@@ -93,6 +102,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -159,14 +169,12 @@ def main():
 
                 required=True,
 
-
             ),
 
             statuses=dict(
                 type="list",
 
                 required=True,
-
 
             ),
 
@@ -203,7 +211,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -221,7 +228,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -251,7 +257,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

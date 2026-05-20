@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira filter resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -101,6 +103,7 @@ options:
       - >-
         A URL to view the filter results in Jira, using the ID of the filter. For example,...
     type: str
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -111,6 +114,7 @@ EXAMPLES = r"""
     name: "example_name"
     state: present
   # API: POST /rest/api/3/filter
+
 - name: Update a jira filter
   stevefulme1.atlassian.jira_filter:
     id: "existing_id"
@@ -129,6 +133,7 @@ EXAMPLES = r"""
     viewUrl: "updated_viewUrl"
     state: present
   # API:
+
 - name: Delete a jira filter
   stevefulme1.atlassian.jira_filter:
     id: "existing_id"
@@ -142,71 +147,85 @@ approximateLastUsed:
     \Experimental\ Approximate last used time. Returns the date and time when the filter was last...
   returned: success
   type: str
+
 description:
   description: >-
     A description of the filter.
   returned: success
   type: str
+
 editPermissions:
   description: >-
     The groups and projects that can edit the filter.
   returned: success
   type: list
+
 favourite:
   description: >-
     Whether the filter is selected as a favorite.
   returned: success
   type: bool
+
 favouritedCount:
   description: >-
     The count of how many users have selected this filter as a favorite, including the filter owner.
   returned: success
   type: int
+
 id:
   description: >-
     The unique identifier for the filter.
   returned: success
   type: str
+
 jql:
   description: >-
     The JQL query for the filter. For example, project = SSP AND issuetype = Bug.
   returned: success
   type: str
+
 name:
   description: >-
     The name of the filter. Must be unique.
   returned: success
   type: str
+
 owner:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
+
 searchUrl:
   description: >-
     A URL to view the filter results in Jira, using the Search for issues using...
   returned: success
   type: str
+
 self:
   description: >-
     The URL of the filter.
   returned: success
   type: str
+
 sharePermissions:
   description: >-
     The groups and projects that the filter is shared with.
   returned: success
   type: list
+
 sharedUsers:
   description: >-
     A paginated list of users sharing the filter. This includes users that are members of the groups...
   returned: success
   type: dict
+
 subscriptions:
   description: >-
     A paginated list of subscriptions to a filter.
   returned: success
   type: dict
+
 viewUrl:
   description: >-
     A URL to view the filter results in Jira, using the ID of the filter. For example,...
@@ -219,6 +238,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -304,90 +324,75 @@ def main():
 
                 required=True,
 
-
             ),
 
             approximateLastUsed=dict(
                 type="str",
-
 
             ),
 
             description=dict(
                 type="str",
 
-
             ),
 
             editPermissions=dict(
                 type="list",
-
 
             ),
 
             favourite=dict(
                 type="bool",
 
-
             ),
 
             favouritedCount=dict(
                 type="int",
-
 
             ),
 
             id=dict(
                 type="str",
 
-
             ),
 
             jql=dict(
                 type="str",
-
 
             ),
 
             owner=dict(
                 type="dict",
 
-
             ),
 
             searchUrl=dict(
                 type="str",
-
 
             ),
 
             self=dict(
                 type="str",
 
-
             ),
 
             sharePermissions=dict(
                 type="list",
-
 
             ),
 
             sharedUsers=dict(
                 type="dict",
 
-
             ),
 
             subscriptions=dict(
                 type="dict",
 
-
             ),
 
             viewUrl=dict(
                 type="str",
-
 
             ),
 
@@ -424,7 +429,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -442,7 +446,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -492,7 +495,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

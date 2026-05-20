@@ -16,8 +16,10 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete confluence content restriction resources.
   - Supports check mode and diff mode for safe operations.
+
 author:
   - "Steve Fulmer (@stevefulme1)"
+
 options:
   state:
     description:
@@ -51,6 +53,7 @@ options:
     description:
       - >-
     type: int
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -61,6 +64,7 @@ EXAMPLES = r"""
     results: "example_results"
     state: present
   # API: POST /wiki/rest/api/content/{id}/restriction
+
 - name: Update a confluence content restriction
   stevefulme1.atlassian.confluence_content_restriction:
     id: "existing_id"
@@ -71,6 +75,7 @@ EXAMPLES = r"""
     start: "updated_start"
     state: present
   # API:
+
 - name: Delete a confluence content restriction
   stevefulme1.atlassian.confluence_content_restriction:
     id: "existing_id"
@@ -83,19 +88,23 @@ operation:
   description: >-
   returned: success
   type: str
+
 restrictions:
   description: >-
   returned: success
   type: dict
+
 content:
   description: >-
     Base object for all content types.
   returned: success
   type: dict
+
 _expandable:
   description: >-
   returned: success
   type: dict
+
 _links:
   description: >-
   returned: success
@@ -107,6 +116,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
+
 )
 
 
@@ -184,36 +194,30 @@ def main():
 
                 required=True,
 
-
             ),
 
             _links=dict(
                 type="dict",
-
 
             ),
 
             limit=dict(
                 type="int",
 
-
             ),
 
             restrictionsHash=dict(
                 type="str",
-
 
             ),
 
             size=dict(
                 type="int",
 
-
             ),
 
             start=dict(
                 type="int",
-
 
             ),
 
@@ -250,7 +254,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -268,7 +271,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -298,7 +300,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)
