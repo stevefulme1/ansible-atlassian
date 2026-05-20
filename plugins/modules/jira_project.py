@@ -76,7 +76,6 @@ options:
       - >-
         Project keys must be unique and start with an uppercase letter followed by one or more uppercase...
     type: str
-    no_log: false
   lead:
     description:
       - >-
@@ -107,7 +106,6 @@ options:
       - >-
         A predefined configuration for a project. The type of the projectTemplateKey must match with the...
     type: str
-    no_log: false
     choices:
       - "com.pyxis.greenhopper.jira:gh-simplified-agility-kanban"
       - "com.pyxis.greenhopper.jira:gh-simplified-agility-scrum"
@@ -154,7 +152,6 @@ options:
       - >-
         The project type, which defines the application-specific feature set. If you don't specify the...
     type: str
-    no_log: false
     choices: ["software", "service_desk", "business"]
   releasedProjectKeys:
     description:
@@ -814,7 +811,7 @@ def main():
 
 
 
-            ),
+            , no_log=False),
 
             url=dict(
                 type="str",

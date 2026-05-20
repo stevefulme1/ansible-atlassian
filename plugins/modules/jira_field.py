@@ -46,7 +46,6 @@ options:
       - >-
         The searcher that defines the way the field is searched in Jira. It can be set to null,...
     type: str
-    no_log: false
     choices:
       - "com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher"
       - "com.atlassian.jira.plugin.system.customfieldtypes:daterange"

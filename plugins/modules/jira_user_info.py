@@ -188,7 +188,7 @@ def main():
     spec = auth_argument_spec()
     spec.update(
         dict(
-            key=dict(type="str", required=False),
+            key=dict(type="str", required=False, no_log=False),
 
             name=dict(type="str", required=False),
 

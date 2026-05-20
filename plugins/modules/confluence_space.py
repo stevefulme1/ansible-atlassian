@@ -46,7 +46,6 @@ options:
       - >-
         The key for the new space. Format: See Space keys. If alias is not provided, this is required.
     type: str
-    no_log: false
   permissions:
     description:
       - >-

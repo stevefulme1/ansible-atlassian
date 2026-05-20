@@ -54,7 +54,6 @@ options:
       - >-
         This property is no longer available. See the migration guide for details.
     type: str
-    no_log: false
   name:
     description:
       - >-
@@ -304,7 +303,7 @@ def main():
 
 
 
-            ),
+            , no_log=False),
 
             displayName=dict(
                 type="str",
