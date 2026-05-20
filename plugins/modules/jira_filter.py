@@ -312,7 +312,6 @@ def main():
 
 
 
-
             ),
 
             approximateLastUsed=dict(
@@ -324,12 +323,10 @@ def main():
 
 
 
-
             ),
 
             description=dict(
                 type="str",
-
 
 
 
@@ -350,12 +347,10 @@ def main():
 
 
 
-
             ),
 
             favourite=dict(
                 type="bool",
-
 
 
 
@@ -374,12 +369,10 @@ def main():
 
 
 
-
             ),
 
             id=dict(
                 type="str",
-
 
 
 
@@ -398,12 +391,10 @@ def main():
 
 
 
-
             ),
 
             owner=dict(
                 type="dict",
-
 
 
 
@@ -422,12 +413,10 @@ def main():
 
 
 
-
             ),
 
             self=dict(
                 type="str",
-
 
 
 
@@ -448,12 +437,10 @@ def main():
 
 
 
-
             ),
 
             sharedUsers=dict(
                 type="dict",
-
 
 
 
@@ -472,12 +459,10 @@ def main():
 
 
 
-
             ),
 
             viewUrl=dict(
                 type="str",
-
 
 
 

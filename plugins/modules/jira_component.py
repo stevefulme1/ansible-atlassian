@@ -343,7 +343,6 @@ def main():
 
 
 
-
             ),
 
             assignee=dict(
@@ -355,12 +354,10 @@ def main():
 
 
 
-
             ),
 
             assigneeType=dict(
                 type="str",
-
 
 
 
@@ -381,12 +378,10 @@ def main():
 
 
 
-
             ),
 
             id=dict(
                 type="str",
-
 
 
 
@@ -405,12 +400,10 @@ def main():
 
 
 
-
             ),
 
             lead=dict(
                 type="dict",
-
 
 
 
@@ -429,12 +422,10 @@ def main():
 
 
 
-
             ),
 
             leadUserName=dict(
                 type="str",
-
 
 
 
@@ -453,12 +444,10 @@ def main():
 
 
 
-
             ),
 
             name=dict(
                 type="str",
-
 
 
 
@@ -477,12 +466,10 @@ def main():
 
 
 
-
             ),
 
             projectId=dict(
                 type="int",
-
 
 
 
@@ -501,12 +488,10 @@ def main():
 
 
 
-
             ),
 
             realAssigneeType=dict(
                 type="str",
-
 
 
 
@@ -520,7 +505,6 @@ def main():
 
             self=dict(
                 type="str",
-
 
 
 

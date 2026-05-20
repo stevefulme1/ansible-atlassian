@@ -367,12 +367,10 @@ def main():
 
 
 
-
             ),
 
             archived=dict(
                 type="bool",
-
 
 
 
@@ -391,12 +389,10 @@ def main():
 
 
 
-
             ),
 
             driver=dict(
                 type="str",
-
 
 
 
@@ -415,12 +411,10 @@ def main():
 
 
 
-
             ),
 
             id=dict(
                 type="str",
-
 
 
 
@@ -439,7 +433,6 @@ def main():
 
 
 
-
             ),
 
             moveUnfixedIssuesTo=dict(
@@ -451,12 +444,10 @@ def main():
 
 
 
-
             ),
 
             name=dict(
                 type="str",
-
 
 
 
@@ -477,12 +468,10 @@ def main():
 
 
 
-
             ),
 
             overdue=dict(
                 type="bool",
-
 
 
 
@@ -501,12 +490,10 @@ def main():
 
 
 
-
             ),
 
             projectId=dict(
                 type="int",
-
 
 
 
@@ -525,12 +512,10 @@ def main():
 
 
 
-
             ),
 
             released=dict(
                 type="bool",
-
 
 
 
@@ -549,12 +534,10 @@ def main():
 
 
 
-
             ),
 
             startDate=dict(
                 type="str",
-
 
 
 
@@ -573,12 +556,10 @@ def main():
 
 
 
-
             ),
 
             userStartDate=dict(
                 type="str",
-
 
 
 

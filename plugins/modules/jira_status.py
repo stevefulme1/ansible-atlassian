@@ -166,7 +166,6 @@ def main():
 
 
 
-
             ),
 
             statuses=dict(
@@ -176,7 +175,6 @@ def main():
 
 
                 required=True,
-
 
 
 

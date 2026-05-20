@@ -507,7 +507,6 @@ def main():
 
 
 
-
                 choices=['PROJECT_LEAD', 'UNASSIGNED'],
 
 
@@ -517,7 +516,6 @@ def main():
 
             avatarId=dict(
                 type="int",
-
 
 
 
@@ -536,12 +534,10 @@ def main():
 
 
 
-
             ),
 
             description=dict(
                 type="str",
-
 
 
 
@@ -560,12 +556,10 @@ def main():
 
 
 
-
             ),
 
             fieldScheme=dict(
                 type="int",
-
 
 
 
@@ -584,7 +578,6 @@ def main():
 
 
 
-
             ),
 
             issueTypeScheme=dict(
@@ -596,12 +589,10 @@ def main():
 
 
 
-
             ),
 
             issueTypeScreenScheme=dict(
                 type="int",
-
 
 
 
@@ -622,12 +613,10 @@ def main():
 
 
 
-
             ),
 
             lead=dict(
                 type="str",
-
 
 
 
@@ -646,12 +635,10 @@ def main():
 
 
 
-
             ),
 
             name=dict(
                 type="str",
-
 
 
 
@@ -670,12 +657,10 @@ def main():
 
 
 
-
             ),
 
             permissionScheme=dict(
                 type="int",
-
 
 
 
@@ -691,7 +676,6 @@ def main():
 
 
                 no_log=False,
-
 
 
                 choices=[
@@ -791,7 +775,6 @@ def main():
                 no_log=False,
 
 
-
                 choices=['software', 'service_desk', 'business'],
 
 
@@ -806,16 +789,16 @@ def main():
 
 
 
+                no_log=False,
 
 
 
 
 
-            , no_log=False),
+            ),
 
             url=dict(
                 type="str",
-
 
 
 
@@ -827,7 +810,6 @@ def main():
 
             workflowScheme=dict(
                 type="int",
-
 
 
 

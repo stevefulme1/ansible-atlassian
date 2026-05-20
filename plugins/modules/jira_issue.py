@@ -217,12 +217,10 @@ def main():
 
 
 
-
             ),
 
             historyMetadata=dict(
                 type="dict",
-
 
 
 
@@ -243,7 +241,6 @@ def main():
 
 
 
-
             ),
 
             transition=dict(
@@ -255,12 +252,10 @@ def main():
 
 
 
-
             ),
 
             update=dict(
                 type="dict",
-
 
 
 

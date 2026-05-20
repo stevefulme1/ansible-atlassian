@@ -216,7 +216,6 @@ def main():
 
 
 
-
             ),
 
             alias=dict(
@@ -228,12 +227,10 @@ def main():
 
 
 
-
             ),
 
             description=dict(
                 type="dict",
-
 
 
 
@@ -254,14 +251,12 @@ def main():
 
 
 
-
             ),
 
             permissions=dict(
                 type="list",
 
                 elements="dict",
-
 
 
 

@@ -277,7 +277,6 @@ def main():
 
 
 
-
             ),
 
             id=dict(
@@ -285,7 +284,6 @@ def main():
 
 
                 required=True,
-
 
 
 
@@ -305,7 +303,6 @@ def main():
 
 
 
-
             ),
 
             type=dict(
@@ -313,7 +310,6 @@ def main():
 
 
                 required=True,
-
 
 
 
@@ -333,12 +329,10 @@ def main():
 
 
 
-
             ),
 
             comment=dict(
                 type="str",
-
 
 
 
@@ -357,12 +351,10 @@ def main():
 
 
 
-
             ),
 
             extensions=dict(
                 type="dict",
-
 
 
 
@@ -381,7 +373,6 @@ def main():
 
 
 
-
             ),
 
             status=dict(
@@ -393,12 +384,10 @@ def main():
 
 
 
-
             ),
 
             title=dict(
                 type="str",
-
 
 
 

@@ -218,7 +218,6 @@ def main():
 
 
 
-
             ),
 
             name=dict(
@@ -226,7 +225,6 @@ def main():
 
 
                 required=True,
-
 
 
 
@@ -246,7 +244,6 @@ def main():
 
 
 
-
             ),
 
             templateType=dict(
@@ -254,7 +251,6 @@ def main():
 
 
                 required=True,
-
 
 
 
@@ -267,7 +263,6 @@ def main():
 
             description=dict(
                 type="str",
-
 
 
 
@@ -288,12 +283,10 @@ def main():
 
 
 
-
             ),
 
             space=dict(
                 type="dict",
-
 
 
 

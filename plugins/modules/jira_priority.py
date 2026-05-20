@@ -228,7 +228,6 @@ def main():
 
 
 
-
             ),
 
             description=dict(
@@ -240,12 +239,10 @@ def main():
 
 
 
-
             ),
 
             iconUrl=dict(
                 type="str",
-
 
 
 
@@ -308,12 +305,10 @@ def main():
 
 
 
-
             ),
 
             statusColor=dict(
                 type="str",
-
 
 
 

@@ -219,12 +219,10 @@ def main():
 
 
 
-
             ),
 
             description=dict(
                 type="str",
-
 
 
 
@@ -243,12 +241,10 @@ def main():
 
 
 
-
             ),
 
             id=dict(
                 type="int",
-
 
 
 
@@ -269,7 +265,6 @@ def main():
 
 
 
-
             ),
 
             scope=dict(
@@ -281,12 +276,10 @@ def main():
 
 
 
-
             ),
 
             self=dict(
                 type="str",
-
 
 
 
