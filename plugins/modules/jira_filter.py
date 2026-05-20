@@ -118,6 +118,7 @@ options:
         A URL to view the filter results in Jira, using the ID of the filter. For example,...
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -131,6 +132,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /rest/api/3/filter
+
 
 - name: Update a filter
   stevefulme1.atlassian.jira_filter:
@@ -165,6 +167,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a filter
   stevefulme1.atlassian.jira_filter:
     id: "existing_id"
@@ -180,11 +183,13 @@ approximateLastUsed:
   returned: success
   type: str
 
+
 description:
   description: >-
     A description of the filter.
   returned: success
   type: str
+
 
 editPermissions:
   description: >-
@@ -192,11 +197,13 @@ editPermissions:
   returned: success
   type: list
 
+
 favourite:
   description: >-
     Whether the filter is selected as a favorite.
   returned: success
   type: bool
+
 
 favouritedCount:
   description: >-
@@ -204,11 +211,13 @@ favouritedCount:
   returned: success
   type: int
 
+
 id:
   description: >-
     The unique identifier for the filter.
   returned: success
   type: str
+
 
 jql:
   description: >-
@@ -216,11 +225,13 @@ jql:
   returned: success
   type: str
 
+
 name:
   description: >-
     The name of the filter. Must be unique.
   returned: success
   type: str
+
 
 owner:
   description: >-
@@ -228,11 +239,13 @@ owner:
   returned: success
   type: dict
 
+
 searchUrl:
   description: >-
     A URL to view the filter results in Jira, using the Search for issues using...
   returned: success
   type: str
+
 
 self:
   description: >-
@@ -240,11 +253,13 @@ self:
   returned: success
   type: str
 
+
 sharePermissions:
   description: >-
     The groups and projects that the filter is shared with.
   returned: success
   type: list
+
 
 sharedUsers:
   description: >-
@@ -252,11 +267,13 @@ sharedUsers:
   returned: success
   type: dict
 
+
 subscriptions:
   description: >-
     A paginated list of subscriptions to a filter.
   returned: success
   type: dict
+
 
 viewUrl:
   description: >-
@@ -278,6 +295,7 @@ def get_current_state(client, module):
 
     return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -289,6 +307,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -340,6 +359,7 @@ def build_payload(module):
         payload["viewUrl"] = module.params["viewUrl"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -526,6 +546,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

@@ -48,9 +48,11 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all content_restriction resources
   stevefulme1.atlassian.confluence_content_restriction_info:
   register: result
+
 
 - name: List content_restriction resources with pagination
   stevefulme1.atlassian.confluence_content_restriction_info:
@@ -113,6 +115,7 @@ def fetch_single(client, identifier):
             return item
     return None
 
+
 def fetch_list(client, module):
     """List content_restriction resources with optional filtering and pagination."""
 
@@ -132,6 +135,7 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/wiki/rest/api/content/{id}/restriction", params=params)
+
 
 def main():
     spec = auth_argument_spec()
@@ -172,6 +176,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

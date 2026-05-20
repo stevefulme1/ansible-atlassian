@@ -74,6 +74,7 @@ options:
         The updated type for this space.
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -85,6 +86,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /wiki/rest/api/space
+
 
 - name: Update a space
   stevefulme1.atlassian.confluence_space:
@@ -109,6 +111,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a space
   stevefulme1.atlassian.confluence_space:
     id: "existing_id"
@@ -124,11 +127,13 @@ id:
   returned: success
   type: int
 
+
 key:
   description: >-
 
   returned: success
   type: str
+
 
 alias:
   description: >-
@@ -136,11 +141,13 @@ alias:
   returned: success
   type: str
 
+
 name:
   description: >-
 
   returned: success
   type: str
+
 
 icon:
   description: >-
@@ -148,11 +155,13 @@ icon:
   returned: success
   type: dict
 
+
 description:
   description: >-
 
   returned: success
   type: dict
+
 
 homepage:
   description: >-
@@ -160,11 +169,13 @@ homepage:
   returned: success
   type: dict
 
+
 type:
   description: >-
 
   returned: success
   type: str
+
 
 metadata:
   description: >-
@@ -172,11 +183,13 @@ metadata:
   returned: success
   type: dict
 
+
 operations:
   description: >-
 
   returned: success
   type: list
+
 
 permissions:
   description: >-
@@ -184,11 +197,13 @@ permissions:
   returned: success
   type: list
 
+
 status:
   description: >-
 
   returned: success
   type: str
+
 
 settings:
   description: >-
@@ -196,11 +211,13 @@ settings:
   returned: success
   type: dict
 
+
 theme:
   description: >-
 
   returned: success
   type: dict
+
 
 lookAndFeel:
   description: >-
@@ -208,17 +225,20 @@ lookAndFeel:
   returned: success
   type: dict
 
+
 history:
   description: >-
 
   returned: success
   type: dict
 
+
 _expandable:
   description: >-
 
   returned: success
   type: dict
+
 
 _links:
   description: >-
@@ -240,6 +260,7 @@ def get_current_state(client, module):
 
     return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -251,6 +272,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -281,6 +303,7 @@ def build_payload(module):
         payload["type"] = module.params["type"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -436,6 +459,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

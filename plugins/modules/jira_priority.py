@@ -77,6 +77,7 @@ options:
         The status color of the priority in 3-digit or 6-digit hexadecimal format.
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -88,6 +89,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /rest/api/3/priority
+
 
 - name: Update a priority
   stevefulme1.atlassian.jira_priority:
@@ -106,6 +108,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
@@ -121,11 +124,13 @@ avatarId:
   returned: success
   type: int
 
+
 description:
   description: >-
     The description of the issue priority.
   returned: success
   type: str
+
 
 iconUrl:
   description: >-
@@ -133,11 +138,13 @@ iconUrl:
   returned: success
   type: str
 
+
 id:
   description: >-
     The ID of the issue priority.
   returned: success
   type: str
+
 
 isDefault:
   description: >-
@@ -145,11 +152,13 @@ isDefault:
   returned: success
   type: bool
 
+
 name:
   description: >-
     The name of the issue priority.
   returned: success
   type: str
+
 
 schemes:
   description: >-
@@ -157,11 +166,13 @@ schemes:
   returned: success
   type: dict
 
+
 self:
   description: >-
     The URL of the issue priority.
   returned: success
   type: str
+
 
 statusColor:
   description: >-
@@ -203,6 +214,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -214,6 +226,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -235,6 +248,7 @@ def build_payload(module):
         payload["statusColor"] = module.params["statusColor"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -378,6 +392,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

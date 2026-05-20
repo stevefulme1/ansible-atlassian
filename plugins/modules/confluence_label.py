@@ -26,6 +26,7 @@ options:
     choices: ['present', 'absent']
     default: present
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -47,6 +48,7 @@ label:
 
   returned: success
   type: dict
+
 
 associatedContents:
   description: >-
@@ -88,6 +90,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -100,11 +103,13 @@ def needs_update(current, desired):
             return True
     return False
 
+
 def build_payload(module):
     """Build the API request payload from module params."""
     payload = {}
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -180,6 +185,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

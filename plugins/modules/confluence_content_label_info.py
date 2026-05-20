@@ -54,14 +54,17 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all content_label resources
   stevefulme1.atlassian.confluence_content_label_info:
   register: result
+
 
 - name: List content_label resources filtered by name
   stevefulme1.atlassian.confluence_content_label_info:
     name: "my_content_label"
   register: result
+
 
 - name: List content_label resources with pagination
   stevefulme1.atlassian.confluence_content_label_info:
@@ -112,10 +115,12 @@ def fetch_single(client, identifier):
 
     raise ClientError("GET by identifier is not supported for this resource")
 
+
 def fetch_list(client, module):
     """List content_label resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
+
 
 def main():
     spec = auth_argument_spec()
@@ -158,6 +163,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

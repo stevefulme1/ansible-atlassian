@@ -48,9 +48,11 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all screen resources
   stevefulme1.atlassian.jira_screen_info:
   register: result
+
 
 - name: List screen resources with pagination
   stevefulme1.atlassian.jira_screen_info:
@@ -123,6 +125,7 @@ def fetch_single(client, identifier):
             return item
     return None
 
+
 def fetch_list(client, module):
     """List screen resources with optional filtering and pagination."""
 
@@ -142,6 +145,7 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/rest/api/3/screens", params=params)
+
 
 def main():
     spec = auth_argument_spec()
@@ -182,6 +186,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

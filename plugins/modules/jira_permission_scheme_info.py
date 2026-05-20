@@ -54,14 +54,17 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all permission_scheme resources
   stevefulme1.atlassian.jira_permission_scheme_info:
   register: result
+
 
 - name: List permission_scheme resources filtered by name
   stevefulme1.atlassian.jira_permission_scheme_info:
     name: "my_permission_scheme"
   register: result
+
 
 - name: List permission_scheme resources with pagination
   stevefulme1.atlassian.jira_permission_scheme_info:
@@ -134,6 +137,7 @@ def fetch_single(client, identifier):
             return item
     return None
 
+
 def fetch_list(client, module):
     """List permission_scheme resources with optional filtering and pagination."""
 
@@ -157,6 +161,7 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/rest/api/3/permissionscheme", params=params)
+
 
 def main():
     spec = auth_argument_spec()
@@ -199,6 +204,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

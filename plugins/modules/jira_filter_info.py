@@ -54,14 +54,17 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all filter resources
   stevefulme1.atlassian.jira_filter_info:
   register: result
+
 
 - name: List filter resources filtered by name
   stevefulme1.atlassian.jira_filter_info:
     name: "my_filter"
   register: result
+
 
 - name: List filter resources with pagination
   stevefulme1.atlassian.jira_filter_info:
@@ -167,10 +170,12 @@ def fetch_single(client, identifier):
 
     raise ClientError("GET by identifier is not supported for this resource")
 
+
 def fetch_list(client, module):
     """List filter resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
+
 
 def main():
     spec = auth_argument_spec()
@@ -213,6 +218,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

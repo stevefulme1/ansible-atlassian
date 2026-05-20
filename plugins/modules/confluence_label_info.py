@@ -54,14 +54,17 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all label resources
   stevefulme1.atlassian.confluence_label_info:
   register: result
+
 
 - name: List label resources filtered by label
   stevefulme1.atlassian.confluence_label_info:
     label: "my_label"
   register: result
+
 
 - name: List label resources with pagination
   stevefulme1.atlassian.confluence_label_info:
@@ -109,6 +112,7 @@ def fetch_single(client, identifier):
             return item
     return None
 
+
 def fetch_list(client, module):
     """List label resources with optional filtering and pagination."""
 
@@ -132,6 +136,7 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/wiki/rest/api/label", params=params)
+
 
 def main():
     spec = auth_argument_spec()
@@ -174,6 +179,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

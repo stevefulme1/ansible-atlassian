@@ -78,6 +78,7 @@ options:
         The URL of the user.
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -93,6 +94,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /rest/api/3/user
+
 
 - name: Update a user
   stevefulme1.atlassian.jira_user:
@@ -111,6 +113,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a user
   stevefulme1.atlassian.jira_user:
     key: "existing_id"
@@ -126,11 +129,13 @@ accountId:
   returned: success
   type: str
 
+
 accountType:
   description: >-
     The user account type. Can take the following values: atlassian regular Atlassian user account...
   returned: success
   type: str
+
 
 active:
   description: >-
@@ -138,11 +143,13 @@ active:
   returned: success
   type: bool
 
+
 appType:
   description: >-
     The app type of the user account when accountType is 'app'. Can take the following values:...
   returned: success
   type: str
+
 
 applicationRoles:
   description: >-
@@ -150,11 +157,13 @@ applicationRoles:
   returned: success
   type: dict
 
+
 avatarUrls:
   description: >-
 
   returned: success
   type: dict
+
 
 displayName:
   description: >-
@@ -162,11 +171,13 @@ displayName:
   returned: success
   type: str
 
+
 emailAddress:
   description: >-
     The email address of the user. Depending on the user's privacy setting, this may be returned as null.
   returned: success
   type: str
+
 
 expand:
   description: >-
@@ -174,11 +185,13 @@ expand:
   returned: success
   type: str
 
+
 groups:
   description: >-
 
   returned: success
   type: dict
+
 
 guest:
   description: >-
@@ -186,11 +199,13 @@ guest:
   returned: success
   type: bool
 
+
 key:
   description: >-
     This property is no longer available and will be removed from the documentation soon. See the...
   returned: success
   type: str
+
 
 locale:
   description: >-
@@ -198,17 +213,20 @@ locale:
   returned: success
   type: str
 
+
 name:
   description: >-
     This property is no longer available and will be removed from the documentation soon. See the...
   returned: success
   type: str
 
+
 self:
   description: >-
     The URL of the user.
   returned: success
   type: str
+
 
 timeZone:
   description: >-
@@ -250,6 +268,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -261,6 +280,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -291,6 +311,7 @@ def build_payload(module):
         payload["self"] = module.params["self"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -446,6 +467,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

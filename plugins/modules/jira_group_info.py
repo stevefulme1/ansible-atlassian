@@ -54,14 +54,17 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all group resources
   stevefulme1.atlassian.jira_group_info:
   register: result
+
 
 - name: List group resources filtered by name
   stevefulme1.atlassian.jira_group_info:
     name: "my_group"
   register: result
+
 
 - name: List group resources with pagination
   stevefulme1.atlassian.jira_group_info:
@@ -114,6 +117,7 @@ def fetch_single(client, identifier):
             return item
     return None
 
+
 def fetch_list(client, module):
     """List group resources with optional filtering and pagination."""
 
@@ -137,6 +141,7 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/rest/api/3/user/groups", params=params)
+
 
 def main():
     spec = auth_argument_spec()
@@ -179,6 +184,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

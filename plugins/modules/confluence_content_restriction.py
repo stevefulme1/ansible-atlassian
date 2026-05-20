@@ -64,6 +64,7 @@ options:
 
     type: int
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -77,6 +78,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /wiki/rest/api/content/{id}/restriction
+
 
 - name: Update a content_restriction
   stevefulme1.atlassian.confluence_content_restriction:
@@ -95,6 +97,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a content_restriction
   stevefulme1.atlassian.confluence_content_restriction:
     id: "existing_id"
@@ -110,11 +113,13 @@ operation:
   returned: success
   type: str
 
+
 restrictions:
   description: >-
 
   returned: success
   type: dict
+
 
 content:
   description: >-
@@ -122,11 +127,13 @@ content:
   returned: success
   type: dict
 
+
 _expandable:
   description: >-
 
   returned: success
   type: dict
+
 
 _links:
   description: >-
@@ -167,6 +174,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -178,6 +186,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -202,6 +211,7 @@ def build_payload(module):
         payload["start"] = module.params["start"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -323,6 +333,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

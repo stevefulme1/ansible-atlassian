@@ -38,6 +38,7 @@ options:
         The name of the screen. The name must be unique. The maximum length is 255 characters.
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -50,6 +51,7 @@ EXAMPLES = r"""
     state: present
   # API: POST /rest/api/3/screens
 
+
 - name: Update a screen
   stevefulme1.atlassian.jira_screen:
     id: "existing_id"
@@ -60,6 +62,7 @@ EXAMPLES = r"""
 
     state: present
   # API:
+
 
 - name: Delete a screen
   stevefulme1.atlassian.jira_screen:
@@ -76,11 +79,13 @@ isLast:
   returned: success
   type: bool
 
+
 maxResults:
   description: >-
     The maximum number of items that could be returned.
   returned: success
   type: int
+
 
 nextPage:
   description: >-
@@ -88,11 +93,13 @@ nextPage:
   returned: success
   type: str
 
+
 self:
   description: >-
     The URL of the page.
   returned: success
   type: str
+
 
 startAt:
   description: >-
@@ -100,11 +107,13 @@ startAt:
   returned: success
   type: int
 
+
 total:
   description: >-
     The number of items returned.
   returned: success
   type: int
+
 
 values:
   description: >-
@@ -145,6 +154,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -157,6 +167,7 @@ def needs_update(current, desired):
             return True
     return False
 
+
 def build_payload(module):
     """Build the API request payload from module params."""
     payload = {}
@@ -168,6 +179,7 @@ def build_payload(module):
         payload["name"] = module.params["name"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -271,6 +283,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

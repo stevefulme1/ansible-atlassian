@@ -56,6 +56,7 @@ options:
         A Map containing the field field name and a list of operations to perform on the issue screen...
     type: dict
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -67,6 +68,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /rest/api/3/issue
+
 
 - name: Update a issue
   stevefulme1.atlassian.jira_issue:
@@ -85,6 +87,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a issue
   stevefulme1.atlassian.jira_issue:
     id: "existing_id"
@@ -100,11 +103,13 @@ changelog:
   returned: success
   type: dict
 
+
 editmeta:
   description: >-
     A list of editable field details.
   returned: success
   type: dict
+
 
 expand:
   description: >-
@@ -112,11 +117,13 @@ expand:
   returned: success
   type: str
 
+
 fields:
   description: >-
 
   returned: success
   type: dict
+
 
 fieldsToInclude:
   description: >-
@@ -124,11 +131,13 @@ fieldsToInclude:
   returned: success
   type: dict
 
+
 id:
   description: >-
     The ID of the issue.
   returned: success
   type: str
+
 
 key:
   description: >-
@@ -136,11 +145,13 @@ key:
   returned: success
   type: str
 
+
 names:
   description: >-
     The ID and name of each field present on the issue.
   returned: success
   type: dict
+
 
 operations:
   description: >-
@@ -148,11 +159,13 @@ operations:
   returned: success
   type: dict
 
+
 properties:
   description: >-
     Details of the issue properties identified in the request.
   returned: success
   type: dict
+
 
 renderedFields:
   description: >-
@@ -160,11 +173,13 @@ renderedFields:
   returned: success
   type: dict
 
+
 schema:
   description: >-
     The schema describing each field present on the issue.
   returned: success
   type: dict
+
 
 self:
   description: >-
@@ -172,11 +187,13 @@ self:
   returned: success
   type: str
 
+
 transitions:
   description: >-
     The transitions that can be performed on the issue.
   returned: success
   type: list
+
 
 versionedRepresentations:
   description: >-
@@ -198,6 +215,7 @@ def get_current_state(client, module):
 
     return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -209,6 +227,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -230,6 +249,7 @@ def build_payload(module):
         payload["update"] = module.params["update"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -364,6 +384,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

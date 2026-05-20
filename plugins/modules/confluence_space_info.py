@@ -54,14 +54,17 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all space resources
   stevefulme1.atlassian.confluence_space_info:
   register: result
+
 
 - name: List space resources filtered by name
   stevefulme1.atlassian.confluence_space_info:
     name: "my_space"
   register: result
+
 
 - name: List space resources with pagination
   stevefulme1.atlassian.confluence_space_info:
@@ -182,10 +185,12 @@ def fetch_single(client, identifier):
 
     raise ClientError("GET by identifier is not supported for this resource")
 
+
 def fetch_list(client, module):
     """List space resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
+
 
 def main():
     spec = auth_argument_spec()
@@ -228,6 +233,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

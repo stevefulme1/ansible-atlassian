@@ -191,6 +191,7 @@ options:
         The ID of the workflow scheme for the project. Use the Get all workflow...
     type: int
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -202,6 +203,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /rest/api/3/project
+
 
 - name: Update a project
   stevefulme1.atlassian.jira_project:
@@ -250,6 +252,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
@@ -265,11 +268,13 @@ archived:
   returned: success
   type: bool
 
+
 archivedBy:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
+
 
 archivedDate:
   description: >-
@@ -277,11 +282,13 @@ archivedDate:
   returned: success
   type: str
 
+
 assigneeType:
   description: >-
     The default assignee when creating issues for this project.
   returned: success
   type: str
+
 
 avatarUrls:
   description: >-
@@ -289,11 +296,13 @@ avatarUrls:
   returned: success
   type: dict
 
+
 components:
   description: >-
     List of the components contained in the project.
   returned: success
   type: list
+
 
 deleted:
   description: >-
@@ -301,11 +310,13 @@ deleted:
   returned: success
   type: bool
 
+
 deletedBy:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
+
 
 deletedDate:
   description: >-
@@ -313,11 +324,13 @@ deletedDate:
   returned: success
   type: str
 
+
 description:
   description: >-
     A brief description of the project.
   returned: success
   type: str
+
 
 email:
   description: >-
@@ -325,11 +338,13 @@ email:
   returned: success
   type: str
 
+
 expand:
   description: >-
     Expand options that include additional project details in the response.
   returned: success
   type: str
+
 
 favourite:
   description: >-
@@ -337,11 +352,13 @@ favourite:
   returned: success
   type: bool
 
+
 id:
   description: >-
     The ID of the project.
   returned: success
   type: str
+
 
 insight:
   description: >-
@@ -349,11 +366,13 @@ insight:
   returned: success
   type: dict
 
+
 isPrivate:
   description: >-
     Whether the project is private from the user's perspective. This means the user can't see the...
   returned: success
   type: bool
+
 
 issueTypeHierarchy:
   description: >-
@@ -361,11 +380,13 @@ issueTypeHierarchy:
   returned: success
   type: dict
 
+
 issueTypes:
   description: >-
     List of the issue types available in the project.
   returned: success
   type: list
+
 
 key:
   description: >-
@@ -373,11 +394,13 @@ key:
   returned: success
   type: str
 
+
 landingPageInfo:
   description: >-
 
   returned: success
   type: dict
+
 
 lead:
   description: >-
@@ -385,11 +408,13 @@ lead:
   returned: success
   type: dict
 
+
 name:
   description: >-
     The name of the project.
   returned: success
   type: str
+
 
 permissions:
   description: >-
@@ -397,11 +422,13 @@ permissions:
   returned: success
   type: dict
 
+
 projectCategory:
   description: >-
     A project category.
   returned: success
   type: dict
+
 
 projectTypeKey:
   description: >-
@@ -409,11 +436,13 @@ projectTypeKey:
   returned: success
   type: str
 
+
 properties:
   description: >-
     Map of project properties
   returned: success
   type: dict
+
 
 retentionTillDate:
   description: >-
@@ -421,11 +450,13 @@ retentionTillDate:
   returned: success
   type: str
 
+
 roles:
   description: >-
     The name and self URL for each role defined in the project. For more information, see Create...
   returned: success
   type: dict
+
 
 self:
   description: >-
@@ -433,11 +464,13 @@ self:
   returned: success
   type: str
 
+
 simplified:
   description: >-
     Whether the project is simplified.
   returned: success
   type: bool
+
 
 style:
   description: >-
@@ -445,17 +478,20 @@ style:
   returned: success
   type: str
 
+
 url:
   description: >-
     A link to information about this project, such as project documentation.
   returned: success
   type: str
 
+
 uuid:
   description: >-
     Unique ID for next-gen projects.
   returned: success
   type: str
+
 
 versions:
   description: >-
@@ -497,6 +533,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -508,6 +545,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -574,6 +612,7 @@ def build_payload(module):
         payload["workflowScheme"] = module.params["workflowScheme"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -866,6 +905,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

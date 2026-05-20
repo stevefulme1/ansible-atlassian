@@ -126,6 +126,7 @@ options:
         The URL of the component.
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -137,6 +138,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /rest/api/3/component
+
 
 - name: Update a component
   stevefulme1.atlassian.jira_component:
@@ -175,6 +177,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a component
   stevefulme1.atlassian.jira_component:
     id: "existing_id"
@@ -190,11 +193,13 @@ ari:
   returned: success
   type: str
 
+
 assignee:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
+
 
 assigneeType:
   description: >-
@@ -202,11 +207,13 @@ assigneeType:
   returned: success
   type: str
 
+
 description:
   description: >-
     The description for the component. Optional when creating or updating a component.
   returned: success
   type: str
+
 
 id:
   description: >-
@@ -214,11 +221,13 @@ id:
   returned: success
   type: str
 
+
 isAssigneeTypeValid:
   description: >-
     Whether a user is associated with assigneeType. For example, if the assigneeType is set to...
   returned: success
   type: bool
+
 
 lead:
   description: >-
@@ -226,11 +235,13 @@ lead:
   returned: success
   type: dict
 
+
 leadAccountId:
   description: >-
     The accountId of the component's lead user. The accountId uniquely identifies the user across...
   returned: success
   type: str
+
 
 leadUserName:
   description: >-
@@ -238,11 +249,13 @@ leadUserName:
   returned: success
   type: str
 
+
 metadata:
   description: >-
     Compass component's metadata. Can't be updated. Not required for creating a Project Component.
   returned: success
   type: dict
+
 
 name:
   description: >-
@@ -250,11 +263,13 @@ name:
   returned: success
   type: str
 
+
 project:
   description: >-
     The key of the project the component is assigned to. Required when creating a component. Can't...
   returned: success
   type: str
+
 
 projectId:
   description: >-
@@ -262,17 +277,20 @@ projectId:
   returned: success
   type: int
 
+
 realAssignee:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
 
+
 realAssigneeType:
   description: >-
     The type of the assignee that is assigned to issues created with this component, when an...
   returned: success
   type: str
+
 
 self:
   description: >-
@@ -314,6 +332,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -325,6 +344,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -379,6 +399,7 @@ def build_payload(module):
         payload["self"] = module.params["self"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -574,6 +595,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

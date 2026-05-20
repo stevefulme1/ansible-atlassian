@@ -42,6 +42,7 @@ options:
 
     required: true
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -58,12 +59,14 @@ EXAMPLES = r"""
     state: present
   # API: POST /rest/api/3/statuses
 
+
 - name: Update a status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
 
     state: present
   # API:
+
 
 - name: Delete a status
   stevefulme1.atlassian.jira_status:
@@ -80,11 +83,13 @@ description:
   returned: success
   type: str
 
+
 id:
   description: >-
     The ID of the status.
   returned: success
   type: str
+
 
 name:
   description: >-
@@ -92,11 +97,13 @@ name:
   returned: success
   type: str
 
+
 scope:
   description: >-
     The scope of the status.
   returned: success
   type: dict
+
 
 statusCategory:
   description: >-
@@ -138,6 +145,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -150,6 +158,7 @@ def needs_update(current, desired):
             return True
     return False
 
+
 def build_payload(module):
     """Build the API request payload from module params."""
     payload = {}
@@ -161,6 +170,7 @@ def build_payload(module):
         payload["statuses"] = module.params["statuses"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -264,6 +274,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

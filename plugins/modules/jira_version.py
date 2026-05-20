@@ -140,6 +140,7 @@ options:
         The date on which work on this version is expected to start, expressed in the instance's...
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -151,6 +152,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /rest/api/3/version
+
 
 - name: Update a version
   stevefulme1.atlassian.jira_version:
@@ -195,6 +197,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a version
   stevefulme1.atlassian.jira_version:
     id: "existing_id"
@@ -210,11 +213,13 @@ approvers:
   returned: success
   type: list
 
+
 archived:
   description: >-
     Indicates that the version is archived. Optional when creating or updating a version.
   returned: success
   type: bool
+
 
 description:
   description: >-
@@ -222,11 +227,13 @@ description:
   returned: success
   type: str
 
+
 driver:
   description: >-
     The Atlassian account ID of the version driver. Optional when creating or updating a version. If...
   returned: success
   type: str
+
 
 expand:
   description: >-
@@ -234,11 +241,13 @@ expand:
   returned: success
   type: str
 
+
 id:
   description: >-
     The ID of the version.
   returned: success
   type: str
+
 
 issuesStatusForFixVersion:
   description: >-
@@ -246,11 +255,13 @@ issuesStatusForFixVersion:
   returned: success
   type: dict
 
+
 moveUnfixedIssuesTo:
   description: >-
     The URL of the self link to the version to which all unfixed issues are moved when a version is...
   returned: success
   type: str
+
 
 name:
   description: >-
@@ -258,11 +269,13 @@ name:
   returned: success
   type: str
 
+
 operations:
   description: >-
     If the expand option operations is used, returns the list of operations available for this version.
   returned: success
   type: list
+
 
 overdue:
   description: >-
@@ -270,11 +283,13 @@ overdue:
   returned: success
   type: bool
 
+
 project:
   description: >-
     Deprecated. Use projectId.
   returned: success
   type: str
+
 
 projectId:
   description: >-
@@ -282,11 +297,13 @@ projectId:
   returned: success
   type: int
 
+
 releaseDate:
   description: >-
     The release date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when...
   returned: success
   type: str
+
 
 released:
   description: >-
@@ -294,11 +311,13 @@ released:
   returned: success
   type: bool
 
+
 self:
   description: >-
     The URL of the version.
   returned: success
   type: str
+
 
 startDate:
   description: >-
@@ -306,11 +325,13 @@ startDate:
   returned: success
   type: str
 
+
 userReleaseDate:
   description: >-
     The date on which work on this version is expected to finish, expressed in the instance's...
   returned: success
   type: str
+
 
 userStartDate:
   description: >-
@@ -332,6 +353,7 @@ def get_current_state(client, module):
 
     return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -343,6 +365,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -406,6 +429,7 @@ def build_payload(module):
         payload["userStartDate"] = module.params["userStartDate"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -618,6 +642,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

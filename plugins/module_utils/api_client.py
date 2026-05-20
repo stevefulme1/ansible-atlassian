@@ -24,6 +24,7 @@ class ClientError(Exception):
         self.status_code = status_code
         self.response_body = response_body
 
+
 def argument_spec():
     """Return the shared authentication argument spec for all modules."""
     return dict(
@@ -38,6 +39,7 @@ def argument_spec():
         validate_certs=dict(type="bool", default=True),
         request_timeout=dict(type="int", default=30),
     )
+
 
 class Client:
     """HTTP client for the atlassian API with auth, retry, and pagination."""

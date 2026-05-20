@@ -56,6 +56,7 @@ options:
         The description of the dashboard.
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -74,6 +75,7 @@ EXAMPLES = r"""
     state: present
   # API: POST /rest/api/3/dashboard
 
+
 - name: Update a dashboard
   stevefulme1.atlassian.jira_dashboard:
     id: "existing_id"
@@ -82,6 +84,7 @@ EXAMPLES = r"""
 
     state: present
   # API:
+
 
 - name: Delete a dashboard
   stevefulme1.atlassian.jira_dashboard:
@@ -98,11 +101,13 @@ automaticRefreshMs:
   returned: success
   type: int
 
+
 description:
   description: >-
 
   returned: success
   type: str
+
 
 editPermissions:
   description: >-
@@ -110,11 +115,13 @@ editPermissions:
   returned: success
   type: list
 
+
 id:
   description: >-
     The ID of the dashboard.
   returned: success
   type: str
+
 
 isFavourite:
   description: >-
@@ -122,11 +129,13 @@ isFavourite:
   returned: success
   type: bool
 
+
 isWritable:
   description: >-
     Whether the current user has permission to edit the dashboard.
   returned: success
   type: bool
+
 
 name:
   description: >-
@@ -134,11 +143,13 @@ name:
   returned: success
   type: str
 
+
 owner:
   description: >-
 
   returned: success
   type: dict
+
 
 popularity:
   description: >-
@@ -146,11 +157,13 @@ popularity:
   returned: success
   type: int
 
+
 rank:
   description: >-
     The rank of this dashboard.
   returned: success
   type: int
+
 
 self:
   description: >-
@@ -158,17 +171,20 @@ self:
   returned: success
   type: str
 
+
 sharePermissions:
   description: >-
     The details of any view share permissions for the dashboard.
   returned: success
   type: list
 
+
 systemDashboard:
   description: >-
     Whether the current dashboard is system dashboard.
   returned: success
   type: bool
+
 
 view:
   description: >-
@@ -210,6 +226,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -221,6 +238,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -239,6 +257,7 @@ def build_payload(module):
         payload["description"] = module.params["description"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -372,6 +391,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

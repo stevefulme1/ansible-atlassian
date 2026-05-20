@@ -70,6 +70,7 @@ options:
         The URL of the permission scheme.
     type: str
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -83,6 +84,7 @@ EXAMPLES = r"""
 
     state: present
   # API: POST /rest/api/3/permissionscheme
+
 
 - name: Update a permission_scheme
   stevefulme1.atlassian.jira_permission_scheme:
@@ -101,6 +103,7 @@ EXAMPLES = r"""
     state: present
   # API:
 
+
 - name: Delete a permission_scheme
   stevefulme1.atlassian.jira_permission_scheme:
     id: "existing_id"
@@ -116,11 +119,13 @@ description:
   returned: success
   type: str
 
+
 expand:
   description: >-
     The expand options available for the permission scheme.
   returned: success
   type: str
+
 
 id:
   description: >-
@@ -128,11 +133,13 @@ id:
   returned: success
   type: int
 
+
 name:
   description: >-
     The name of the permission scheme. Must be unique.
   returned: success
   type: str
+
 
 permissions:
   description: >-
@@ -140,11 +147,13 @@ permissions:
   returned: success
   type: list
 
+
 scope:
   description: >-
     The projects the item is associated with. Indicated for items associated with next-gen projects.
   returned: success
   type: dict
+
 
 self:
   description: >-
@@ -186,6 +195,7 @@ def get_current_state(client, module):
     except ClientError:
         return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -197,6 +207,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -224,6 +235,7 @@ def build_payload(module):
         payload["self"] = module.params["self"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -354,6 +366,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

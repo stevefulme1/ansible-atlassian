@@ -78,6 +78,7 @@ options:
         The key for the space of the template. Required if the template is a space template. Set this to...
     type: dict
 
+
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -98,6 +99,7 @@ EXAMPLES = r"""
     state: present
   # API: POST /wiki/rest/api/template
 
+
 - name: Update a template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
@@ -110,6 +112,7 @@ EXAMPLES = r"""
 
     state: present
   # API:
+
 
 - name: Delete a template
   stevefulme1.atlassian.confluence_template:
@@ -126,11 +129,13 @@ templateId:
   returned: success
   type: str
 
+
 originalTemplate:
   description: >-
 
   returned: success
   type: dict
+
 
 referencingBlueprint:
   description: >-
@@ -138,11 +143,13 @@ referencingBlueprint:
   returned: success
   type: str
 
+
 name:
   description: >-
 
   returned: success
   type: str
+
 
 description:
   description: >-
@@ -150,11 +157,13 @@ description:
   returned: success
   type: str
 
+
 space:
   description: >-
 
   returned: success
   type: dict
+
 
 labels:
   description: >-
@@ -162,11 +171,13 @@ labels:
   returned: success
   type: list
 
+
 templateType:
   description: >-
 
   returned: success
   type: str
+
 
 editorVersion:
   description: >-
@@ -174,17 +185,20 @@ editorVersion:
   returned: success
   type: str
 
+
 body:
   description: >-
     The body of the new content. Does not apply to attachments. Only one body format should be...
   returned: success
   type: dict
 
+
 _expandable:
   description: >-
 
   returned: success
   type: dict
+
 
 _links:
   description: >-
@@ -206,6 +220,7 @@ def get_current_state(client, module):
 
     return None
 
+
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -217,6 +232,7 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
+
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -244,6 +260,7 @@ def build_payload(module):
         payload["space"] = module.params["space"]
 
     return payload
+
 
 def main():
     spec = auth_argument_spec()
@@ -392,6 +409,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

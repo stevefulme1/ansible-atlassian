@@ -54,14 +54,17 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all status resources
   stevefulme1.atlassian.jira_status_info:
   register: result
+
 
 - name: List status resources filtered by name
   stevefulme1.atlassian.jira_status_info:
     name: "my_status"
   register: result
+
 
 - name: List status resources with pagination
   stevefulme1.atlassian.jira_status_info:
@@ -124,6 +127,7 @@ def fetch_single(client, identifier):
             return item
     return None
 
+
 def fetch_list(client, module):
     """List status resources with optional filtering and pagination."""
 
@@ -147,6 +151,7 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/rest/api/3/statuses", params=params)
+
 
 def main():
     spec = auth_argument_spec()
@@ -189,6 +194,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()

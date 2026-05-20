@@ -48,9 +48,11 @@ EXAMPLES = r"""
     id: "example_id"
   register: result
 
+
 - name: List all workflow resources
   stevefulme1.atlassian.jira_workflow_info:
   register: result
+
 
 - name: List workflow resources with pagination
   stevefulme1.atlassian.jira_workflow_info:
@@ -91,10 +93,12 @@ def fetch_single(client, identifier):
 
     raise ClientError("GET by identifier is not supported for this resource")
 
+
 def fetch_list(client, module):
     """List workflow resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
+
 
 def main():
     spec = auth_argument_spec()
@@ -135,6 +139,7 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
+
 
 if __name__ == "__main__":
     main()
