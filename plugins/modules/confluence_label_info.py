@@ -32,7 +32,6 @@ options:
     type: str
     required: false
 
-
   page:
     description:
       - Page number for paginated results.
@@ -59,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_label_info:
   register: result
 
-
 - name: List label resources filtered by label
   stevefulme1.atlassian.confluence_label_info:
     label: "my_label"
   register: result
-
 
 - name: List label resources with pagination
   stevefulme1.atlassian.confluence_label_info:
@@ -83,16 +80,13 @@ labels:
 
     label:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     associatedContents:
       description: >-
-        
+
       type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

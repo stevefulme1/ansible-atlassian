@@ -9,7 +9,6 @@
   ansible.builtin.set_fact:
     test_pipeline_params:
 
-
 # ============================================================
 # CREATE - check mode
 # ============================================================
@@ -93,11 +92,8 @@
 # UPDATE
 # ============================================================
 
-
-
 # No optional string parameters available for update testing.
 # Update idempotency tests are skipped for this resource.
-
 
 # ============================================================
 # DELETE - check mode

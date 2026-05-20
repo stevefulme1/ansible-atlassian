@@ -32,19 +32,11 @@ options:
         The ID for the avatar for the priority. This parameter is nullable and both iconUrl and avatarId...
     type: int
 
-
-
-
-
   description:
     description:
       - >-
         The description of the priority.
     type: str
-
-
-
-
 
   iconUrl:
     description:
@@ -73,28 +65,17 @@ options:
       - /images/icons/priorities/minor_new.png
       - /images/icons/priorities/trivial_new.png
 
-
-
-
   name:
     description:
       - >-
         The name of the priority. Must be unique.
     type: str
 
-
-
-
-
   statusColor:
     description:
       - >-
         The status color of the priority in 3-digit or 6-digit hexadecimal format.
     type: str
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -105,56 +86,31 @@ EXAMPLES = r"""
 - name: Create a priority
   stevefulme1.atlassian.jira_priority:
 
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/priority
-
-
 
 - name: Update a priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
 
-
     avatarId: "updated_avatarId"
-
-
 
     description: "updated_description"
 
-
-
     iconUrl: "updated_iconUrl"
-
-
 
     name: "updated_name"
 
-
-
     statusColor: "updated_statusColor"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/priority/{id}
-
 """
 
 RETURN = r"""
@@ -165,13 +121,11 @@ avatarId:
   returned: success
   type: int
 
-
 description:
   description: >-
     The description of the issue priority.
   returned: success
   type: str
-
 
 iconUrl:
   description: >-
@@ -179,13 +133,11 @@ iconUrl:
   returned: success
   type: str
 
-
 id:
   description: >-
     The ID of the issue priority.
   returned: success
   type: str
-
 
 isDefault:
   description: >-
@@ -193,20 +145,17 @@ isDefault:
   returned: success
   type: bool
 
-
 name:
   description: >-
     The name of the issue priority.
   returned: success
   type: str
 
-
 schemes:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 self:
   description: >-
@@ -214,14 +163,11 @@ self:
   returned: success
   type: str
 
-
 statusColor:
   description: >-
     The color used to indicate the issue priority.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -9,6 +9,9 @@ description: Ansible collection for Atlassian Jira, Confluence, and Bitbucket AP
 license:
   - GPL-3.0-or-later
 tags:
+  - application
+  - cloud
+  - tools
   - atlassian
   - jira
   - confluence

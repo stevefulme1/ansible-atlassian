@@ -32,17 +32,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -69,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_issue_type_info:
   register: result
 
-
 - name: List issue_type resources filtered by name
   stevefulme1.atlassian.jira_issue_type_info:
     name: "my_issue_type"
   register: result
-
 
 - name: List issue_type resources with pagination
   stevefulme1.atlassian.jira_issue_type_info:
@@ -96,61 +83,50 @@ issue_types:
         The ID of the issue type's avatar.
       type: int
 
-
     description:
       description: >-
         The description of the issue type.
       type: str
-
 
     entityId:
       description: >-
         Unique ID for next-gen projects.
       type: str
 
-
     hierarchyLevel:
       description: >-
         Hierarchy level of the issue type.
       type: int
-
 
     iconUrl:
       description: >-
         The URL of the issue type's avatar.
       type: str
 
-
     id:
       description: >-
         The ID of the issue type.
       type: str
-
 
     name:
       description: >-
         The name of the issue type.
       type: str
 
-
     scope:
       description: >-
         The projects the item is associated with. Indicated for items associated with next-gen projects.
       type: dict
-
 
     self:
       description: >-
         The URL of these issue type details.
       type: str
 
-
     subtask:
       description: >-
         Whether this issue type is used to create subtasks.
       type: bool
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -32,19 +32,11 @@ options:
         The description of the screen. The maximum length is 255 characters.
     type: str
 
-
-
-
-
   name:
     description:
       - >-
         The name of the screen. The name must be unique. The maximum length is 255 characters.
     type: str
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -55,38 +47,25 @@ EXAMPLES = r"""
 - name: Create a screen
   stevefulme1.atlassian.jira_screen:
 
-
-
-
-
     state: present
   # API: POST /rest/api/3/screens
-
-
 
 - name: Update a screen
   stevefulme1.atlassian.jira_screen:
     id: "existing_id"
 
-
     description: "updated_description"
-
-
 
     name: "updated_name"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a screen
   stevefulme1.atlassian.jira_screen:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/screens/{screenId}
-
 """
 
 RETURN = r"""
@@ -97,13 +76,11 @@ isLast:
   returned: success
   type: bool
 
-
 maxResults:
   description: >-
     The maximum number of items that could be returned.
   returned: success
   type: int
-
 
 nextPage:
   description: >-
@@ -111,13 +88,11 @@ nextPage:
   returned: success
   type: str
 
-
 self:
   description: >-
     The URL of the page.
   returned: success
   type: str
-
 
 startAt:
   description: >-
@@ -125,21 +100,17 @@ startAt:
   returned: success
   type: int
 
-
 total:
   description: >-
     The number of items returned.
   returned: success
   type: int
 
-
 values:
   description: >-
     The list of items.
   returned: success
   type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

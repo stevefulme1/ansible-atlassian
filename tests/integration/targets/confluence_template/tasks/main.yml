@@ -9,28 +9,13 @@
   ansible.builtin.set_fact:
     test_template_params:
 
-
       body: "{{ test_body | default("test_body_value") }}"
-
-
 
       name: "{{ test_name | default("test_name_value") }}"
 
-
-
       templateId: "{{ test_templateId | default("test_templateId_value") }}"
 
-
-
       templateType: "{{ test_templateType | default("test_templateType_value") }}"
-
-
-
-
-
-
-
-
 
 # ============================================================
 # CREATE - check mode
@@ -52,21 +37,7 @@
 - name: Verify template was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_template_info:
 
-
-
-
     name: "{{ test_name | default("test_name_value") }}"
-
-
-
-
-
-
-
-
-
-
-
 
   register: check_verify
 
@@ -125,51 +96,19 @@
     that:
       - info_result.templates | length == 1
 
-
       - info_result.templates[0].body == test_template_params.body
-
-
 
       - info_result.templates[0].name == test_template_params.name
 
-
-
       - info_result.templates[0].templateId == test_template_params.templateId
 
-
-
       - info_result.templates[0].templateType == test_template_params.templateType
-
-
-
-
-
-
-
 
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update template
   stevefulme1.atlassian.confluence_template:
@@ -203,7 +142,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

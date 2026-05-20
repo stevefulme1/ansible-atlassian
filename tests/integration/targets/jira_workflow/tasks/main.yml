@@ -9,13 +9,6 @@
   ansible.builtin.set_fact:
     test_workflow_params:
 
-
-
-
-
-
-
-
 # ============================================================
 # CREATE - check mode
 # ============================================================
@@ -35,12 +28,6 @@
 
 - name: Verify workflow was NOT actually created (check mode)
   stevefulme1.atlassian.jira_workflow_info:
-
-
-
-
-
-
 
   register: check_verify
 
@@ -99,29 +86,14 @@
     that:
       - info_result.workflows | length == 1
 
-
-
-
-
-
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
 
-
-
-
-
-
-
-
-
 # No optional string parameters available for update testing.
 # Update idempotency tests are skipped for this resource.
-
 
 # ============================================================
 # DELETE - check mode

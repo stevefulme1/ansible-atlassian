@@ -38,27 +38,21 @@ EXAMPLES = r"""
     state: present
   # API: POST /workspaces/{workspace}/projects
 
-
-
 - name: Update a project
   stevefulme1.atlassian.bitbucket_project:
     id: "existing_id"
 
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a project
   stevefulme1.atlassian.bitbucket_project:
     id: "existing_id"
     state: absent
   # API: DELETE /workspaces/{workspace}/projects/{project_key}
-
 """
 
 RETURN = r"""
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

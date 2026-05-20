@@ -32,39 +32,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -91,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_component_info:
   register: result
 
-
 - name: List component resources filtered by name
   stevefulme1.atlassian.jira_component_info:
     name: "my_component"
   register: result
-
 
 - name: List component resources with pagination
   stevefulme1.atlassian.jira_component_info:
@@ -118,97 +83,80 @@ components:
         Compass component's ID. Can't be updated. Not required for creating a Project Component.
       type: str
 
-
     assignee:
       description: >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
       type: dict
-
 
     assigneeType:
       description: >-
         The nominal user type used to determine the assignee for issues created with this component. See...
       type: str
 
-
     description:
       description: >-
         The description for the component. Optional when creating or updating a component.
       type: str
-
 
     id:
       description: >-
         The unique identifier for the component.
       type: str
 
-
     isAssigneeTypeValid:
       description: >-
         Whether a user is associated with assigneeType. For example, if the assigneeType is set to...
       type: bool
-
 
     lead:
       description: >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
       type: dict
 
-
     leadAccountId:
       description: >-
         The accountId of the component's lead user. The accountId uniquely identifies the user across...
       type: str
-
 
     leadUserName:
       description: >-
         This property is no longer available and will be removed from the documentation soon. See the...
       type: str
 
-
     metadata:
       description: >-
         Compass component's metadata. Can't be updated. Not required for creating a Project Component.
       type: dict
-
 
     name:
       description: >-
         The unique name for the component in the project. Required when creating a component. Optional...
       type: str
 
-
     project:
       description: >-
         The key of the project the component is assigned to. Required when creating a component. Can't...
       type: str
-
 
     projectId:
       description: >-
         The ID of the project the component is assigned to.
       type: int
 
-
     realAssignee:
       description: >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
       type: dict
-
 
     realAssigneeType:
       description: >-
         The type of the assignee that is assigned to issues created with this component, when an...
       type: str
 
-
     self:
       description: >-
         The URL of the component.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

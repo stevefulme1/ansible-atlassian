@@ -9,47 +9,6 @@
   ansible.builtin.set_fact:
     test_project_params:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ============================================================
 # CREATE - check mode
 # ============================================================
@@ -70,47 +29,7 @@
 - name: Verify project was NOT actually created (check mode)
   stevefulme1.atlassian.jira_project_info:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     name: "{{ test_name | default("test_name_value") }}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   register: check_verify
 
@@ -169,111 +88,11 @@
     that:
       - info_result.projects | length == 1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update project
   stevefulme1.atlassian.jira_project:
@@ -339,7 +158,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

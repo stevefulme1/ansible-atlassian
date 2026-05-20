@@ -9,14 +9,9 @@
   ansible.builtin.set_fact:
     test_status_params:
 
-
       scope: "{{ test_scope | default("test_scope_value") }}"
 
-
-
       statuses: "{{ test_statuses | default("test_statuses_value") }}"
-
-
 
 # ============================================================
 # CREATE - check mode
@@ -37,10 +32,6 @@
 
 - name: Verify status was NOT actually created (check mode)
   stevefulme1.atlassian.jira_status_info:
-
-
-
-
 
   register: check_verify
 
@@ -99,13 +90,9 @@
     that:
       - info_result.statuss | length == 1
 
-
       - info_result.statuss[0].scope == test_status_params.scope
 
-
-
       - info_result.statuss[0].statuses == test_status_params.statuses
-
 
     fail_msg: "Created resource does not match expected values"
 
@@ -113,15 +100,8 @@
 # UPDATE
 # ============================================================
 
-
-
-
-
-
-
 # No optional string parameters available for update testing.
 # Update idempotency tests are skipped for this resource.
-
 
 # ============================================================
 # DELETE - check mode

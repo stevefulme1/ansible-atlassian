@@ -9,20 +9,7 @@
   ansible.builtin.set_fact:
     test_content_restriction_params:
 
-
       results: "{{ test_results | default("test_results_value") }}"
-
-
-
-
-
-
-
-
-
-
-
-
 
 # ============================================================
 # CREATE - check mode
@@ -43,18 +30,6 @@
 
 - name: Verify content_restriction was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_content_restriction_info:
-
-
-
-
-
-
-
-
-
-
-
-
 
   register: check_verify
 
@@ -113,41 +88,13 @@
     that:
       - info_result.content_restrictions | length == 1
 
-
       - info_result.content_restrictions[0].results == test_content_restriction_params.results
-
-
-
-
-
-
-
-
-
-
-
 
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update content_restriction
   stevefulme1.atlassian.confluence_content_restriction:
@@ -181,7 +128,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

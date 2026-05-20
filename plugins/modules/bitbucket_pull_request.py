@@ -38,21 +38,15 @@ EXAMPLES = r"""
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/pullrequests
 
-
-
 - name: Update a pull_request
   stevefulme1.atlassian.bitbucket_pull_request:
     id: "existing_id"
 
     state: present
-  # API:  
-
-
-
+  # API:
 """
 
 RETURN = r"""
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

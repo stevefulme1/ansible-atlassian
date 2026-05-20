@@ -9,20 +9,11 @@
   ansible.builtin.set_fact:
     test_dashboard_params:
 
-
       editPermissions: "{{ test_editPermissions | default("test_editPermissions_value") }}"
-
-
 
       name: "{{ test_name | default("test_name_value") }}"
 
-
-
       sharePermissions: "{{ test_sharePermissions | default("test_sharePermissions_value") }}"
-
-
-
-
 
 # ============================================================
 # CREATE - check mode
@@ -44,15 +35,7 @@
 - name: Verify dashboard was NOT actually created (check mode)
   stevefulme1.atlassian.jira_dashboard_info:
 
-
-
-
     name: "{{ test_name | default("test_name_value") }}"
-
-
-
-
-
 
   register: check_verify
 
@@ -111,37 +94,17 @@
     that:
       - info_result.dashboards | length == 1
 
-
       - info_result.dashboards[0].editPermissions == test_dashboard_params.editPermissions
-
-
 
       - info_result.dashboards[0].name == test_dashboard_params.name
 
-
-
       - info_result.dashboards[0].sharePermissions == test_dashboard_params.sharePermissions
-
-
-
 
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update dashboard
   stevefulme1.atlassian.jira_dashboard:
@@ -175,7 +138,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

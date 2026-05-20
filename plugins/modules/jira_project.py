@@ -32,11 +32,7 @@ options:
         The default assignee when creating issues for this project.
     type: str
 
-
     choices: ["PROJECT_LEAD", "UNASSIGNED"]
-
-
-
 
   avatarId:
     description:
@@ -44,19 +40,11 @@ options:
         An integer value for the project's avatar.
     type: int
 
-
-
-
-
   categoryId:
     description:
       - >-
         The ID of the project's category. A complete list of category IDs is found using the Get all...
     type: int
-
-
-
-
 
   description:
     description:
@@ -64,19 +52,11 @@ options:
         A brief description of the project.
     type: str
 
-
-
-
-
   fieldConfigurationScheme:
     description:
       - >-
         Deprecated use fieldScheme instead. The ID of the field configuration scheme for the project....
     type: int
-
-
-
-
 
   fieldScheme:
     description:
@@ -84,19 +64,11 @@ options:
         The ID of the field scheme for the project. Use the Get field...
     type: int
 
-
-
-
-
   issueSecurityScheme:
     description:
       - >-
         The ID of the issue security scheme for the project, which enables you to control who can and...
     type: int
-
-
-
-
 
   issueTypeScheme:
     description:
@@ -104,19 +76,11 @@ options:
         The ID of the issue type scheme for the project. Use the Get all issue type...
     type: int
 
-
-
-
-
   issueTypeScreenScheme:
     description:
       - >-
         The ID of the issue type screen scheme for the project. Use the Get all issue type screen...
     type: int
-
-
-
-
 
   key:
     description:
@@ -124,19 +88,11 @@ options:
         Project keys must be unique and start with an uppercase letter followed by one or more uppercase...
     type: str
 
-
-
-
-
   lead:
     description:
       - >-
         This parameter is deprecated because of privacy changes. Use leadAccountId instead. See the...
     type: str
-
-
-
-
 
   leadAccountId:
     description:
@@ -144,19 +100,11 @@ options:
         The account ID of the project lead. Cannot be provided with lead.
     type: str
 
-
-
-
-
   name:
     description:
       - >-
         The name of the project.
     type: str
-
-
-
-
 
   notificationScheme:
     description:
@@ -164,19 +112,11 @@ options:
         The ID of the notification scheme for the project. Use the Get notification...
     type: int
 
-
-
-
-
   permissionScheme:
     description:
       - >-
         The ID of the permission scheme for the project. Use the Get all permission...
     type: int
-
-
-
-
 
   projectTemplateKey:
     description:
@@ -225,20 +165,13 @@ options:
       - com.atlassian.jira-core-project-templates:jira-core-simplified-task-
       - com.atlassian.jcs:customer-service-management
 
-
-
-
   projectTypeKey:
     description:
       - >-
         The project type, which defines the application-specific feature set. If you don't specify the...
     type: str
 
-
     choices: ["software", "service_desk", "business"]
-
-
-
 
   releasedProjectKeys:
     description:
@@ -246,29 +179,17 @@ options:
         Previous project keys to be released from the current project. Released keys must belong to the...
     type: list
 
-
-
-
-
   url:
     description:
       - >-
         A link to information about this project, such as project documentation
     type: str
 
-
-
-
-
   workflowScheme:
     description:
       - >-
         The ID of the workflow scheme for the project. Use the Get all workflow...
     type: int
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -279,146 +200,61 @@ EXAMPLES = r"""
 - name: Create a project
   stevefulme1.atlassian.jira_project:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/project
-
-
 
 - name: Update a project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
 
-
     assigneeType: "updated_assigneeType"
-
-
 
     avatarId: "updated_avatarId"
 
-
-
     categoryId: "updated_categoryId"
-
-
 
     description: "updated_description"
 
-
-
     fieldConfigurationScheme: "updated_fieldConfigurationScheme"
-
-
 
     fieldScheme: "updated_fieldScheme"
 
-
-
     issueSecurityScheme: "updated_issueSecurityScheme"
-
-
 
     issueTypeScheme: "updated_issueTypeScheme"
 
-
-
     issueTypeScreenScheme: "updated_issueTypeScreenScheme"
-
-
 
     key: "updated_key"
 
-
-
     lead: "updated_lead"
-
-
 
     leadAccountId: "updated_leadAccountId"
 
-
-
     name: "updated_name"
-
-
 
     notificationScheme: "updated_notificationScheme"
 
-
-
     permissionScheme: "updated_permissionScheme"
-
-
 
     projectTemplateKey: "updated_projectTemplateKey"
 
-
-
     projectTypeKey: "updated_projectTypeKey"
-
-
 
     releasedProjectKeys: "updated_releasedProjectKeys"
 
-
-
     url: "updated_url"
-
-
 
     workflowScheme: "updated_workflowScheme"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/project/{projectIdOrKey}
-
 """
 
 RETURN = r"""
@@ -429,13 +265,11 @@ archived:
   returned: success
   type: bool
 
-
 archivedBy:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 
 archivedDate:
   description: >-
@@ -443,20 +277,17 @@ archivedDate:
   returned: success
   type: str
 
-
 assigneeType:
   description: >-
     The default assignee when creating issues for this project.
   returned: success
   type: str
 
-
 avatarUrls:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 components:
   description: >-
@@ -464,13 +295,11 @@ components:
   returned: success
   type: list
 
-
 deleted:
   description: >-
     Whether the project is marked as deleted.
   returned: success
   type: bool
-
 
 deletedBy:
   description: >-
@@ -478,13 +307,11 @@ deletedBy:
   returned: success
   type: dict
 
-
 deletedDate:
   description: >-
     The date when the project was marked as deleted.
   returned: success
   type: str
-
 
 description:
   description: >-
@@ -492,13 +319,11 @@ description:
   returned: success
   type: str
 
-
 email:
   description: >-
     An email address associated with the project.
   returned: success
   type: str
-
 
 expand:
   description: >-
@@ -506,13 +331,11 @@ expand:
   returned: success
   type: str
 
-
 favourite:
   description: >-
     Whether the project is selected as a favorite.
   returned: success
   type: bool
-
 
 id:
   description: >-
@@ -520,13 +343,11 @@ id:
   returned: success
   type: str
 
-
 insight:
   description: >-
     Additional details about a project.
   returned: success
   type: dict
-
 
 isPrivate:
   description: >-
@@ -534,13 +355,11 @@ isPrivate:
   returned: success
   type: bool
 
-
 issueTypeHierarchy:
   description: >-
     The project issue type hierarchy.
   returned: success
   type: dict
-
 
 issueTypes:
   description: >-
@@ -548,20 +367,17 @@ issueTypes:
   returned: success
   type: list
 
-
 key:
   description: >-
     The key of the project.
   returned: success
   type: str
 
-
 landingPageInfo:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 lead:
   description: >-
@@ -569,13 +385,11 @@ lead:
   returned: success
   type: dict
 
-
 name:
   description: >-
     The name of the project.
   returned: success
   type: str
-
 
 permissions:
   description: >-
@@ -583,13 +397,11 @@ permissions:
   returned: success
   type: dict
 
-
 projectCategory:
   description: >-
     A project category.
   returned: success
   type: dict
-
 
 projectTypeKey:
   description: >-
@@ -597,13 +409,11 @@ projectTypeKey:
   returned: success
   type: str
 
-
 properties:
   description: >-
     Map of project properties
   returned: success
   type: dict
-
 
 retentionTillDate:
   description: >-
@@ -611,13 +421,11 @@ retentionTillDate:
   returned: success
   type: str
 
-
 roles:
   description: >-
     The name and self URL for each role defined in the project. For more information, see Create...
   returned: success
   type: dict
-
 
 self:
   description: >-
@@ -625,13 +433,11 @@ self:
   returned: success
   type: str
 
-
 simplified:
   description: >-
     Whether the project is simplified.
   returned: success
   type: bool
-
 
 style:
   description: >-
@@ -639,13 +445,11 @@ style:
   returned: success
   type: str
 
-
 url:
   description: >-
     A link to information about this project, such as project documentation.
   returned: success
   type: str
-
 
 uuid:
   description: >-
@@ -653,14 +457,11 @@ uuid:
   returned: success
   type: str
 
-
 versions:
   description: >-
     The versions defined in the project. For more information, see Create...
   returned: success
   type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

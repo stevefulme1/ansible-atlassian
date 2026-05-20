@@ -32,23 +32,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -75,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_user_info:
   register: result
 
-
 - name: List user resources filtered by name
   stevefulme1.atlassian.jira_user_info:
     name: "my_user"
   register: result
-
 
 - name: List user resources with pagination
   stevefulme1.atlassian.jira_user_info:
@@ -102,97 +83,80 @@ users:
         The account ID of the user, which uniquely identifies the user across all Atlassian products....
       type: str
 
-
     accountType:
       description: >-
         The user account type. Can take the following values: atlassian regular Atlassian user account...
       type: str
-
 
     active:
       description: >-
         Whether the user is active.
       type: bool
 
-
     appType:
       description: >-
         The app type of the user account when accountType is 'app'. Can take the following values:...
       type: str
 
-
     applicationRoles:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     avatarUrls:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     displayName:
       description: >-
         The display name of the user. Depending on the user’s privacy setting, this may return an...
       type: str
 
-
     emailAddress:
       description: >-
         The email address of the user. Depending on the user’s privacy setting, this may be returned as null.
       type: str
-
 
     expand:
       description: >-
         Expand options that include additional user details in the response.
       type: str
 
-
     groups:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     guest:
       description: >-
         Whether the user is a guest.
       type: bool
 
-
     key:
       description: >-
         This property is no longer available and will be removed from the documentation soon. See the...
       type: str
-
 
     locale:
       description: >-
         The locale of the user. Depending on the user’s privacy setting, this may be returned as null.
       type: str
 
-
     name:
       description: >-
         This property is no longer available and will be removed from the documentation soon. See the...
       type: str
-
 
     self:
       description: >-
         The URL of the user.
       type: str
 
-
     timeZone:
       description: >-
         The time zone specified in the user's profile. If the user's time zone is not visible to the...
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -9,39 +9,6 @@
   ansible.builtin.set_fact:
     test_component_params:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ============================================================
 # CREATE - check mode
 # ============================================================
@@ -62,39 +29,7 @@
 - name: Verify component was NOT actually created (check mode)
   stevefulme1.atlassian.jira_component_info:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     name: "{{ test_name | default("test_name_value") }}"
-
-
-
-
-
-
-
-
-
-
-
 
   register: check_verify
 
@@ -153,95 +88,11 @@
     that:
       - info_result.components | length == 1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update component
   stevefulme1.atlassian.jira_component:
@@ -307,7 +158,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

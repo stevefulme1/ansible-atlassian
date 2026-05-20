@@ -32,29 +32,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -81,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_attachment_info:
   register: result
 
-
 - name: List attachment resources filtered by title
   stevefulme1.atlassian.confluence_attachment_info:
     title: "my_attachment"
   register: result
-
 
 - name: List attachment resources with pagination
   stevefulme1.atlassian.confluence_attachment_info:
@@ -105,124 +80,103 @@ attachments:
 
     id:
       description: >-
-        
-      type: str
 
+      type: str
 
     type:
       description: >-
         Can be "page", "blogpost", "attachment" or "content"
       type: str
 
-
     status:
       description: >-
-        
-      type: str
 
+      type: str
 
     title:
       description: >-
-        
-      type: str
 
+      type: str
 
     space:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     history:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     version:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     ancestors:
       description: >-
-        
-      type: list
 
+      type: list
 
     operations:
       description: >-
-        
-      type: list
 
+      type: list
 
     children:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     childTypes:
       description: >-
         Shows whether a piece of content has attachments, comments, or child pages/whiteboards. Note,...
       type: dict
 
-
     descendants:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     container:
       description: >-
         Container for content. This can be either a space (containing a page or blogpost) or a page/blog...
       type: dict
 
-
     body:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     restrictions:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     metadata:
       description: >-
         Metadata object for page, blogpost, comment content
       type: dict
 
-
     macroRenderedOutput:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     extensions:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     _expandable:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     _links:
       description: >-
-        
+
       type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

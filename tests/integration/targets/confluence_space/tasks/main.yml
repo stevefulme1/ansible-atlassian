@@ -9,23 +9,6 @@
   ansible.builtin.set_fact:
     test_space_params:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ============================================================
 # CREATE - check mode
 # ============================================================
@@ -46,23 +29,7 @@
 - name: Verify space was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_space_info:
 
-
-
-
-
-
-
-
-
-
     name: "{{ test_name | default("test_name_value") }}"
-
-
-
-
-
-
-
 
   register: check_verify
 
@@ -121,55 +88,11 @@
     that:
       - info_result.spaces | length == 1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update space
   stevefulme1.atlassian.confluence_space:
@@ -219,7 +142,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

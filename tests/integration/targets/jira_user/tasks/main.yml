@@ -9,26 +9,9 @@
   ansible.builtin.set_fact:
     test_user_params:
 
-
       emailAddress: "{{ test_emailAddress | default("test_emailAddress_value") }}"
 
-
-
       products: "{{ test_products | default("test_products_value") }}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # ============================================================
 # CREATE - check mode
@@ -50,23 +33,7 @@
 - name: Verify user was NOT actually created (check mode)
   stevefulme1.atlassian.jira_user_info:
 
-
-
-
-
-
-
-
-
-
-
-
     name: "{{ test_name | default("test_name_value") }}"
-
-
-
-
-
 
   register: check_verify
 
@@ -125,57 +92,15 @@
     that:
       - info_result.users | length == 1
 
-
       - info_result.users[0].emailAddress == test_user_params.emailAddress
 
-
-
       - info_result.users[0].products == test_user_params.products
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update user
   stevefulme1.atlassian.jira_user:
@@ -221,7 +146,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

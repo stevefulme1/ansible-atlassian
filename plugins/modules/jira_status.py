@@ -34,10 +34,6 @@ options:
 
     required: true
 
-
-
-
-
   statuses:
     description:
       - >-
@@ -45,10 +41,6 @@ options:
     type: list
 
     required: true
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -59,38 +51,25 @@ EXAMPLES = r"""
 - name: Create a status
   stevefulme1.atlassian.jira_status:
 
-
     scope: "example_scope"
-
-
 
     statuses: "example_statuses"
 
-
     state: present
   # API: POST /rest/api/3/statuses
-
-
 
 - name: Update a status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
 
-
-
-
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/statuses
-
 """
 
 RETURN = r"""
@@ -101,13 +80,11 @@ description:
   returned: success
   type: str
 
-
 id:
   description: >-
     The ID of the status.
   returned: success
   type: str
-
 
 name:
   description: >-
@@ -115,21 +92,17 @@ name:
   returned: success
   type: str
 
-
 scope:
   description: >-
     The scope of the status.
   returned: success
   type: dict
 
-
 statusCategory:
   description: >-
     The category of the status.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

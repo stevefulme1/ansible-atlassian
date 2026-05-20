@@ -38,27 +38,21 @@ EXAMPLES = r"""
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/branch-restrictions
 
-
-
 - name: Update a branch_restriction
   stevefulme1.atlassian.bitbucket_branch_restriction:
     id: "existing_id"
 
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a branch_restriction
   stevefulme1.atlassian.bitbucket_branch_restriction:
     id: "existing_id"
     state: absent
   # API: DELETE /repositories/{workspace}/{repo_slug}/branch-restrictions/{id}
-
 """
 
 RETURN = r"""
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

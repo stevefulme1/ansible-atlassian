@@ -34,19 +34,11 @@ options:
 
     required: true
 
-
-
-
-
   description:
     description:
       - >-
         A description for the permission scheme.
     type: str
-
-
-
-
 
   expand:
     description:
@@ -54,19 +46,11 @@ options:
         The expand options available for the permission scheme.
     type: str
 
-
-
-
-
   id:
     description:
       - >-
         The ID of the permission scheme.
     type: int
-
-
-
-
 
   permissions:
     description:
@@ -74,29 +58,17 @@ options:
         The permission scheme to create or update. See About permission schemes and...
     type: list
 
-
-
-
-
   scope:
     description:
       - >-
         The projects the item is associated with. Indicated for items associated with next-gen projects.
     type: dict
 
-
-
-
-
   self:
     description:
       - >-
         The URL of the permission scheme.
     type: str
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -107,66 +79,33 @@ EXAMPLES = r"""
 - name: Create a permission_scheme
   stevefulme1.atlassian.jira_permission_scheme:
 
-
     name: "example_name"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     state: present
   # API: POST /rest/api/3/permissionscheme
-
-
 
 - name: Update a permission_scheme
   stevefulme1.atlassian.jira_permission_scheme:
     id: "existing_id"
 
-
-
-
     description: "updated_description"
-
-
 
     expand: "updated_expand"
 
-
-
-
-
     permissions: "updated_permissions"
-
-
 
     scope: "updated_scope"
 
-
-
     self: "updated_self"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a permission_scheme
   stevefulme1.atlassian.jira_permission_scheme:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/permissionscheme/{schemeId}
-
 """
 
 RETURN = r"""
@@ -177,13 +116,11 @@ description:
   returned: success
   type: str
 
-
 expand:
   description: >-
     The expand options available for the permission scheme.
   returned: success
   type: str
-
 
 id:
   description: >-
@@ -191,13 +128,11 @@ id:
   returned: success
   type: int
 
-
 name:
   description: >-
     The name of the permission scheme. Must be unique.
   returned: success
   type: str
-
 
 permissions:
   description: >-
@@ -205,21 +140,17 @@ permissions:
   returned: success
   type: list
 
-
 scope:
   description: >-
     The projects the item is associated with. Indicated for items associated with next-gen projects.
   returned: success
   type: dict
 
-
 self:
   description: >-
     The URL of the permission scheme.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

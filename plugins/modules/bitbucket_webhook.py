@@ -38,27 +38,21 @@ EXAMPLES = r"""
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/hooks
 
-
-
 - name: Update a webhook
   stevefulme1.atlassian.bitbucket_webhook:
     id: "existing_id"
 
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a webhook
   stevefulme1.atlassian.bitbucket_webhook:
     id: "existing_id"
     state: absent
   # API: DELETE /repositories/{workspace}/{repo_slug}/hooks/{uid}
-
 """
 
 RETURN = r"""
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -32,21 +32,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -73,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_permission_scheme_info:
   register: result
 
-
 - name: List permission_scheme resources filtered by name
   stevefulme1.atlassian.jira_permission_scheme_info:
     name: "my_permission_scheme"
   register: result
-
 
 - name: List permission_scheme resources with pagination
   stevefulme1.atlassian.jira_permission_scheme_info:
@@ -100,43 +83,35 @@ permission_schemes:
         A description for the permission scheme.
       type: str
 
-
     expand:
       description: >-
         The expand options available for the permission scheme.
       type: str
-
 
     id:
       description: >-
         The ID of the permission scheme.
       type: int
 
-
     name:
       description: >-
         The name of the permission scheme. Must be unique.
       type: str
-
 
     permissions:
       description: >-
         The permission scheme to create or update. See About permission schemes and...
       type: list
 
-
     scope:
       description: >-
         The projects the item is associated with. Indicated for items associated with next-gen projects.
       type: dict
 
-
     self:
       description: >-
         The URL of the permission scheme.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -9,45 +9,6 @@
   ansible.builtin.set_fact:
     test_version_params:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ============================================================
 # CREATE - check mode
 # ============================================================
@@ -68,45 +29,7 @@
 - name: Verify version was NOT actually created (check mode)
   stevefulme1.atlassian.jira_version_info:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     name: "{{ test_name | default("test_name_value") }}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   register: check_verify
 
@@ -165,111 +88,11 @@
     that:
       - info_result.versions | length == 1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update version
   stevefulme1.atlassian.jira_version:
@@ -343,7 +166,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

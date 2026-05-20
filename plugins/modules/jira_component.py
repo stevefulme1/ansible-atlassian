@@ -32,19 +32,11 @@ options:
         Compass component's ID. Can't be updated. Not required for creating a Project Component.
     type: str
 
-
-
-
-
   assignee:
     description:
       - >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
-
-
-
-
 
   assigneeType:
     description:
@@ -52,11 +44,7 @@ options:
         The nominal user type used to determine the assignee for issues created with this component. See...
     type: str
 
-
     choices: ["PROJECT_DEFAULT", "COMPONENT_LEAD", "PROJECT_LEAD", "UNASSIGNED"]
-
-
-
 
   description:
     description:
@@ -64,19 +52,11 @@ options:
         The description for the component. Optional when creating or updating a component.
     type: str
 
-
-
-
-
   id:
     description:
       - >-
         The unique identifier for the component.
     type: str
-
-
-
-
 
   isAssigneeTypeValid:
     description:
@@ -84,19 +64,11 @@ options:
         Whether a user is associated with assigneeType. For example, if the assigneeType is set to...
     type: bool
 
-
-
-
-
   lead:
     description:
       - >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
-
-
-
-
 
   leadAccountId:
     description:
@@ -104,19 +76,11 @@ options:
         The accountId of the component's lead user. The accountId uniquely identifies the user across...
     type: str
 
-
-
-
-
   leadUserName:
     description:
       - >-
         This property is no longer available and will be removed from the documentation soon. See the...
     type: str
-
-
-
-
 
   metadata:
     description:
@@ -124,19 +88,11 @@ options:
         Compass component's metadata. Can't be updated. Not required for creating a Project Component.
     type: dict
 
-
-
-
-
   name:
     description:
       - >-
         The unique name for the component in the project. Required when creating a component. Optional...
     type: str
-
-
-
-
 
   project:
     description:
@@ -144,19 +100,11 @@ options:
         The key of the project the component is assigned to. Required when creating a component. Can't...
     type: str
 
-
-
-
-
   projectId:
     description:
       - >-
         The ID of the project the component is assigned to.
     type: int
-
-
-
-
 
   realAssignee:
     description:
@@ -164,31 +112,19 @@ options:
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
 
-
-
-
-
   realAssigneeType:
     description:
       - >-
         The type of the assignee that is assigned to issues created with this component, when an...
     type: str
 
-
     choices: ["PROJECT_DEFAULT", "COMPONENT_LEAD", "PROJECT_LEAD", "UNASSIGNED"]
-
-
-
 
   self:
     description:
       - >-
         The URL of the component.
     type: str
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -199,120 +135,51 @@ EXAMPLES = r"""
 - name: Create a component
   stevefulme1.atlassian.jira_component:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/component
-
-
 
 - name: Update a component
   stevefulme1.atlassian.jira_component:
     id: "existing_id"
 
-
     ari: "updated_ari"
-
-
 
     assignee: "updated_assignee"
 
-
-
     assigneeType: "updated_assigneeType"
-
-
 
     description: "updated_description"
 
-
-
-
-
     isAssigneeTypeValid: "updated_isAssigneeTypeValid"
-
-
 
     lead: "updated_lead"
 
-
-
     leadAccountId: "updated_leadAccountId"
-
-
 
     leadUserName: "updated_leadUserName"
 
-
-
     metadata: "updated_metadata"
-
-
 
     name: "updated_name"
 
-
-
     project: "updated_project"
-
-
 
     projectId: "updated_projectId"
 
-
-
     realAssignee: "updated_realAssignee"
-
-
 
     realAssigneeType: "updated_realAssigneeType"
 
-
-
     self: "updated_self"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a component
   stevefulme1.atlassian.jira_component:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/component/{id}
-
 """
 
 RETURN = r"""
@@ -323,13 +190,11 @@ ari:
   returned: success
   type: str
 
-
 assignee:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 
 assigneeType:
   description: >-
@@ -337,13 +202,11 @@ assigneeType:
   returned: success
   type: str
 
-
 description:
   description: >-
     The description for the component. Optional when creating or updating a component.
   returned: success
   type: str
-
 
 id:
   description: >-
@@ -351,13 +214,11 @@ id:
   returned: success
   type: str
 
-
 isAssigneeTypeValid:
   description: >-
     Whether a user is associated with assigneeType. For example, if the assigneeType is set to...
   returned: success
   type: bool
-
 
 lead:
   description: >-
@@ -365,13 +226,11 @@ lead:
   returned: success
   type: dict
 
-
 leadAccountId:
   description: >-
     The accountId of the component's lead user. The accountId uniquely identifies the user across...
   returned: success
   type: str
-
 
 leadUserName:
   description: >-
@@ -379,13 +238,11 @@ leadUserName:
   returned: success
   type: str
 
-
 metadata:
   description: >-
     Compass component's metadata. Can't be updated. Not required for creating a Project Component.
   returned: success
   type: dict
-
 
 name:
   description: >-
@@ -393,13 +250,11 @@ name:
   returned: success
   type: str
 
-
 project:
   description: >-
     The key of the project the component is assigned to. Required when creating a component. Can't...
   returned: success
   type: str
-
 
 projectId:
   description: >-
@@ -407,13 +262,11 @@ projectId:
   returned: success
   type: int
 
-
 realAssignee:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 
 realAssigneeType:
   description: >-
@@ -421,14 +274,11 @@ realAssigneeType:
   returned: success
   type: str
 
-
 self:
   description: >-
     The URL of the component.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

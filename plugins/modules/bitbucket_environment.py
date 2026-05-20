@@ -38,27 +38,21 @@ EXAMPLES = r"""
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/environments
 
-
-
 - name: Update a environment
   stevefulme1.atlassian.bitbucket_environment:
     id: "existing_id"
 
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a environment
   stevefulme1.atlassian.bitbucket_environment:
     id: "existing_id"
     state: absent
   # API: DELETE /repositories/{workspace}/{repo_slug}/environments/{environment_uuid}
-
 """
 
 RETURN = r"""
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

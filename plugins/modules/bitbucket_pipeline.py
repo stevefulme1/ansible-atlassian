@@ -38,21 +38,15 @@ EXAMPLES = r"""
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/pipelines
 
-
-
 - name: Update a pipeline
   stevefulme1.atlassian.bitbucket_pipeline:
     id: "existing_id"
 
     state: present
-  # API:  
-
-
-
+  # API:
 """
 
 RETURN = r"""
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

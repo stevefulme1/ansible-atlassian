@@ -26,13 +26,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -59,8 +52,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_workflow_info:
   register: result
 
-
-
 - name: List workflow resources with pagination
   stevefulme1.atlassian.jira_workflow_info:
     page: 1
@@ -81,13 +72,10 @@ workflows:
         List of statuses.
       type: list
 
-
     workflows:
       description: >-
         List of workflows.
       type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

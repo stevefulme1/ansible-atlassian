@@ -32,23 +32,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -75,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_space_info:
   register: result
 
-
 - name: List space resources filtered by name
   stevefulme1.atlassian.confluence_space_info:
     name: "my_space"
   register: result
-
 
 - name: List space resources with pagination
   stevefulme1.atlassian.confluence_space_info:
@@ -99,112 +80,93 @@ spaces:
 
     id:
       description: >-
-        
-      type: int
 
+      type: int
 
     key:
       description: >-
-        
-      type: str
 
+      type: str
 
     alias:
       description: >-
-        
-      type: str
 
+      type: str
 
     name:
       description: >-
-        
-      type: str
 
+      type: str
 
     icon:
       description: >-
         This object represents an icon. If used as a profilePicture, this may be returned as null,...
       type: dict
 
-
     description:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     homepage:
       description: >-
         Base object for all content types.
       type: dict
 
-
     type:
       description: >-
-        
-      type: str
 
+      type: str
 
     metadata:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     operations:
       description: >-
-        
-      type: list
 
+      type: list
 
     permissions:
       description: >-
-        
-      type: list
 
+      type: list
 
     status:
       description: >-
-        
-      type: str
 
+      type: str
 
     settings:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     theme:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     lookAndFeel:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     history:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     _expandable:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     _links:
       description: >-
-        
+
       type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

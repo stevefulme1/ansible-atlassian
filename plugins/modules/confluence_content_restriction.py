@@ -29,34 +29,22 @@ options:
   results:
     description:
       - >-
-        
+
     type: list
 
     required: true
 
-
-
-
-
   _links:
     description:
       - >-
-        
+
     type: dict
-
-
-
-
 
   limit:
     description:
       - >-
-        
+
     type: int
-
-
-
-
 
   restrictionsHash:
     description:
@@ -64,29 +52,17 @@ options:
         This property is used by the UI to figure out whether a set of restrictions has changed.
     type: str
 
-
-
-
-
   size:
     description:
       - >-
-        
+
     type: int
-
-
-
-
 
   start:
     description:
       - >-
-        
+
     type: int
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -97,79 +73,48 @@ EXAMPLES = r"""
 - name: Create a content_restriction
   stevefulme1.atlassian.confluence_content_restriction:
 
-
     results: "example_results"
-
-
-
-
-
-
-
-
-
-
-
 
     state: present
   # API: POST /wiki/rest/api/content/{id}/restriction
-
-
 
 - name: Update a content_restriction
   stevefulme1.atlassian.confluence_content_restriction:
     id: "existing_id"
 
-
-
-
     _links: "updated__links"
-
-
 
     limit: "updated_limit"
 
-
-
     restrictionsHash: "updated_restrictionsHash"
-
-
 
     size: "updated_size"
 
-
-
     start: "updated_start"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a content_restriction
   stevefulme1.atlassian.confluence_content_restriction:
     id: "existing_id"
     state: absent
   # API: DELETE /wiki/rest/api/content/{id}/restriction
-
 """
 
 RETURN = r"""
 
 operation:
   description: >-
-    
+
   returned: success
   type: str
 
-
 restrictions:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 content:
   description: >-
@@ -177,21 +122,17 @@ content:
   returned: success
   type: dict
 
-
 _expandable:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 _links:
   description: >-
-    
+
   returned: success
   type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

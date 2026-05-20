@@ -9,10 +9,7 @@
   ansible.builtin.set_fact:
     test_group_params:
 
-
       name: "{{ test_name | default("test_name_value") }}"
-
-
 
 # ============================================================
 # CREATE - check mode
@@ -34,9 +31,7 @@
 - name: Verify group was NOT actually created (check mode)
   stevefulme1.atlassian.jira_group_info:
 
-
     name: "{{ test_name | default("test_name_value") }}"
-
 
   register: check_verify
 
@@ -95,9 +90,7 @@
     that:
       - info_result.groups | length == 1
 
-
       - info_result.groups[0].name == test_group_params.name
-
 
     fail_msg: "Created resource does not match expected values"
 
@@ -105,13 +98,8 @@
 # UPDATE
 # ============================================================
 
-
-
-
-
 # No optional string parameters available for update testing.
 # Update idempotency tests are skipped for this resource.
-
 
 # ============================================================
 # DELETE - check mode

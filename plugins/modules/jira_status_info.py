@@ -32,11 +32,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -63,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_status_info:
   register: result
 
-
 - name: List status resources filtered by name
   stevefulme1.atlassian.jira_status_info:
     name: "my_status"
   register: result
-
 
 - name: List status resources with pagination
   stevefulme1.atlassian.jira_status_info:
@@ -90,31 +83,25 @@ statuss:
         The description of the status.
       type: str
 
-
     id:
       description: >-
         The ID of the status.
       type: str
-
 
     name:
       description: >-
         The name of the status.
       type: str
 
-
     scope:
       description: >-
         The scope of the status.
       type: dict
 
-
     statusCategory:
       description: >-
         The category of the status.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

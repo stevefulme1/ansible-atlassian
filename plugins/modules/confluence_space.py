@@ -32,19 +32,11 @@ options:
         This field will be used as the new identifier for the space in confluence page URLs. If the...
     type: str
 
-
-
-
-
   description:
     description:
       - >-
         The description of the new/updated space. Note, only the 'plain' representation can be used for...
     type: dict
-
-
-
-
 
   homepage:
     description:
@@ -52,19 +44,11 @@ options:
         The updated homepage for this space
     type: dict
 
-
-
-
-
   key:
     description:
       - >-
         The key for the new space. Format: See Space keys. If alias is not provided, this is required.
     type: str
-
-
-
-
 
   name:
     description:
@@ -72,19 +56,11 @@ options:
         The updated name of the space.
     type: str
 
-
-
-
-
   permissions:
     description:
       - >-
         The permissions for the new space. If no permissions are provided, the Confluence default space...
     type: list
-
-
-
-
 
   status:
     description:
@@ -92,19 +68,11 @@ options:
         The updated status for this space.
     type: str
 
-
-
-
-
   type:
     description:
       - >-
         The updated type for this space.
     type: str
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -115,105 +83,64 @@ EXAMPLES = r"""
 - name: Create a space
   stevefulme1.atlassian.confluence_space:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /wiki/rest/api/space
-
-
 
 - name: Update a space
   stevefulme1.atlassian.confluence_space:
     id: "existing_id"
 
-
     alias: "updated_alias"
-
-
 
     description: "updated_description"
 
-
-
     homepage: "updated_homepage"
-
-
 
     key: "updated_key"
 
-
-
     name: "updated_name"
-
-
 
     permissions: "updated_permissions"
 
-
-
     status: "updated_status"
-
-
 
     type: "updated_type"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a space
   stevefulme1.atlassian.confluence_space:
     id: "existing_id"
     state: absent
   # API: DELETE /wiki/rest/api/space/{spaceKey}
-
 """
 
 RETURN = r"""
 
 id:
   description: >-
-    
+
   returned: success
   type: int
 
-
 key:
   description: >-
-    
+
   returned: success
   type: str
-
 
 alias:
   description: >-
-    
+
   returned: success
   type: str
-
 
 name:
   description: >-
-    
+
   returned: success
   type: str
-
 
 icon:
   description: >-
@@ -221,13 +148,11 @@ icon:
   returned: success
   type: dict
 
-
 description:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 homepage:
   description: >-
@@ -235,84 +160,71 @@ homepage:
   returned: success
   type: dict
 
-
 type:
   description: >-
-    
+
   returned: success
   type: str
-
 
 metadata:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 operations:
   description: >-
-    
+
   returned: success
   type: list
-
 
 permissions:
   description: >-
-    
+
   returned: success
   type: list
 
-
 status:
   description: >-
-    
+
   returned: success
   type: str
 
-
 settings:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 theme:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 lookAndFeel:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 history:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 _expandable:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 _links:
   description: >-
-    
+
   returned: success
   type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -34,10 +34,6 @@ options:
 
     required: true
 
-
-
-
-
   name:
     description:
       - >-
@@ -45,10 +41,6 @@ options:
     type: str
 
     required: true
-
-
-
-
 
   templateId:
     description:
@@ -58,10 +50,6 @@ options:
 
     required: true
 
-
-
-
-
   templateType:
     description:
       - >-
@@ -70,11 +58,7 @@ options:
 
     required: true
 
-
     choices: ["page"]
-
-
-
 
   description:
     description:
@@ -82,29 +66,17 @@ options:
         A description of the template.
     type: str
 
-
-
-
-
   labels:
     description:
       - >-
         Labels for the template.
     type: list
 
-
-
-
-
   space:
     description:
       - >-
         The key for the space of the template. Required if the template is a space template. Set this to...
     type: dict
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -115,134 +87,92 @@ EXAMPLES = r"""
 - name: Create a template
   stevefulme1.atlassian.confluence_template:
 
-
     body: "example_body"
-
-
 
     name: "example_name"
 
-
-
     templateId: "example_templateId"
-
-
 
     templateType: "example_templateType"
 
-
-
-
-
-
-
-
     state: present
   # API: POST /wiki/rest/api/template
-
-
 
 - name: Update a template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
 
-
-
-
-
-
-
-
-
-
     description: "updated_description"
-
-
 
     labels: "updated_labels"
 
-
-
     space: "updated_space"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
     state: absent
   # API: DELETE /wiki/rest/api/template/{contentTemplateId}
-
 """
 
 RETURN = r"""
 
 templateId:
   description: >-
-    
+
   returned: success
   type: str
-
 
 originalTemplate:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 referencingBlueprint:
   description: >-
-    
+
   returned: success
   type: str
-
 
 name:
   description: >-
-    
+
   returned: success
   type: str
-
 
 description:
   description: >-
-    
+
   returned: success
   type: str
-
 
 space:
   description: >-
-    
+
   returned: success
   type: dict
 
-
 labels:
   description: >-
-    
+
   returned: success
   type: list
 
-
 templateType:
   description: >-
-    
+
   returned: success
   type: str
-
 
 editorVersion:
   description: >-
-    
+
   returned: success
   type: str
-
 
 body:
   description: >-
@@ -250,21 +180,17 @@ body:
   returned: success
   type: dict
 
-
 _expandable:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 _links:
   description: >-
-    
+
   returned: success
   type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

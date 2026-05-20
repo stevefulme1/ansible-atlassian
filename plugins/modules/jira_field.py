@@ -34,29 +34,17 @@ options:
 
     required: true
 
-
-
-
-
   description:
     description:
       - >-
         The description of the custom field. The maximum length is 40000 characters.
     type: str
 
-
-
-
-
   name:
     description:
       - >-
         The name of the custom field. It doesn't have to be unique. The maximum length is 255 characters.
     type: str
-
-
-
-
 
   searcherKey:
     description:
@@ -78,9 +66,6 @@ options:
       - com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher
       - com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher
 
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -90,50 +75,29 @@ EXAMPLES = r"""
 - name: Create a field
   stevefulme1.atlassian.jira_field:
 
-
     type: "example_type"
-
-
-
-
-
-
-
 
     state: present
   # API: POST /rest/api/3/field
-
-
 
 - name: Update a field
   stevefulme1.atlassian.jira_field:
     id: "existing_id"
 
-
-
-
     description: "updated_description"
-
-
 
     name: "updated_name"
 
-
-
     searcherKey: "updated_searcherKey"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a field
   stevefulme1.atlassian.jira_field:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/field/{id}
-
 """
 
 RETURN = r"""
@@ -144,13 +108,11 @@ isLast:
   returned: success
   type: bool
 
-
 maxResults:
   description: >-
     The maximum number of items that could be returned.
   returned: success
   type: int
-
 
 nextPage:
   description: >-
@@ -158,13 +120,11 @@ nextPage:
   returned: success
   type: str
 
-
 self:
   description: >-
     The URL of the page.
   returned: success
   type: str
-
 
 startAt:
   description: >-
@@ -172,21 +132,17 @@ startAt:
   returned: success
   type: int
 
-
 total:
   description: >-
     The number of items returned.
   returned: success
   type: int
 
-
 values:
   description: >-
     The list of items.
   returned: success
   type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

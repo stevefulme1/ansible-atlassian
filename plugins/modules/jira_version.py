@@ -32,19 +32,11 @@ options:
         If the expand option approvers is used, returns a list containing the approvers for this version.
     type: list
 
-
-
-
-
   archived:
     description:
       - >-
         Indicates that the version is archived. Optional when creating or updating a version.
     type: bool
-
-
-
-
 
   description:
     description:
@@ -52,19 +44,11 @@ options:
         The description of the version. Optional when creating or updating a version. The maximum size...
     type: str
 
-
-
-
-
   driver:
     description:
       - >-
         The Atlassian account ID of the version driver. Optional when creating or updating a version. If...
     type: str
-
-
-
-
 
   expand:
     description:
@@ -72,19 +56,11 @@ options:
         Use expand(em>expansion) to include additional information about version in the response. This...
     type: str
 
-
-
-
-
   id:
     description:
       - >-
         The ID of the version.
     type: str
-
-
-
-
 
   issuesStatusForFixVersion:
     description:
@@ -92,19 +68,11 @@ options:
         Counts of the number of issues in various statuses.
     type: dict
 
-
-
-
-
   moveUnfixedIssuesTo:
     description:
       - >-
         The URL of the self link to the version to which all unfixed issues are moved when a version is...
     type: str
-
-
-
-
 
   name:
     description:
@@ -112,19 +80,11 @@ options:
         The unique name of the version. Required when creating a version. Optional when updating a...
     type: str
 
-
-
-
-
   operations:
     description:
       - >-
         If the expand option operations is used, returns the list of operations available for this version.
     type: list
-
-
-
-
 
   overdue:
     description:
@@ -132,19 +92,11 @@ options:
         Indicates that the version is overdue.
     type: bool
 
-
-
-
-
   project:
     description:
       - >-
         Deprecated. Use projectId.
     type: str
-
-
-
-
 
   projectId:
     description:
@@ -152,19 +104,11 @@ options:
         The ID of the project to which this version is attached. Required when creating a version. Not...
     type: int
 
-
-
-
-
   releaseDate:
     description:
       - >-
         The release date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when...
     type: str
-
-
-
-
 
   released:
     description:
@@ -172,19 +116,11 @@ options:
         Indicates that the version is released. If the version is released a request to release again is...
     type: bool
 
-
-
-
-
   self:
     description:
       - >-
         The URL of the version.
     type: str
-
-
-
-
 
   startDate:
     description:
@@ -192,29 +128,17 @@ options:
         The start date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when creating...
     type: str
 
-
-
-
-
   userReleaseDate:
     description:
       - >-
         The date on which work on this version is expected to finish, expressed in the instance's...
     type: str
 
-
-
-
-
   userStartDate:
     description:
       - >-
         The date on which work on this version is expected to start, expressed in the instance's...
     type: str
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -225,138 +149,57 @@ EXAMPLES = r"""
 - name: Create a version
   stevefulme1.atlassian.jira_version:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/version
-
-
 
 - name: Update a version
   stevefulme1.atlassian.jira_version:
     id: "existing_id"
 
-
     approvers: "updated_approvers"
-
-
 
     archived: "updated_archived"
 
-
-
     description: "updated_description"
-
-
 
     driver: "updated_driver"
 
-
-
     expand: "updated_expand"
-
-
-
-
 
     issuesStatusForFixVersion: "updated_issuesStatusForFixVersion"
 
-
-
     moveUnfixedIssuesTo: "updated_moveUnfixedIssuesTo"
-
-
 
     name: "updated_name"
 
-
-
     operations: "updated_operations"
-
-
 
     overdue: "updated_overdue"
 
-
-
     project: "updated_project"
-
-
 
     projectId: "updated_projectId"
 
-
-
     releaseDate: "updated_releaseDate"
-
-
 
     released: "updated_released"
 
-
-
     self: "updated_self"
-
-
 
     startDate: "updated_startDate"
 
-
-
     userReleaseDate: "updated_userReleaseDate"
-
-
 
     userStartDate: "updated_userStartDate"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a version
   stevefulme1.atlassian.jira_version:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/version/{id}
-
 """
 
 RETURN = r"""
@@ -367,13 +210,11 @@ approvers:
   returned: success
   type: list
 
-
 archived:
   description: >-
     Indicates that the version is archived. Optional when creating or updating a version.
   returned: success
   type: bool
-
 
 description:
   description: >-
@@ -381,13 +222,11 @@ description:
   returned: success
   type: str
 
-
 driver:
   description: >-
     The Atlassian account ID of the version driver. Optional when creating or updating a version. If...
   returned: success
   type: str
-
 
 expand:
   description: >-
@@ -395,13 +234,11 @@ expand:
   returned: success
   type: str
 
-
 id:
   description: >-
     The ID of the version.
   returned: success
   type: str
-
 
 issuesStatusForFixVersion:
   description: >-
@@ -409,13 +246,11 @@ issuesStatusForFixVersion:
   returned: success
   type: dict
 
-
 moveUnfixedIssuesTo:
   description: >-
     The URL of the self link to the version to which all unfixed issues are moved when a version is...
   returned: success
   type: str
-
 
 name:
   description: >-
@@ -423,13 +258,11 @@ name:
   returned: success
   type: str
 
-
 operations:
   description: >-
     If the expand option operations is used, returns the list of operations available for this version.
   returned: success
   type: list
-
 
 overdue:
   description: >-
@@ -437,13 +270,11 @@ overdue:
   returned: success
   type: bool
 
-
 project:
   description: >-
     Deprecated. Use projectId.
   returned: success
   type: str
-
 
 projectId:
   description: >-
@@ -451,13 +282,11 @@ projectId:
   returned: success
   type: int
 
-
 releaseDate:
   description: >-
     The release date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when...
   returned: success
   type: str
-
 
 released:
   description: >-
@@ -465,13 +294,11 @@ released:
   returned: success
   type: bool
 
-
 self:
   description: >-
     The URL of the version.
   returned: success
   type: str
-
 
 startDate:
   description: >-
@@ -479,21 +306,17 @@ startDate:
   returned: success
   type: str
 
-
 userReleaseDate:
   description: >-
     The date on which work on this version is expected to finish, expressed in the instance's...
   returned: success
   type: str
 
-
 userStartDate:
   description: >-
     The date on which work on this version is expected to start, expressed in the instance's...
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

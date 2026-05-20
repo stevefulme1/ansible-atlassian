@@ -1,4 +1,3 @@
-
 ---
 name: CI
 
@@ -139,6 +138,5 @@ jobs:
         env:
 
           STEVEFULME1_ATLASSIAN_API_KEY: ${{ secrets.API_KEY }}
-
 
           STEVEFULME1_ATLASSIAN_API_URL: ${{ secrets.API_URL }}

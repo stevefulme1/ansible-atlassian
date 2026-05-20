@@ -34,10 +34,6 @@ options:
 
     required: true
 
-
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -47,32 +43,23 @@ EXAMPLES = r"""
 - name: Create a group
   stevefulme1.atlassian.jira_group:
 
-
     name: "example_name"
-
 
     state: present
   # API: POST /rest/api/3/group
-
-
 
 - name: Update a group
   stevefulme1.atlassian.jira_group:
     id: "existing_id"
 
-
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a group
   stevefulme1.atlassian.jira_group:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/group
-
 """
 
 RETURN = r"""
@@ -83,21 +70,17 @@ groupId:
   returned: success
   type: str
 
-
 name:
   description: >-
     The name of group.
   returned: success
   type: str
 
-
 self:
   description: >-
     The URL for these group details.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

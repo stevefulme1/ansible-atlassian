@@ -32,34 +32,27 @@ extends_documentation_fragment:
 
 EXAMPLES = r"""
 
-
 - name: Update a label
   stevefulme1.atlassian.confluence_label:
     id: "existing_id"
 
     state: present
-  # API:  
-
-
-
+  # API:
 """
 
 RETURN = r"""
 
 label:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 associatedContents:
   description: >-
-    
+
   returned: success
   type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -32,19 +32,11 @@ options:
         The ID of an issue type avatar. This can be obtained be obtained from the following endpoints:...
     type: int
 
-
-
-
-
   description:
     description:
       - >-
         The description of the issue type.
     type: str
-
-
-
-
 
   hierarchyLevel:
     description:
@@ -52,19 +44,11 @@ options:
         The hierarchy level of the issue type. Use: -1 for Subtask. 0 for Base. Defaults to 0.
     type: int
 
-
-
-
-
   name:
     description:
       - >-
         The unique name for the issue type. The maximum length is 60 characters.
     type: str
-
-
-
-
 
   type:
     description:
@@ -72,11 +56,7 @@ options:
         Deprecated. Use hierarchyLevel instead. See the deprecation notice for details. Whether the...
     type: str
 
-
     choices: ["subtask", "standard"]
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -87,56 +67,31 @@ EXAMPLES = r"""
 - name: Create a issue_type
   stevefulme1.atlassian.jira_issue_type:
 
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/issuetype
-
-
 
 - name: Update a issue_type
   stevefulme1.atlassian.jira_issue_type:
     id: "existing_id"
 
-
     avatarId: "updated_avatarId"
-
-
 
     description: "updated_description"
 
-
-
     hierarchyLevel: "updated_hierarchyLevel"
-
-
 
     name: "updated_name"
 
-
-
     type: "updated_type"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a issue_type
   stevefulme1.atlassian.jira_issue_type:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/issuetype/{id}
-
 """
 
 RETURN = r"""
@@ -147,13 +102,11 @@ avatarId:
   returned: success
   type: int
 
-
 description:
   description: >-
     The description of the issue type.
   returned: success
   type: str
-
 
 entityId:
   description: >-
@@ -161,13 +114,11 @@ entityId:
   returned: success
   type: str
 
-
 hierarchyLevel:
   description: >-
     Hierarchy level of the issue type.
   returned: success
   type: int
-
 
 iconUrl:
   description: >-
@@ -175,13 +126,11 @@ iconUrl:
   returned: success
   type: str
 
-
 id:
   description: >-
     The ID of the issue type.
   returned: success
   type: str
-
 
 name:
   description: >-
@@ -189,13 +138,11 @@ name:
   returned: success
   type: str
 
-
 scope:
   description: >-
     The projects the item is associated with. Indicated for items associated with next-gen projects.
   returned: success
   type: dict
-
 
 self:
   description: >-
@@ -203,14 +150,11 @@ self:
   returned: success
   type: str
 
-
 subtask:
   description: >-
     Whether this issue type is used to create subtasks.
   returned: success
   type: bool
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

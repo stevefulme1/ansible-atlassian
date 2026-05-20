@@ -32,20 +32,15 @@ extends_documentation_fragment:
 
 EXAMPLES = r"""
 
-
 - name: Update a deployment
   stevefulme1.atlassian.bitbucket_deployment:
     id: "existing_id"
 
     state: present
-  # API:  
-
-
-
+  # API:
 """
 
 RETURN = r"""
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

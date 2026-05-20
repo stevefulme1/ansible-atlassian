@@ -9,16 +9,7 @@
   ansible.builtin.set_fact:
     test_field_params:
 
-
       type: "{{ test_type | default("test_type_value") }}"
-
-
-
-
-
-
-
-
 
 # ============================================================
 # CREATE - check mode
@@ -39,14 +30,6 @@
 
 - name: Verify field was NOT actually created (check mode)
   stevefulme1.atlassian.jira_field_info:
-
-
-
-
-
-
-
-
 
   register: check_verify
 
@@ -105,37 +88,13 @@
     that:
       - info_result.fields | length == 1
 
-
       - info_result.fields[0].type == test_field_params.type
-
-
-
-
-
-
-
 
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update field
   stevefulme1.atlassian.jira_field:
@@ -177,7 +136,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

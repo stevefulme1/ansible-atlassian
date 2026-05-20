@@ -26,11 +26,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -57,8 +52,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_screen_info:
   register: result
 
-
-
 - name: List screen resources with pagination
   stevefulme1.atlassian.jira_screen_info:
     page: 1
@@ -79,43 +72,35 @@ screens:
         Whether this is the last page.
       type: bool
 
-
     maxResults:
       description: >-
         The maximum number of items that could be returned.
       type: int
-
 
     nextPage:
       description: >-
         If there is another page of results, the URL of the next page.
       type: str
 
-
     self:
       description: >-
         The URL of the page.
       type: str
-
 
     startAt:
       description: >-
         The index of the first item returned.
       type: int
 
-
     total:
       description: >-
         The number of items returned.
       type: int
 
-
     values:
       description: >-
         The list of items.
       type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

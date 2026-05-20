@@ -32,15 +32,6 @@ options:
     type: str
     required: false
 
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -67,12 +58,10 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_dashboard_info:
   register: result
 
-
 - name: List dashboard resources filtered by name
   stevefulme1.atlassian.jira_dashboard_info:
     name: "my_dashboard"
   register: result
-
 
 - name: List dashboard resources with pagination
   stevefulme1.atlassian.jira_dashboard_info:
@@ -94,85 +83,70 @@ dashboards:
         The automatic refresh interval for the dashboard in milliseconds.
       type: int
 
-
     description:
       description: >-
-        
-      type: str
 
+      type: str
 
     editPermissions:
       description: >-
         The details of any edit share permissions for the dashboard.
       type: list
 
-
     id:
       description: >-
         The ID of the dashboard.
       type: str
-
 
     isFavourite:
       description: >-
         Whether the dashboard is selected as a favorite by the user.
       type: bool
 
-
     isWritable:
       description: >-
         Whether the current user has permission to edit the dashboard.
       type: bool
-
 
     name:
       description: >-
         The name of the dashboard.
       type: str
 
-
     owner:
       description: >-
-        
-      type: dict
 
+      type: dict
 
     popularity:
       description: >-
         The number of users who have this dashboard as a favorite.
       type: int
 
-
     rank:
       description: >-
         The rank of this dashboard.
       type: int
-
 
     self:
       description: >-
         The URL of these dashboard details.
       type: str
 
-
     sharePermissions:
       description: >-
         The details of any view share permissions for the dashboard.
       type: list
-
 
     systemDashboard:
       description: >-
         Whether the current dashboard is system dashboard.
       type: bool
 
-
     view:
       description: >-
         The URL of the dashboard.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

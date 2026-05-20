@@ -9,38 +9,15 @@
   ansible.builtin.set_fact:
     test_attachment_params:
 
-
       file: "{{ test_file | default("test_file_value") }}"
-
-
 
       id: "{{ test_id | default("test_id_value") }}"
 
-
-
       minorEdit: "{{ test_minorEdit | default("test_minorEdit_value") }}"
-
-
 
       type: "{{ test_type | default("test_type_value") }}"
 
-
-
       version: "{{ test_version | default("test_version_value") }}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # ============================================================
 # CREATE - check mode
@@ -62,29 +39,7 @@
 - name: Verify attachment was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_attachment_info:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     title: "{{ test_title | default("test_title_value") }}"
-
 
   register: check_verify
 
@@ -143,73 +98,21 @@
     that:
       - info_result.attachments | length == 1
 
-
       - info_result.attachments[0].file == test_attachment_params.file
-
-
 
       - info_result.attachments[0].id == test_attachment_params.id
 
-
-
       - info_result.attachments[0].minorEdit == test_attachment_params.minorEdit
-
-
 
       - info_result.attachments[0].type == test_attachment_params.type
 
-
-
       - info_result.attachments[0].version == test_attachment_params.version
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 - name: Update attachment
   stevefulme1.atlassian.confluence_attachment:
@@ -251,7 +154,6 @@
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
 
 # ============================================================
 # DELETE - check mode

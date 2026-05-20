@@ -34,10 +34,6 @@ options:
 
     required: true
 
-
-
-
-
   products:
     description:
       - >-
@@ -46,19 +42,11 @@ options:
 
     required: true
 
-
-
-
-
   applicationKeys:
     description:
       - >-
         Deprecated, do not use.
     type: list
-
-
-
-
 
   displayName:
     description:
@@ -66,19 +54,11 @@ options:
         This property is no longer available. If the user has an Atlassian account, their display name...
     type: str
 
-
-
-
-
   key:
     description:
       - >-
         This property is no longer available. See the migration guide for details.
     type: str
-
-
-
-
 
   name:
     description:
@@ -86,29 +66,17 @@ options:
         This property is no longer available. See the migration guide for details.
     type: str
 
-
-
-
-
   password:
     description:
       - >-
         This property is no longer available. If the user has an Atlassian account, their password is...
     type: str
 
-
-
-
-
   self:
     description:
       - >-
         The URL of the user.
     type: str
-
-
-
-
 
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
@@ -119,72 +87,35 @@ EXAMPLES = r"""
 - name: Create a user
   stevefulme1.atlassian.jira_user:
 
-
     emailAddress: "example_emailAddress"
-
-
 
     products: "example_products"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/user
-
-
 
 - name: Update a user
   stevefulme1.atlassian.jira_user:
     key: "existing_id"
 
-
-
-
-
-
     applicationKeys: "updated_applicationKeys"
-
-
 
     displayName: "updated_displayName"
 
-
-
-
-
     name: "updated_name"
-
-
 
     password: "updated_password"
 
-
-
     self: "updated_self"
 
-
     state: present
-  # API:  
-
-
+  # API:
 
 - name: Delete a user
   stevefulme1.atlassian.jira_user:
     key: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/user
-
 """
 
 RETURN = r"""
@@ -195,13 +126,11 @@ accountId:
   returned: success
   type: str
 
-
 accountType:
   description: >-
     The user account type. Can take the following values: atlassian regular Atlassian user account...
   returned: success
   type: str
-
 
 active:
   description: >-
@@ -209,27 +138,23 @@ active:
   returned: success
   type: bool
 
-
 appType:
   description: >-
     The app type of the user account when accountType is 'app'. Can take the following values:...
   returned: success
   type: str
 
-
 applicationRoles:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 avatarUrls:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 displayName:
   description: >-
@@ -237,13 +162,11 @@ displayName:
   returned: success
   type: str
 
-
 emailAddress:
   description: >-
     The email address of the user. Depending on the user’s privacy setting, this may be returned as null.
   returned: success
   type: str
-
 
 expand:
   description: >-
@@ -251,13 +174,11 @@ expand:
   returned: success
   type: str
 
-
 groups:
   description: >-
-    
+
   returned: success
   type: dict
-
 
 guest:
   description: >-
@@ -265,13 +186,11 @@ guest:
   returned: success
   type: bool
 
-
 key:
   description: >-
     This property is no longer available and will be removed from the documentation soon. See the...
   returned: success
   type: str
-
 
 locale:
   description: >-
@@ -279,13 +198,11 @@ locale:
   returned: success
   type: str
 
-
 name:
   description: >-
     This property is no longer available and will be removed from the documentation soon. See the...
   returned: success
   type: str
-
 
 self:
   description: >-
@@ -293,14 +210,11 @@ self:
   returned: success
   type: str
 
-
 timeZone:
   description: >-
     The time zone specified in the user's profile. If the user's time zone is not visible to the...
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
