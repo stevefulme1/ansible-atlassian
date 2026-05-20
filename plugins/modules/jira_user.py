@@ -336,9 +336,8 @@ def main():
             ),
 
             applicationKeys=dict(
-                type="list", elements="str",
-
-            , no_log=False),
+                type="list", elements="str", no_log=False,
+            ),
 
             displayName=dict(
                 type="str",
@@ -346,9 +345,8 @@ def main():
             ),
 
             key=dict(
-                type="str",
-
-            , no_log=False),
+                type="str", no_log=False,
+            ),
 
             name=dict(
                 type="str",
@@ -356,9 +354,8 @@ def main():
             ),
 
             password=dict(
-                type="str",
-
-            , no_log=True),
+                type="str", no_log=True,
+            ),
 
             self=dict(
                 type="str",
