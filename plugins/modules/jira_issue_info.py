@@ -28,8 +28,6 @@ options:
       - When omitted, all jira issue resources are listed.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -51,12 +49,9 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_issue_info:
     id: "example_id"
   register: result
-
 - name: List all jira issue resources
   stevefulme1.atlassian.jira_issue_info:
   register: result
-
-
 - name: List jira issue resources with pagination
   stevefulme1.atlassian.jira_issue_info:
     page: 1
@@ -71,97 +66,64 @@ jira_issues:
   type: list
   elements: dict
   contains:
-
     changelog:
       description: >-
         A page of changelogs.
       type: dict
-
-
     editmeta:
       description: >-
         A list of editable field details.
       type: dict
-
-
     expand:
       description: >-
         Expand options that include additional issue details in the response.
       type: str
-
-
     fields:
       description: >-
-
       type: dict
-
-
     fieldsToInclude:
       description: >-
-
       type: dict
-
-
     id:
       description: >-
         The ID of the issue.
       type: str
-
-
     key:
       description: >-
         The key of the issue.
       type: str
-
-
     names:
       description: >-
         The ID and name of each field present on the issue.
       type: dict
-
-
     operations:
       description: >-
         Details of the operations that can be performed on the issue.
       type: dict
-
-
     properties:
       description: >-
         Details of the issue properties identified in the request.
       type: dict
-
-
     renderedFields:
       description: >-
         The rendered value of each field present on the issue.
       type: dict
-
-
     schema:
       description: >-
         The schema describing each field present on the issue.
       type: dict
-
-
     self:
       description: >-
         The URL of the issue details.
       type: str
-
-
     transitions:
       description: >-
         The transitions that can be performed on the issue.
       type: list
-
-
     versionedRepresentations:
       description: >-
         The versions of each field on the issue.
       type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

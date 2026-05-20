@@ -28,8 +28,6 @@ options:
       - When omitted, all bitbucket environment resources are listed.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -51,12 +49,9 @@ EXAMPLES = r"""
   stevefulme1.atlassian.bitbucket_environment_info:
     id: "example_id"
   register: result
-
 - name: List all bitbucket environment resources
   stevefulme1.atlassian.bitbucket_environment_info:
   register: result
-
-
 - name: List bitbucket environment resources with pagination
   stevefulme1.atlassian.bitbucket_environment_info:
     page: 1
@@ -71,7 +66,6 @@ bitbucket_environments:
   type: list
   elements: dict
   contains:
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

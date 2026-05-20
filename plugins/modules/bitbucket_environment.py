@@ -25,34 +25,25 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a bitbucket environment
   stevefulme1.atlassian.bitbucket_environment:
-
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/environments
-
-
 - name: Update a bitbucket environment
   stevefulme1.atlassian.bitbucket_environment:
     id: "existing_id"
-
     state: present
   # API:
-
-
 - name: Delete a bitbucket environment
   stevefulme1.atlassian.bitbucket_environment:
     id: "existing_id"
     state: absent
   # API: DELETE /repositories/{workspace}/{repo_slug}/environments/{environment_uuid}
-
 """
 
 RETURN = r"""

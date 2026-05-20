@@ -25,196 +25,123 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   avatarId:
     description:
       - >-
         The ID for the avatar for the priority. This parameter is nullable and both iconUrl and avatarId...
     type: int
-
-
   description:
     description:
       - >-
         The description of the priority.
     type: str
-
-
   iconUrl:
     description:
       - >-
         The URL of an icon for the priority. Accepted protocols are HTTP and HTTPS. Built in icons can...
     type: str
-
-
     choices:
-
       - "/images/icons/priorities/blocker.png"
-
       - "/images/icons/priorities/critical.png"
-
       - "/images/icons/priorities/high.png"
-
       - "/images/icons/priorities/highest.png"
-
       - "/images/icons/priorities/low.png"
-
       - "/images/icons/priorities/lowest.png"
-
       - "/images/icons/priorities/major.png"
-
       - "/images/icons/priorities/medium.png"
-
       - "/images/icons/priorities/minor.png"
-
       - "/images/icons/priorities/trivial.png"
-
       - "/images/icons/priorities/blocker_new.png"
-
       - "/images/icons/priorities/critical_new.png"
-
       - "/images/icons/priorities/high_new.png"
-
       - "/images/icons/priorities/highest_new.png"
-
       - "/images/icons/priorities/low_new.png"
-
       - "/images/icons/priorities/lowest_new.png"
-
       - "/images/icons/priorities/major_new.png"
-
       - "/images/icons/priorities/medium_new.png"
-
       - "/images/icons/priorities/minor_new.png"
-
       - "/images/icons/priorities/trivial_new.png"
-
-
   name:
     description:
       - >-
         The name of the priority. Must be unique.
     type: str
-
-
   statusColor:
     description:
       - >-
         The status color of the priority in 3-digit or 6-digit hexadecimal format.
     type: str
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a jira priority
   stevefulme1.atlassian.jira_priority:
-
-
     state: present
   # API: POST /rest/api/3/priority
-
-
 - name: Update a jira priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
-
-
     avatarId: "updated_avatarId"
-
-
     description: "updated_description"
-
-
     iconUrl: "updated_iconUrl"
-
-
     name: "updated_name"
-
-
     statusColor: "updated_statusColor"
-
-
     state: present
   # API:
-
-
 - name: Delete a jira priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/priority/{id}
-
 """
 
 RETURN = r"""
-
 avatarId:
   description: >-
     The avatarId of the avatar for the issue priority. This parameter is nullable and when set, this...
   returned: success
   type: int
-
-
 description:
   description: >-
     The description of the issue priority.
   returned: success
   type: str
-
-
 iconUrl:
   description: >-
     The URL of the icon for the issue priority.
   returned: success
   type: str
-
-
 id:
   description: >-
     The ID of the issue priority.
   returned: success
   type: str
-
-
 isDefault:
   description: >-
     Whether this priority is the default.
   returned: success
   type: bool
-
-
 name:
   description: >-
     The name of the issue priority.
   returned: success
   type: str
-
-
 schemes:
   description: >-
-
   returned: success
   type: dict
-
-
 self:
   description: >-
     The URL of the issue priority.
   returned: success
   type: str
-
-
 statusColor:
   description: >-
     The color used to indicate the issue priority.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

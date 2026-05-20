@@ -25,34 +25,25 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a bitbucket project
   stevefulme1.atlassian.bitbucket_project:
-
     state: present
   # API: POST /workspaces/{workspace}/projects
-
-
 - name: Update a bitbucket project
   stevefulme1.atlassian.bitbucket_project:
     id: "existing_id"
-
     state: present
   # API:
-
-
 - name: Delete a bitbucket project
   stevefulme1.atlassian.bitbucket_project:
     id: "existing_id"
     state: absent
   # API: DELETE /workspaces/{workspace}/projects/{project_key}
-
 """
 
 RETURN = r"""

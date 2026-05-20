@@ -28,14 +28,11 @@ options:
       - When omitted, all confluence template resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -57,18 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_template_info:
     id: "example_id"
   register: result
-
 - name: List all confluence template resources
   stevefulme1.atlassian.confluence_template_info:
   register: result
-
-
 - name: List confluence template resources filtered by name
   stevefulme1.atlassian.confluence_template_info:
     name: "my_confluence template"
   register: result
-
-
 - name: List confluence template resources with pagination
   stevefulme1.atlassian.confluence_template_info:
     page: 1
@@ -83,79 +75,43 @@ confluence_templates:
   type: list
   elements: dict
   contains:
-
     templateId:
       description: >-
-
       type: str
-
-
     originalTemplate:
       description: >-
-
       type: dict
-
-
     referencingBlueprint:
       description: >-
-
       type: str
-
-
     name:
       description: >-
-
       type: str
-
-
     description:
       description: >-
-
       type: str
-
-
     space:
       description: >-
-
       type: dict
-
-
     labels:
       description: >-
-
       type: list
-
-
     templateType:
       description: >-
-
       type: str
-
-
     editorVersion:
       description: >-
-
       type: str
-
-
     body:
       description: >-
         The body of the new content. Does not apply to attachments. Only one body format should be...
       type: dict
-
-
     _expandable:
       description: >-
-
       type: dict
-
-
     _links:
       description: >-
-
       type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

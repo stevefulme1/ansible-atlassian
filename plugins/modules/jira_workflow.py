@@ -25,84 +25,56 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   projectAndIssueTypes:
     description:
       - >-
         The list of projects and issue types to query.
     type: list
-
-
   workflowIds:
     description:
       - >-
         The list of workflow IDs to query.
     type: list
-
-
   workflowNames:
     description:
       - >-
         The list of workflow names to query.
     type: list
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a jira workflow
   stevefulme1.atlassian.jira_workflow:
-
-
     state: present
   # API: POST /rest/api/3/workflows
-
-
 - name: Update a jira workflow
   stevefulme1.atlassian.jira_workflow:
     id: "existing_id"
-
-
     projectAndIssueTypes: "updated_projectAndIssueTypes"
-
-
     workflowIds: "updated_workflowIds"
-
-
     workflowNames: "updated_workflowNames"
-
-
     state: present
   # API:
-
-
 - name: Delete a jira workflow
   stevefulme1.atlassian.jira_workflow:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/workflow/{entityId}
-
 """
 
 RETURN = r"""
-
 statuses:
   description: >-
     List of statuses.
   returned: success
   type: list
-
-
 workflows:
   description: >-
     List of workflows.
   returned: success
   type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

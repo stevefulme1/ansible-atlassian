@@ -25,163 +25,109 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   avatarId:
     description:
       - >-
         The ID of an issue type avatar. This can be obtained be obtained from the following endpoints:...
     type: int
-
-
   description:
     description:
       - >-
         The description of the issue type.
     type: str
-
-
   hierarchyLevel:
     description:
       - >-
         The hierarchy level of the issue type. Use: -1 for Subtask. 0 for Base. Defaults to 0.
     type: int
-
-
   name:
     description:
       - >-
         The unique name for the issue type. The maximum length is 60 characters.
     type: str
-
-
   type:
     description:
       - >-
         Deprecated. Use hierarchyLevel instead. See the deprecation notice for details. Whether the...
     type: str
-
-
     choices: ["subtask", "standard"]
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a jira issue type
   stevefulme1.atlassian.jira_issue_type:
-
-
     state: present
   # API: POST /rest/api/3/issuetype
-
-
 - name: Update a jira issue type
   stevefulme1.atlassian.jira_issue_type:
     id: "existing_id"
-
-
     avatarId: "updated_avatarId"
-
-
     description: "updated_description"
-
-
     hierarchyLevel: "updated_hierarchyLevel"
-
-
     name: "updated_name"
-
-
     type: "updated_type"
-
-
     state: present
   # API:
-
-
 - name: Delete a jira issue type
   stevefulme1.atlassian.jira_issue_type:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/issuetype/{id}
-
 """
 
 RETURN = r"""
-
 avatarId:
   description: >-
     The ID of the issue type's avatar.
   returned: success
   type: int
-
-
 description:
   description: >-
     The description of the issue type.
   returned: success
   type: str
-
-
 entityId:
   description: >-
     Unique ID for next-gen projects.
   returned: success
   type: str
-
-
 hierarchyLevel:
   description: >-
     Hierarchy level of the issue type.
   returned: success
   type: int
-
-
 iconUrl:
   description: >-
     The URL of the issue type's avatar.
   returned: success
   type: str
-
-
 id:
   description: >-
     The ID of the issue type.
   returned: success
   type: str
-
-
 name:
   description: >-
     The name of the issue type.
   returned: success
   type: str
-
-
 scope:
   description: >-
     The projects the item is associated with. Indicated for items associated with next-gen projects.
   returned: success
   type: dict
-
-
 self:
   description: >-
     The URL of these issue type details.
   returned: success
   type: str
-
-
 subtask:
   description: >-
     Whether this issue type is used to create subtasks.
   returned: success
   type: bool
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

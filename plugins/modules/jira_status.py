@@ -25,99 +25,67 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   scope:
     description:
       - >-
         The scope of the status.
     type: dict
-
     required: true
-
-
   statuses:
     description:
       - >-
         The list of statuses that will be updated.
     type: list
-
     required: true
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a jira status
   stevefulme1.atlassian.jira_status:
-
-
     scope: "example_scope"
-
-
     statuses: "example_statuses"
-
-
     state: present
   # API: POST /rest/api/3/statuses
-
-
 - name: Update a jira status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
-
-
     state: present
   # API:
-
-
 - name: Delete a jira status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/statuses
-
 """
 
 RETURN = r"""
-
 description:
   description: >-
     The description of the status.
   returned: success
   type: str
-
-
 id:
   description: >-
     The ID of the status.
   returned: success
   type: str
-
-
 name:
   description: >-
     The name of the status.
   returned: success
   type: str
-
-
 scope:
   description: >-
     The scope of the status.
   returned: success
   type: dict
-
-
 statusCategory:
   description: >-
     The category of the status.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

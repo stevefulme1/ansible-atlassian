@@ -28,14 +28,11 @@ options:
       - When omitted, all jira version resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -57,18 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_version_info:
     id: "example_id"
   register: result
-
 - name: List all jira version resources
   stevefulme1.atlassian.jira_version_info:
   register: result
-
-
 - name: List jira version resources filtered by name
   stevefulme1.atlassian.jira_version_info:
     name: "my_jira version"
   register: result
-
-
 - name: List jira version resources with pagination
   stevefulme1.atlassian.jira_version_info:
     page: 1
@@ -83,121 +75,82 @@ jira_versions:
   type: list
   elements: dict
   contains:
-
     approvers:
       description: >-
         If the expand option approvers is used, returns a list containing the approvers for this version.
       type: list
-
-
     archived:
       description: >-
         Indicates that the version is archived. Optional when creating or updating a version.
       type: bool
-
-
     description:
       description: >-
         The description of the version. Optional when creating or updating a version. The maximum size...
       type: str
-
-
     driver:
       description: >-
         The Atlassian account ID of the version driver. Optional when creating or updating a version. If...
       type: str
-
-
     expand:
       description: >-
         Use expand(em>expansion) to include additional information about version in the response. This...
       type: str
-
-
     id:
       description: >-
         The ID of the version.
       type: str
-
-
     issuesStatusForFixVersion:
       description: >-
         Counts of the number of issues in various statuses.
       type: dict
-
-
     moveUnfixedIssuesTo:
       description: >-
         The URL of the self link to the version to which all unfixed issues are moved when a version is...
       type: str
-
-
     name:
       description: >-
         The unique name of the version. Required when creating a version. Optional when updating a...
       type: str
-
-
     operations:
       description: >-
         If the expand option operations is used, returns the list of operations available for this version.
       type: list
-
-
     overdue:
       description: >-
         Indicates that the version is overdue.
       type: bool
-
-
     project:
       description: >-
         Deprecated. Use projectId.
       type: str
-
-
     projectId:
       description: >-
         The ID of the project to which this version is attached. Required when creating a version. Not...
       type: int
-
-
     releaseDate:
       description: >-
         The release date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when...
       type: str
-
-
     released:
       description: >-
         Indicates that the version is released. If the version is released a request to release again is...
       type: bool
-
-
     self:
       description: >-
         The URL of the version.
       type: str
-
-
     startDate:
       description: >-
         The start date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when creating...
       type: str
-
-
     userReleaseDate:
       description: >-
         The date on which work on this version is expected to finish, expressed in the instance's...
       type: str
-
-
     userStartDate:
       description: >-
         The date on which work on this version is expected to start, expressed in the instance's...
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

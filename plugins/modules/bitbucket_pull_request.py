@@ -25,28 +25,20 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a bitbucket pull request
   stevefulme1.atlassian.bitbucket_pull_request:
-
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/pullrequests
-
-
 - name: Update a bitbucket pull request
   stevefulme1.atlassian.bitbucket_pull_request:
     id: "existing_id"
-
     state: present
   # API:
-
-
 """
 
 RETURN = r"""

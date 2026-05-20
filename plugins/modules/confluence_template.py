@@ -25,205 +25,124 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   body:
     description:
       - >-
         The body of the new content. Does not apply to attachments. Only one body format should be...
     type: dict
-
     required: true
-
-
   name:
     description:
       - >-
         The name of the template. Set to the current name if this field is not being updated.
     type: str
-
     required: true
-
-
   templateId:
     description:
       - >-
         The ID of the template being updated.
     type: str
-
     required: true
-
-
   templateType:
     description:
       - >-
         The type of the template. Set to page.
     type: str
-
     required: true
-
-
     choices: ["page"]
-
-
   description:
     description:
       - >-
         A description of the template.
     type: str
-
-
   labels:
     description:
       - >-
         Labels for the template.
     type: list
-
-
   space:
     description:
       - >-
         The key for the space of the template. Required if the template is a space template. Set this to...
     type: dict
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a confluence template
   stevefulme1.atlassian.confluence_template:
-
-
     body: "example_body"
-
-
     name: "example_name"
-
-
     templateId: "example_templateId"
-
-
     templateType: "example_templateType"
-
-
     state: present
   # API: POST /wiki/rest/api/template
-
-
 - name: Update a confluence template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
-
-
     description: "updated_description"
-
-
     labels: "updated_labels"
-
-
     space: "updated_space"
-
-
     state: present
   # API:
-
-
 - name: Delete a confluence template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
     state: absent
   # API: DELETE /wiki/rest/api/template/{contentTemplateId}
-
 """
 
 RETURN = r"""
-
 templateId:
   description: >-
-
   returned: success
   type: str
-
-
 originalTemplate:
   description: >-
-
   returned: success
   type: dict
-
-
 referencingBlueprint:
   description: >-
-
   returned: success
   type: str
-
-
 name:
   description: >-
-
   returned: success
   type: str
-
-
 description:
   description: >-
-
   returned: success
   type: str
-
-
 space:
   description: >-
-
   returned: success
   type: dict
-
-
 labels:
   description: >-
-
   returned: success
   type: list
-
-
 templateType:
   description: >-
-
   returned: success
   type: str
-
-
 editorVersion:
   description: >-
-
   returned: success
   type: str
-
-
 body:
   description: >-
     The body of the new content. Does not apply to attachments. Only one body format should be...
   returned: success
   type: dict
-
-
 _expandable:
   description: >-
-
   returned: success
   type: dict
-
-
 _links:
   description: >-
-
   returned: success
   type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

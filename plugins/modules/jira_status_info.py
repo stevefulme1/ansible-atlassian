@@ -28,14 +28,11 @@ options:
       - When omitted, all jira status resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -57,18 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_status_info:
     id: "example_id"
   register: result
-
 - name: List all jira status resources
   stevefulme1.atlassian.jira_status_info:
   register: result
-
-
 - name: List jira status resources filtered by name
   stevefulme1.atlassian.jira_status_info:
     name: "my_jira status"
   register: result
-
-
 - name: List jira status resources with pagination
   stevefulme1.atlassian.jira_status_info:
     page: 1
@@ -83,37 +75,26 @@ jira_statuss:
   type: list
   elements: dict
   contains:
-
     description:
       description: >-
         The description of the status.
       type: str
-
-
     id:
       description: >-
         The ID of the status.
       type: str
-
-
     name:
       description: >-
         The name of the status.
       type: str
-
-
     scope:
       description: >-
         The scope of the status.
       type: dict
-
-
     statusCategory:
       description: >-
         The category of the status.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

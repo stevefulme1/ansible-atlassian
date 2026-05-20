@@ -25,160 +25,102 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   type:
     description:
       - >-
         The type of the custom field. These built-in custom field types are available: cascadingselect:...
     type: str
-
     required: true
-
-
   description:
     description:
       - >-
         The description of the custom field. The maximum length is 40000 characters.
     type: str
-
-
   name:
     description:
       - >-
         The name of the custom field. It doesn't have to be unique. The maximum length is 255 characters.
     type: str
-
-
   searcherKey:
     description:
       - >-
         The searcher that defines the way the field is searched in Jira. It can be set to null,...
     type: str
-
-
     choices:
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:daterange"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:datetimerange"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:exactnumber"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:numberrange"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:textsearcher"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher"
-
       - "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher"
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a jira field
   stevefulme1.atlassian.jira_field:
-
-
     type: "example_type"
-
-
     state: present
   # API: POST /rest/api/3/field
-
-
 - name: Update a jira field
   stevefulme1.atlassian.jira_field:
     id: "existing_id"
-
-
     description: "updated_description"
-
-
     name: "updated_name"
-
-
     searcherKey: "updated_searcherKey"
-
-
     state: present
   # API:
-
-
 - name: Delete a jira field
   stevefulme1.atlassian.jira_field:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/field/{id}
-
 """
 
 RETURN = r"""
-
 isLast:
   description: >-
     Whether this is the last page.
   returned: success
   type: bool
-
-
 maxResults:
   description: >-
     The maximum number of items that could be returned.
   returned: success
   type: int
-
-
 nextPage:
   description: >-
     If there is another page of results, the URL of the next page.
   returned: success
   type: str
-
-
 self:
   description: >-
     The URL of the page.
   returned: success
   type: str
-
-
 startAt:
   description: >-
     The index of the first item returned.
   returned: success
   type: int
-
-
 total:
   description: >-
     The number of items returned.
   returned: success
   type: int
-
-
 values:
   description: >-
     The list of items.
   returned: success
   type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

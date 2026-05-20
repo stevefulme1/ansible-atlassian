@@ -25,34 +25,25 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a bitbucket webhook
   stevefulme1.atlassian.bitbucket_webhook:
-
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/hooks
-
-
 - name: Update a bitbucket webhook
   stevefulme1.atlassian.bitbucket_webhook:
     id: "existing_id"
-
     state: present
   # API:
-
-
 - name: Delete a bitbucket webhook
   stevefulme1.atlassian.bitbucket_webhook:
     id: "existing_id"
     state: absent
   # API: DELETE /repositories/{workspace}/{repo_slug}/hooks/{uid}
-
 """
 
 RETURN = r"""

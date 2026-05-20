@@ -25,567 +25,359 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   assigneeType:
     description:
       - >-
         The default assignee when creating issues for this project.
     type: str
-
-
     choices: ["PROJECT_LEAD", "UNASSIGNED"]
-
-
   avatarId:
     description:
       - >-
         An integer value for the project's avatar.
     type: int
-
-
   categoryId:
     description:
       - >-
         The ID of the project's category. A complete list of category IDs is found using the Get all...
     type: int
-
-
   description:
     description:
       - >-
         A brief description of the project.
     type: str
-
-
   fieldConfigurationScheme:
     description:
       - >-
         Deprecated use fieldScheme instead. The ID of the field configuration scheme for the project....
     type: int
-
-
   fieldScheme:
     description:
       - >-
         The ID of the field scheme for the project. Use the Get field...
     type: int
-
-
   issueSecurityScheme:
     description:
       - >-
         The ID of the issue security scheme for the project, which enables you to control who can and...
     type: int
-
-
   issueTypeScheme:
     description:
       - >-
         The ID of the issue type scheme for the project. Use the Get all issue type...
     type: int
-
-
   issueTypeScreenScheme:
     description:
       - >-
         The ID of the issue type screen scheme for the project. Use the Get all issue type screen...
     type: int
-
-
   key:
     description:
       - >-
         Project keys must be unique and start with an uppercase letter followed by one or more uppercase...
     type: str
-
-
   lead:
     description:
       - >-
         This parameter is deprecated because of privacy changes. Use leadAccountId instead. See the...
     type: str
-
-
   leadAccountId:
     description:
       - >-
         The account ID of the project lead. Cannot be provided with lead.
     type: str
-
-
   name:
     description:
       - >-
         The name of the project.
     type: str
-
-
   notificationScheme:
     description:
       - >-
         The ID of the notification scheme for the project. Use the Get notification...
     type: int
-
-
   permissionScheme:
     description:
       - >-
         The ID of the permission scheme for the project. Use the Get all permission...
     type: int
-
-
   projectTemplateKey:
     description:
       - >-
         A predefined configuration for a project. The type of the projectTemplateKey must match with the...
     type: str
-
-
     choices:
-
       - "com.pyxis.greenhopper.jira:gh-simplified-agility-kanban"
-
       - "com.pyxis.greenhopper.jira:gh-simplified-agility-scrum"
-
       - "com.pyxis.greenhopper.jira:gh-simplified-basic"
-
       - "com.pyxis.greenhopper.jira:gh-simplified-kanban-classic"
-
       - "com.pyxis.greenhopper.jira:gh-simplified-scrum-classic"
-
       - "com.pyxis.greenhopper.jira:gh-cross-team-template"
-
       - "com.pyxis.greenhopper.jira:gh-cross-team-planning-template"
-
       - "com.atlassian.servicedesk:simplified-it-service-management"
-
       - "com.atlassian.servicedesk:simplified-it-service-management-basic"
-
       - "com.atlassian.servicedesk:simplified-it-service-management-operations"
-
       - "com.atlassian.servicedesk:simplified-internal-service-desk"
-
       - "com.atlassian.servicedesk:simplified-external-service-desk"
-
       - "com.atlassian.servicedesk:simplified-hr-service-desk"
-
       - "com.atlassian.servicedesk:simplified-facilities-service-desk"
-
       - "com.atlassian.servicedesk:simplified-legal-service-desk"
-
       - "com.atlassian.servicedesk:simplified-marketing-service-desk"
-
       - "com.atlassian.servicedesk:simplified-finance-service-desk"
-
       - "com.atlassian.servicedesk:simplified-analytics-service-desk"
-
       - "com.atlassian.servicedesk:simplified-design-service-desk"
-
       - "com.atlassian.servicedesk:simplified-sales-service-desk"
-
       - "com.atlassian.servicedesk:simplified-halp-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-it-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-hr-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-legal-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-marketing-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-facilities-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-general-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-analytics-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-finance-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-design-service-desk"
-
       - "com.atlassian.servicedesk:next-gen-sales-service-desk"
-
       - "com.atlassian.jira-core-project-templates:jira-core-simplified-content-management"
-
       - "com.atlassian.jira-core-project-templates:jira-core-simplified-document-approval"
-
       - "com.atlassian.jira-core-project-templates:jira-core-simplified-lead-tracking"
-
       - "com.atlassian.jira-core-project-templates:jira-core-simplified-process-control"
-
       - "com.atlassian.jira-core-project-templates:jira-core-simplified-procurement"
-
       - "com.atlassian.jira-core-project-templates:jira-core-simplified-project-management"
-
       - "com.atlassian.jira-core-project-templates:jira-core-simplified-recruitment"
-
       - "com.atlassian.jira-core-project-templates:jira-core-simplified-task-"
-
       - "com.atlassian.jcs:customer-service-management"
-
-
   projectTypeKey:
     description:
       - >-
         The project type, which defines the application-specific feature set. If you don't specify the...
     type: str
-
-
     choices: ["software", "service_desk", "business"]
-
-
   releasedProjectKeys:
     description:
       - >-
         Previous project keys to be released from the current project. Released keys must belong to the...
     type: list
-
-
   url:
     description:
       - >-
         A link to information about this project, such as project documentation
     type: str
-
-
   workflowScheme:
     description:
       - >-
         The ID of the workflow scheme for the project. Use the Get all workflow...
     type: int
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a jira project
   stevefulme1.atlassian.jira_project:
-
-
     state: present
   # API: POST /rest/api/3/project
-
-
 - name: Update a jira project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
-
-
     assigneeType: "updated_assigneeType"
-
-
     avatarId: "updated_avatarId"
-
-
     categoryId: "updated_categoryId"
-
-
     description: "updated_description"
-
-
     fieldConfigurationScheme: "updated_fieldConfigurationScheme"
-
-
     fieldScheme: "updated_fieldScheme"
-
-
     issueSecurityScheme: "updated_issueSecurityScheme"
-
-
     issueTypeScheme: "updated_issueTypeScheme"
-
-
     issueTypeScreenScheme: "updated_issueTypeScreenScheme"
-
-
     key: "updated_key"
-
-
     lead: "updated_lead"
-
-
     leadAccountId: "updated_leadAccountId"
-
-
     name: "updated_name"
-
-
     notificationScheme: "updated_notificationScheme"
-
-
     permissionScheme: "updated_permissionScheme"
-
-
     projectTemplateKey: "updated_projectTemplateKey"
-
-
     projectTypeKey: "updated_projectTypeKey"
-
-
     releasedProjectKeys: "updated_releasedProjectKeys"
-
-
     url: "updated_url"
-
-
     workflowScheme: "updated_workflowScheme"
-
-
     state: present
   # API:
-
-
 - name: Delete a jira project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/project/{projectIdOrKey}
-
 """
 
 RETURN = r"""
-
 archived:
   description: >-
     Whether the project is archived.
   returned: success
   type: bool
-
-
 archivedBy:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
-
 archivedDate:
   description: >-
     The date when the project was archived.
   returned: success
   type: str
-
-
 assigneeType:
   description: >-
     The default assignee when creating issues for this project.
   returned: success
   type: str
-
-
 avatarUrls:
   description: >-
-
   returned: success
   type: dict
-
-
 components:
   description: >-
     List of the components contained in the project.
   returned: success
   type: list
-
-
 deleted:
   description: >-
     Whether the project is marked as deleted.
   returned: success
   type: bool
-
-
 deletedBy:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
-
 deletedDate:
   description: >-
     The date when the project was marked as deleted.
   returned: success
   type: str
-
-
 description:
   description: >-
     A brief description of the project.
   returned: success
   type: str
-
-
 email:
   description: >-
     An email address associated with the project.
   returned: success
   type: str
-
-
 expand:
   description: >-
     Expand options that include additional project details in the response.
   returned: success
   type: str
-
-
 favourite:
   description: >-
     Whether the project is selected as a favorite.
   returned: success
   type: bool
-
-
 id:
   description: >-
     The ID of the project.
   returned: success
   type: str
-
-
 insight:
   description: >-
     Additional details about a project.
   returned: success
   type: dict
-
-
 isPrivate:
   description: >-
     Whether the project is private from the user's perspective. This means the user can't see the...
   returned: success
   type: bool
-
-
 issueTypeHierarchy:
   description: >-
     The project issue type hierarchy.
   returned: success
   type: dict
-
-
 issueTypes:
   description: >-
     List of the issue types available in the project.
   returned: success
   type: list
-
-
 key:
   description: >-
     The key of the project.
   returned: success
   type: str
-
-
 landingPageInfo:
   description: >-
-
   returned: success
   type: dict
-
-
 lead:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
-
 name:
   description: >-
     The name of the project.
   returned: success
   type: str
-
-
 permissions:
   description: >-
     Permissions which a user has on a project.
   returned: success
   type: dict
-
-
 projectCategory:
   description: >-
     A project category.
   returned: success
   type: dict
-
-
 projectTypeKey:
   description: >-
     The project type of the project.
   returned: success
   type: str
-
-
 properties:
   description: >-
     Map of project properties
   returned: success
   type: dict
-
-
 retentionTillDate:
   description: >-
     The date when the project is deleted permanently.
   returned: success
   type: str
-
-
 roles:
   description: >-
     The name and self URL for each role defined in the project. For more information, see Create...
   returned: success
   type: dict
-
-
 self:
   description: >-
     The URL of the project details.
   returned: success
   type: str
-
-
 simplified:
   description: >-
     Whether the project is simplified.
   returned: success
   type: bool
-
-
 style:
   description: >-
     The type of the project.
   returned: success
   type: str
-
-
 url:
   description: >-
     A link to information about this project, such as project documentation.
   returned: success
   type: str
-
-
 uuid:
   description: >-
     Unique ID for next-gen projects.
   returned: success
   type: str
-
-
 versions:
   description: >-
     The versions defined in the project. For more information, see Create...
   returned: success
   type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

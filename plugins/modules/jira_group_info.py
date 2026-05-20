@@ -28,14 +28,11 @@ options:
       - When omitted, all jira group resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -57,18 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_group_info:
     id: "example_id"
   register: result
-
 - name: List all jira group resources
   stevefulme1.atlassian.jira_group_info:
   register: result
-
-
 - name: List jira group resources filtered by name
   stevefulme1.atlassian.jira_group_info:
     name: "my_jira group"
   register: result
-
-
 - name: List jira group resources with pagination
   stevefulme1.atlassian.jira_group_info:
     page: 1
@@ -83,25 +75,18 @@ jira_groups:
   type: list
   elements: dict
   contains:
-
     groupId:
       description: >-
         The ID of the group, which uniquely identifies the group across all Atlassian products. For...
       type: str
-
-
     name:
       description: >-
         The name of group.
       type: str
-
-
     self:
       description: >-
         The URL for these group details.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

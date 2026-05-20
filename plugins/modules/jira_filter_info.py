@@ -28,14 +28,11 @@ options:
       - When omitted, all jira filter resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -57,18 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_filter_info:
     id: "example_id"
   register: result
-
 - name: List all jira filter resources
   stevefulme1.atlassian.jira_filter_info:
   register: result
-
-
 - name: List jira filter resources filtered by name
   stevefulme1.atlassian.jira_filter_info:
     name: "my_jira filter"
   register: result
-
-
 - name: List jira filter resources with pagination
   stevefulme1.atlassian.jira_filter_info:
     page: 1
@@ -83,97 +75,66 @@ jira_filters:
   type: list
   elements: dict
   contains:
-
     approximateLastUsed:
       description: >-
         \Experimental\ Approximate last used time. Returns the date and time when the filter was last...
       type: str
-
-
     description:
       description: >-
         A description of the filter.
       type: str
-
-
     editPermissions:
       description: >-
         The groups and projects that can edit the filter.
       type: list
-
-
     favourite:
       description: >-
         Whether the filter is selected as a favorite.
       type: bool
-
-
     favouritedCount:
       description: >-
         The count of how many users have selected this filter as a favorite, including the filter owner.
       type: int
-
-
     id:
       description: >-
         The unique identifier for the filter.
       type: str
-
-
     jql:
       description: >-
         The JQL query for the filter. For example, project = SSP AND issuetype = Bug.
       type: str
-
-
     name:
       description: >-
         The name of the filter. Must be unique.
       type: str
-
-
     owner:
       description: >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
       type: dict
-
-
     searchUrl:
       description: >-
         A URL to view the filter results in Jira, using the Search for issues using...
       type: str
-
-
     self:
       description: >-
         The URL of the filter.
       type: str
-
-
     sharePermissions:
       description: >-
         The groups and projects that the filter is shared with.
       type: list
-
-
     sharedUsers:
       description: >-
         A paginated list of users sharing the filter. This includes users that are members of the groups...
       type: dict
-
-
     subscriptions:
       description: >-
         A paginated list of subscriptions to a filter.
       type: dict
-
-
     viewUrl:
       description: >-
         A URL to view the filter results in Jira, using the ID of the filter. For example,...
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

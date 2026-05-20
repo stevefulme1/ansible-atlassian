@@ -28,8 +28,6 @@ options:
       - When omitted, all confluence content restriction resources are listed.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -51,12 +49,9 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_content_restriction_info:
     id: "example_id"
   register: result
-
 - name: List all confluence content restriction resources
   stevefulme1.atlassian.confluence_content_restriction_info:
   register: result
-
-
 - name: List confluence content restriction resources with pagination
   stevefulme1.atlassian.confluence_content_restriction_info:
     page: 1
@@ -71,37 +66,22 @@ confluence_content_restrictions:
   type: list
   elements: dict
   contains:
-
     operation:
       description: >-
-
       type: str
-
-
     restrictions:
       description: >-
-
       type: dict
-
-
     content:
       description: >-
         Base object for all content types.
       type: dict
-
-
     _expandable:
       description: >-
-
       type: dict
-
-
     _links:
       description: >-
-
       type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -25,212 +25,128 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   name:
     description:
       - >-
         The name of the new space.
     type: str
-
     required: true
-
-
   alias:
     description:
       - >-
         This field will be used as the new identifier for the space in confluence page URLs. If the...
     type: str
-
-
   description:
     description:
       - >-
         The description of the new/updated space. Note, only the 'plain' representation can be used for...
     type: dict
-
-
   key:
     description:
       - >-
         The key for the new space. Format: See Space keys. If alias is not provided, this is required.
     type: str
-
-
   permissions:
     description:
       - >-
         The permissions for the new space. If no permissions are provided, the Confluence default space...
     type: list
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a confluence space
   stevefulme1.atlassian.confluence_space:
-
-
     name: "example_name"
-
-
     state: present
   # API: POST /wiki/rest/api/space/_private
-
-
 - name: Update a confluence space
   stevefulme1.atlassian.confluence_space:
     id: "existing_id"
-
-
     alias: "updated_alias"
-
-
     description: "updated_description"
-
-
     key: "updated_key"
-
-
     permissions: "updated_permissions"
-
-
     state: present
   # API:
-
-
 """
 
 RETURN = r"""
-
 id:
   description: >-
-
   returned: success
   type: int
-
-
 key:
   description: >-
-
   returned: success
   type: str
-
-
 alias:
   description: >-
-
   returned: success
   type: str
-
-
 name:
   description: >-
-
   returned: success
   type: str
-
-
 icon:
   description: >-
     This object represents an icon. If used as a profilePicture, this may be returned as null,...
   returned: success
   type: dict
-
-
 description:
   description: >-
-
   returned: success
   type: dict
-
-
 homepage:
   description: >-
     Base object for all content types.
   returned: success
   type: dict
-
-
 type:
   description: >-
-
   returned: success
   type: str
-
-
 metadata:
   description: >-
-
   returned: success
   type: dict
-
-
 operations:
   description: >-
-
   returned: success
   type: list
-
-
 permissions:
   description: >-
-
   returned: success
   type: list
-
-
 status:
   description: >-
-
   returned: success
   type: str
-
-
 settings:
   description: >-
-
   returned: success
   type: dict
-
-
 theme:
   description: >-
-
   returned: success
   type: dict
-
-
 lookAndFeel:
   description: >-
-
   returned: success
   type: dict
-
-
 history:
   description: >-
-
   returned: success
   type: dict
-
-
 _expandable:
   description: >-
-
   returned: success
   type: dict
-
-
 _links:
   description: >-
-
   returned: success
   type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

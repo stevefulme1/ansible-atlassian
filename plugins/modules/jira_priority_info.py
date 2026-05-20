@@ -28,14 +28,11 @@ options:
       - When omitted, all jira priority resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -57,18 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_priority_info:
     id: "example_id"
   register: result
-
 - name: List all jira priority resources
   stevefulme1.atlassian.jira_priority_info:
   register: result
-
-
 - name: List jira priority resources filtered by name
   stevefulme1.atlassian.jira_priority_info:
     name: "my_jira priority"
   register: result
-
-
 - name: List jira priority resources with pagination
   stevefulme1.atlassian.jira_priority_info:
     page: 1
@@ -83,61 +75,41 @@ jira_prioritys:
   type: list
   elements: dict
   contains:
-
     avatarId:
       description: >-
         The avatarId of the avatar for the issue priority. This parameter is nullable and when set, this...
       type: int
-
-
     description:
       description: >-
         The description of the issue priority.
       type: str
-
-
     iconUrl:
       description: >-
         The URL of the icon for the issue priority.
       type: str
-
-
     id:
       description: >-
         The ID of the issue priority.
       type: str
-
-
     isDefault:
       description: >-
         Whether this priority is the default.
       type: bool
-
-
     name:
       description: >-
         The name of the issue priority.
       type: str
-
-
     schemes:
       description: >-
-
       type: dict
-
-
     self:
       description: >-
         The URL of the issue priority.
       type: str
-
-
     statusColor:
       description: >-
         The color used to indicate the issue priority.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

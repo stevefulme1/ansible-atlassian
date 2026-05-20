@@ -14,13 +14,11 @@ class ModuleDocFragment:
 
     DOCUMENTATION = r"""
 options:
-
   api_key:
     description:
       - The API key used to authenticate with the atlassian API.
     type: str
     required: true
-
   api_url:
     description:
       - The base URL of the atlassian API.

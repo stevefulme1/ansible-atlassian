@@ -25,294 +25,193 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   name:
     description:
       - >-
         The name of the filter. Must be unique.
     type: str
-
     required: true
-
-
   approximateLastUsed:
     description:
       - >-
         \Experimental\ Approximate last used time. Returns the date and time when the filter was last...
     type: str
-
-
   description:
     description:
       - >-
         A description of the filter.
     type: str
-
-
   editPermissions:
     description:
       - >-
         The groups and projects that can edit the filter.
     type: list
-
-
   favourite:
     description:
       - >-
         Whether the filter is selected as a favorite.
     type: bool
-
-
   favouritedCount:
     description:
       - >-
         The count of how many users have selected this filter as a favorite, including the filter owner.
     type: int
-
-
   id:
     description:
       - >-
         The unique identifier for the filter.
     type: str
-
-
   jql:
     description:
       - >-
         The JQL query for the filter. For example, project = SSP AND issuetype = Bug.
     type: str
-
-
   owner:
     description:
       - >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
-
-
   searchUrl:
     description:
       - >-
         A URL to view the filter results in Jira, using the Search for issues using...
     type: str
-
-
   self:
     description:
       - >-
         The URL of the filter.
     type: str
-
-
   sharePermissions:
     description:
       - >-
         The groups and projects that the filter is shared with.
     type: list
-
-
   sharedUsers:
     description:
       - >-
         A paginated list of users sharing the filter. This includes users that are members of the groups...
     type: dict
-
-
   subscriptions:
     description:
       - >-
         A paginated list of subscriptions to a filter.
     type: dict
-
-
   viewUrl:
     description:
       - >-
         A URL to view the filter results in Jira, using the ID of the filter. For example,...
     type: str
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a jira filter
   stevefulme1.atlassian.jira_filter:
-
-
     name: "example_name"
-
-
     state: present
   # API: POST /rest/api/3/filter
-
-
 - name: Update a jira filter
   stevefulme1.atlassian.jira_filter:
     id: "existing_id"
-
-
     approximateLastUsed: "updated_approximateLastUsed"
-
-
     description: "updated_description"
-
-
     editPermissions: "updated_editPermissions"
-
-
     favourite: "updated_favourite"
-
-
     favouritedCount: "updated_favouritedCount"
-
-
     jql: "updated_jql"
-
-
     owner: "updated_owner"
-
-
     searchUrl: "updated_searchUrl"
-
-
     self: "updated_self"
-
-
     sharePermissions: "updated_sharePermissions"
-
-
     sharedUsers: "updated_sharedUsers"
-
-
     subscriptions: "updated_subscriptions"
-
-
     viewUrl: "updated_viewUrl"
-
-
     state: present
   # API:
-
-
 - name: Delete a jira filter
   stevefulme1.atlassian.jira_filter:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/filter/{id}
-
 """
 
 RETURN = r"""
-
 approximateLastUsed:
   description: >-
     \Experimental\ Approximate last used time. Returns the date and time when the filter was last...
   returned: success
   type: str
-
-
 description:
   description: >-
     A description of the filter.
   returned: success
   type: str
-
-
 editPermissions:
   description: >-
     The groups and projects that can edit the filter.
   returned: success
   type: list
-
-
 favourite:
   description: >-
     Whether the filter is selected as a favorite.
   returned: success
   type: bool
-
-
 favouritedCount:
   description: >-
     The count of how many users have selected this filter as a favorite, including the filter owner.
   returned: success
   type: int
-
-
 id:
   description: >-
     The unique identifier for the filter.
   returned: success
   type: str
-
-
 jql:
   description: >-
     The JQL query for the filter. For example, project = SSP AND issuetype = Bug.
   returned: success
   type: str
-
-
 name:
   description: >-
     The name of the filter. Must be unique.
   returned: success
   type: str
-
-
 owner:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
-
 searchUrl:
   description: >-
     A URL to view the filter results in Jira, using the Search for issues using...
   returned: success
   type: str
-
-
 self:
   description: >-
     The URL of the filter.
   returned: success
   type: str
-
-
 sharePermissions:
   description: >-
     The groups and projects that the filter is shared with.
   returned: success
   type: list
-
-
 sharedUsers:
   description: >-
     A paginated list of users sharing the filter. This includes users that are members of the groups...
   returned: success
   type: dict
-
-
 subscriptions:
   description: >-
     A paginated list of subscriptions to a filter.
   returned: success
   type: dict
-
-
 viewUrl:
   description: >-
     A URL to view the filter results in Jira, using the ID of the filter. For example,...
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

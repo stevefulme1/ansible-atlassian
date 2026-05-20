@@ -28,8 +28,6 @@ options:
       - When omitted, all bitbucket webhook resources are listed.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -51,12 +49,9 @@ EXAMPLES = r"""
   stevefulme1.atlassian.bitbucket_webhook_info:
     id: "example_id"
   register: result
-
 - name: List all bitbucket webhook resources
   stevefulme1.atlassian.bitbucket_webhook_info:
   register: result
-
-
 - name: List bitbucket webhook resources with pagination
   stevefulme1.atlassian.bitbucket_webhook_info:
     page: 1
@@ -71,7 +66,6 @@ bitbucket_webhooks:
   type: list
   elements: dict
   contains:
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

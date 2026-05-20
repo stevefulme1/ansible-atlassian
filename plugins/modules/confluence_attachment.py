@@ -25,294 +25,172 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
   file:
     description:
       - >-
         The relative location and name of the attachment to be added to the content.
     type: str
-
     required: true
-
-
   id:
     description:
       - >-
-
     type: str
-
     required: true
-
-
   minorEdit:
     description:
       - >-
         If minorEdits is set to 'true', no notification email or activity stream will be generated when...
     type: str
-
     required: true
-
-
   type:
     description:
       - >-
         Set this to "attachment"
     type: str
-
     required: true
-
-
   version:
     description:
       - >-
-
     type: dict
-
     required: true
-
-
   comment:
     description:
       - >-
         The comment for the attachment that is being added. If you specify a comment, then every file...
     type: str
-
-
   container:
     description:
       - >-
         Container for content. This can be either a space (containing a page or blogpost) or a page/blog...
     type: dict
-
-
   extensions:
     description:
       - >-
-
     type: dict
-
-
   metadata:
     description:
       - >-
-
     type: dict
-
-
   status:
     description:
       - >-
-
     type: str
-
-
   title:
     description:
       - >-
-
     type: str
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a confluence attachment
   stevefulme1.atlassian.confluence_attachment:
-
-
     file: "example_file"
-
-
     id: "example_id"
-
-
     minorEdit: "example_minorEdit"
-
-
     type: "example_type"
-
-
     version: "example_version"
-
-
     state: present
   # API: POST /wiki/rest/api/content/{id}/child/attachment
-
-
 - name: Update a confluence attachment
   stevefulme1.atlassian.confluence_attachment:
     id: "existing_id"
-
-
     comment: "updated_comment"
-
-
     container: "updated_container"
-
-
     extensions: "updated_extensions"
-
-
     metadata: "updated_metadata"
-
-
     status: "updated_status"
-
-
     title: "updated_title"
-
-
     state: present
   # API:
-
-
 """
 
 RETURN = r"""
-
 id:
   description: >-
-
   returned: success
   type: str
-
-
 type:
   description: >-
     Can be "page", "blogpost", "attachment" or "content"
   returned: success
   type: str
-
-
 status:
   description: >-
-
   returned: success
   type: str
-
-
 title:
   description: >-
-
   returned: success
   type: str
-
-
 space:
   description: >-
-
   returned: success
   type: dict
-
-
 history:
   description: >-
-
   returned: success
   type: dict
-
-
 version:
   description: >-
-
   returned: success
   type: dict
-
-
 ancestors:
   description: >-
-
   returned: success
   type: list
-
-
 operations:
   description: >-
-
   returned: success
   type: list
-
-
 children:
   description: >-
-
   returned: success
   type: dict
-
-
 childTypes:
   description: >-
     Shows whether a piece of content has attachments, comments, or child pages/whiteboards. Note,...
   returned: success
   type: dict
-
-
 descendants:
   description: >-
-
   returned: success
   type: dict
-
-
 container:
   description: >-
     Container for content. This can be either a space (containing a page or blogpost) or a page/blog...
   returned: success
   type: dict
-
-
 body:
   description: >-
-
   returned: success
   type: dict
-
-
 restrictions:
   description: >-
-
   returned: success
   type: dict
-
-
 metadata:
   description: >-
     Metadata object for page, blogpost, comment content
   returned: success
   type: dict
-
-
 macroRenderedOutput:
   description: >-
-
   returned: success
   type: dict
-
-
 extensions:
   description: >-
-
   returned: success
   type: dict
-
-
 _expandable:
   description: >-
-
   returned: success
   type: dict
-
-
 _links:
   description: >-
-
   returned: success
   type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

@@ -28,14 +28,11 @@ options:
       - When omitted, all confluence content label resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -57,18 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_content_label_info:
     id: "example_id"
   register: result
-
 - name: List all confluence content label resources
   stevefulme1.atlassian.confluence_content_label_info:
   register: result
-
-
 - name: List confluence content label resources filtered by name
   stevefulme1.atlassian.confluence_content_label_info:
     name: "my_confluence content label"
   register: result
-
-
 - name: List confluence content label resources with pagination
   stevefulme1.atlassian.confluence_content_label_info:
     page: 1
@@ -83,31 +75,18 @@ confluence_content_labels:
   type: list
   elements: dict
   contains:
-
     prefix:
       description: >-
-
       type: str
-
-
     name:
       description: >-
-
       type: str
-
-
     id:
       description: >-
-
       type: str
-
-
     label:
       description: >-
-
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

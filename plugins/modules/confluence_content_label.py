@@ -25,66 +25,44 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
 - name: Create a confluence content label
   stevefulme1.atlassian.confluence_content_label:
-
     state: present
   # API: POST /wiki/rest/api/content/{id}/label
-
-
 - name: Update a confluence content label
   stevefulme1.atlassian.confluence_content_label:
     id: "existing_id"
-
     state: present
   # API:
-
-
 - name: Delete a confluence content label
   stevefulme1.atlassian.confluence_content_label:
     id: "existing_id"
     state: absent
   # API: DELETE /wiki/rest/api/content/{id}/label/{label}
-
 """
 
 RETURN = r"""
-
 prefix:
   description: >-
-
   returned: success
   type: str
-
-
 name:
   description: >-
-
   returned: success
   type: str
-
-
 id:
   description: >-
-
   returned: success
   type: str
-
-
 label:
   description: >-
-
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule

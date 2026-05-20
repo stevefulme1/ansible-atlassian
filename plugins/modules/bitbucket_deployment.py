@@ -25,22 +25,16 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-
 - name: Update a bitbucket deployment
   stevefulme1.atlassian.bitbucket_deployment:
     id: "existing_id"
-
     state: present
   # API:
-
-
 """
 
 RETURN = r"""
