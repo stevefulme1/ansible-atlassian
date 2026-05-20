@@ -8,17 +8,15 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_permission_scheme_params:
-
-      name: "{{ test_name | default("test_name_value") }}"
+      name: "{{ test_name | default('test_name_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create permission_scheme (check mode)
   stevefulme1.atlassian.jira_permission_scheme:
-    "{{ test_permission_scheme_params }}"
-
     state: present
+  args: "{{ test_permission_scheme_params }}"
   check_mode: true
   register: create_check
 
@@ -30,9 +28,7 @@
 
 - name: Verify permission_scheme was NOT actually created (check mode)
   stevefulme1.atlassian.jira_permission_scheme_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -46,9 +42,8 @@
 # ============================================================
 - name: Create permission_scheme
   stevefulme1.atlassian.jira_permission_scheme:
-    "{{ test_permission_scheme_params }}"
-
     state: present
+  args: "{{ test_permission_scheme_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -66,9 +61,8 @@
 # ============================================================
 - name: Create permission_scheme again (idempotency)
   stevefulme1.atlassian.jira_permission_scheme:
-    "{{ test_permission_scheme_params }}"
-
     state: present
+  args: "{{ test_permission_scheme_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -89,9 +83,7 @@
   ansible.builtin.assert:
     that:
       - info_result.permission_schemes | length == 1
-
       - info_result.permission_schemes[0].name == test_permission_scheme_params.name
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -101,13 +93,9 @@
 - name: Update permission_scheme
   stevefulme1.atlassian.jira_permission_scheme:
     id: "{{ created_id }}"
-
     description: "updated_description_value"
-
     expand: "updated_expand_value"
-
     self: "updated_self_value"
-
     state: present
   register: update_result
 
@@ -123,13 +111,9 @@
 - name: Update permission_scheme again (idempotency)
   stevefulme1.atlassian.jira_permission_scheme:
     id: "{{ created_id }}"
-
     description: "updated_description_value"
-
     expand: "updated_expand_value"
-
     self: "updated_self_value"
-
     state: present
   register: update_idempotent
 

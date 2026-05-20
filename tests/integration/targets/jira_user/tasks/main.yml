@@ -8,19 +8,16 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_user_params:
-
-      emailAddress: "{{ test_emailAddress | default("test_emailAddress_value") }}"
-
-      products: "{{ test_products | default("test_products_value") }}"
+      emailAddress: "{{ test_emailAddress | default('test_emailAddress_value') }}"
+      products: "{{ test_products | default('test_products_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create user (check mode)
   stevefulme1.atlassian.jira_user:
-    "{{ test_user_params }}"
-
     state: present
+  args: "{{ test_user_params }}"
   check_mode: true
   register: create_check
 
@@ -32,9 +29,7 @@
 
 - name: Verify user was NOT actually created (check mode)
   stevefulme1.atlassian.jira_user_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -48,9 +43,8 @@
 # ============================================================
 - name: Create user
   stevefulme1.atlassian.jira_user:
-    "{{ test_user_params }}"
-
     state: present
+  args: "{{ test_user_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -68,9 +62,8 @@
 # ============================================================
 - name: Create user again (idempotency)
   stevefulme1.atlassian.jira_user:
-    "{{ test_user_params }}"
-
     state: present
+  args: "{{ test_user_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -91,11 +84,8 @@
   ansible.builtin.assert:
     that:
       - info_result.users | length == 1
-
       - info_result.users[0].emailAddress == test_user_params.emailAddress
-
       - info_result.users[0].products == test_user_params.products
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -105,15 +95,10 @@
 - name: Update user
   stevefulme1.atlassian.jira_user:
     key: "{{ created_key }}"
-
     displayName: "updated_displayName_value"
-
     name: "updated_name_value"
-
     password: "updated_password_value"
-
     self: "updated_self_value"
-
     state: present
   register: update_result
 
@@ -129,15 +114,10 @@
 - name: Update user again (idempotency)
   stevefulme1.atlassian.jira_user:
     key: "{{ created_key }}"
-
     displayName: "updated_displayName_value"
-
     name: "updated_name_value"
-
     password: "updated_password_value"
-
     self: "updated_self_value"
-
     state: present
   register: update_idempotent
 

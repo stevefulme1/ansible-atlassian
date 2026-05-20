@@ -8,19 +8,16 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_status_params:
-
-      scope: "{{ test_scope | default("test_scope_value") }}"
-
-      statuses: "{{ test_statuses | default("test_statuses_value") }}"
+      scope: "{{ test_scope | default('test_scope_value') }}"
+      statuses: "{{ test_statuses | default('test_statuses_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create status (check mode)
   stevefulme1.atlassian.jira_status:
-    "{{ test_status_params }}"
-
     state: present
+  args: "{{ test_status_params }}"
   check_mode: true
   register: create_check
 
@@ -32,7 +29,6 @@
 
 - name: Verify status was NOT actually created (check mode)
   stevefulme1.atlassian.jira_status_info:
-
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -46,9 +42,8 @@
 # ============================================================
 - name: Create status
   stevefulme1.atlassian.jira_status:
-    "{{ test_status_params }}"
-
     state: present
+  args: "{{ test_status_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -66,9 +61,8 @@
 # ============================================================
 - name: Create status again (idempotency)
   stevefulme1.atlassian.jira_status:
-    "{{ test_status_params }}"
-
     state: present
+  args: "{{ test_status_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -89,11 +83,8 @@
   ansible.builtin.assert:
     that:
       - info_result.statuss | length == 1
-
       - info_result.statuss[0].scope == test_status_params.scope
-
       - info_result.statuss[0].statuses == test_status_params.statuses
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================

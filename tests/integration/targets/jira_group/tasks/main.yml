@@ -8,17 +8,15 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_group_params:
-
-      name: "{{ test_name | default("test_name_value") }}"
+      name: "{{ test_name | default('test_name_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create group (check mode)
   stevefulme1.atlassian.jira_group:
-    "{{ test_group_params }}"
-
     state: present
+  args: "{{ test_group_params }}"
   check_mode: true
   register: create_check
 
@@ -30,9 +28,7 @@
 
 - name: Verify group was NOT actually created (check mode)
   stevefulme1.atlassian.jira_group_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -46,9 +42,8 @@
 # ============================================================
 - name: Create group
   stevefulme1.atlassian.jira_group:
-    "{{ test_group_params }}"
-
     state: present
+  args: "{{ test_group_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -66,9 +61,8 @@
 # ============================================================
 - name: Create group again (idempotency)
   stevefulme1.atlassian.jira_group:
-    "{{ test_group_params }}"
-
     state: present
+  args: "{{ test_group_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -89,9 +83,7 @@
   ansible.builtin.assert:
     that:
       - info_result.groups | length == 1
-
       - info_result.groups[0].name == test_group_params.name
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================

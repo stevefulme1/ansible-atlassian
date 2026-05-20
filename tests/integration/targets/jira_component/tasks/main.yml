@@ -7,16 +7,15 @@
 
 - name: Set test variables
   ansible.builtin.set_fact:
-    test_component_params:
+    test_component_params: {}
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create component (check mode)
   stevefulme1.atlassian.jira_component:
-    "{{ test_component_params }}"
-
     state: present
+  args: "{{ test_component_params }}"
   check_mode: true
   register: create_check
 
@@ -28,9 +27,7 @@
 
 - name: Verify component was NOT actually created (check mode)
   stevefulme1.atlassian.jira_component_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -44,9 +41,8 @@
 # ============================================================
 - name: Create component
   stevefulme1.atlassian.jira_component:
-    "{{ test_component_params }}"
-
     state: present
+  args: "{{ test_component_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -64,9 +60,8 @@
 # ============================================================
 - name: Create component again (idempotency)
   stevefulme1.atlassian.jira_component:
-    "{{ test_component_params }}"
-
     state: present
+  args: "{{ test_component_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -87,7 +82,6 @@
   ansible.builtin.assert:
     that:
       - info_result.components | length == 1
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -97,25 +91,15 @@
 - name: Update component
   stevefulme1.atlassian.jira_component:
     id: "{{ created_id }}"
-
     ari: "updated_ari_value"
-
     assigneeType: "updated_assigneeType_value"
-
     description: "updated_description_value"
-
     leadAccountId: "updated_leadAccountId_value"
-
     leadUserName: "updated_leadUserName_value"
-
     name: "updated_name_value"
-
     project: "updated_project_value"
-
     realAssigneeType: "updated_realAssigneeType_value"
-
     self: "updated_self_value"
-
     state: present
   register: update_result
 
@@ -131,25 +115,15 @@
 - name: Update component again (idempotency)
   stevefulme1.atlassian.jira_component:
     id: "{{ created_id }}"
-
     ari: "updated_ari_value"
-
     assigneeType: "updated_assigneeType_value"
-
     description: "updated_description_value"
-
     leadAccountId: "updated_leadAccountId_value"
-
     leadUserName: "updated_leadUserName_value"
-
     name: "updated_name_value"
-
     project: "updated_project_value"
-
     realAssigneeType: "updated_realAssigneeType_value"
-
     self: "updated_self_value"
-
     state: present
   register: update_idempotent
 

@@ -8,23 +8,18 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_template_params:
-
-      body: "{{ test_body | default("test_body_value") }}"
-
-      name: "{{ test_name | default("test_name_value") }}"
-
-      templateId: "{{ test_templateId | default("test_templateId_value") }}"
-
-      templateType: "{{ test_templateType | default("test_templateType_value") }}"
+      body: "{{ test_body | default('test_body_value') }}"
+      name: "{{ test_name | default('test_name_value') }}"
+      templateId: "{{ test_templateId | default('test_templateId_value') }}"
+      templateType: "{{ test_templateType | default('test_templateType_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create template (check mode)
   stevefulme1.atlassian.confluence_template:
-    "{{ test_template_params }}"
-
     state: present
+  args: "{{ test_template_params }}"
   check_mode: true
   register: create_check
 
@@ -36,9 +31,7 @@
 
 - name: Verify template was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_template_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -52,9 +45,8 @@
 # ============================================================
 - name: Create template
   stevefulme1.atlassian.confluence_template:
-    "{{ test_template_params }}"
-
     state: present
+  args: "{{ test_template_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -72,9 +64,8 @@
 # ============================================================
 - name: Create template again (idempotency)
   stevefulme1.atlassian.confluence_template:
-    "{{ test_template_params }}"
-
     state: present
+  args: "{{ test_template_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -95,15 +86,10 @@
   ansible.builtin.assert:
     that:
       - info_result.templates | length == 1
-
       - info_result.templates[0].body == test_template_params.body
-
       - info_result.templates[0].name == test_template_params.name
-
       - info_result.templates[0].templateId == test_template_params.templateId
-
       - info_result.templates[0].templateType == test_template_params.templateType
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -113,9 +99,7 @@
 - name: Update template
   stevefulme1.atlassian.confluence_template:
     id: "{{ created_id }}"
-
     description: "updated_description_value"
-
     state: present
   register: update_result
 
@@ -131,9 +115,7 @@
 - name: Update template again (idempotency)
   stevefulme1.atlassian.confluence_template:
     id: "{{ created_id }}"
-
     description: "updated_description_value"
-
     state: present
   register: update_idempotent
 

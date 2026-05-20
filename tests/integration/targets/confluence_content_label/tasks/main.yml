@@ -7,16 +7,15 @@
 
 - name: Set test variables
   ansible.builtin.set_fact:
-    test_content_label_params:
+    test_content_label_params: {}
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create content_label (check mode)
   stevefulme1.atlassian.confluence_content_label:
-    "{{ test_content_label_params }}"
-
     state: present
+  args: "{{ test_content_label_params }}"
   check_mode: true
   register: create_check
 
@@ -28,7 +27,6 @@
 
 - name: Verify content_label was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_content_label_info:
-
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -42,9 +40,8 @@
 # ============================================================
 - name: Create content_label
   stevefulme1.atlassian.confluence_content_label:
-    "{{ test_content_label_params }}"
-
     state: present
+  args: "{{ test_content_label_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -62,9 +59,8 @@
 # ============================================================
 - name: Create content_label again (idempotency)
   stevefulme1.atlassian.confluence_content_label:
-    "{{ test_content_label_params }}"
-
     state: present
+  args: "{{ test_content_label_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -85,7 +81,6 @@
   ansible.builtin.assert:
     that:
       - info_result.content_labels | length == 1
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================

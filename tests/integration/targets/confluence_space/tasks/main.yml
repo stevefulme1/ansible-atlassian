@@ -7,16 +7,15 @@
 
 - name: Set test variables
   ansible.builtin.set_fact:
-    test_space_params:
+    test_space_params: {}
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create space (check mode)
   stevefulme1.atlassian.confluence_space:
-    "{{ test_space_params }}"
-
     state: present
+  args: "{{ test_space_params }}"
   check_mode: true
   register: create_check
 
@@ -28,9 +27,7 @@
 
 - name: Verify space was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_space_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -44,9 +41,8 @@
 # ============================================================
 - name: Create space
   stevefulme1.atlassian.confluence_space:
-    "{{ test_space_params }}"
-
     state: present
+  args: "{{ test_space_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -64,9 +60,8 @@
 # ============================================================
 - name: Create space again (idempotency)
   stevefulme1.atlassian.confluence_space:
-    "{{ test_space_params }}"
-
     state: present
+  args: "{{ test_space_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -87,7 +82,6 @@
   ansible.builtin.assert:
     that:
       - info_result.spaces | length == 1
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -97,17 +91,11 @@
 - name: Update space
   stevefulme1.atlassian.confluence_space:
     id: "{{ created_id }}"
-
     alias: "updated_alias_value"
-
     key: "updated_key_value"
-
     name: "updated_name_value"
-
     status: "updated_status_value"
-
     type: "updated_type_value"
-
     state: present
   register: update_result
 
@@ -123,17 +111,11 @@
 - name: Update space again (idempotency)
   stevefulme1.atlassian.confluence_space:
     id: "{{ created_id }}"
-
     alias: "updated_alias_value"
-
     key: "updated_key_value"
-
     name: "updated_name_value"
-
     status: "updated_status_value"
-
     type: "updated_type_value"
-
     state: present
   register: update_idempotent
 

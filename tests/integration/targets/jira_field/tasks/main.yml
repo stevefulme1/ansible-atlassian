@@ -8,17 +8,15 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_field_params:
-
-      type: "{{ test_type | default("test_type_value") }}"
+      type: "{{ test_type | default('test_type_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create field (check mode)
   stevefulme1.atlassian.jira_field:
-    "{{ test_field_params }}"
-
     state: present
+  args: "{{ test_field_params }}"
   check_mode: true
   register: create_check
 
@@ -30,7 +28,6 @@
 
 - name: Verify field was NOT actually created (check mode)
   stevefulme1.atlassian.jira_field_info:
-
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -44,9 +41,8 @@
 # ============================================================
 - name: Create field
   stevefulme1.atlassian.jira_field:
-    "{{ test_field_params }}"
-
     state: present
+  args: "{{ test_field_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -64,9 +60,8 @@
 # ============================================================
 - name: Create field again (idempotency)
   stevefulme1.atlassian.jira_field:
-    "{{ test_field_params }}"
-
     state: present
+  args: "{{ test_field_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -87,9 +82,7 @@
   ansible.builtin.assert:
     that:
       - info_result.fields | length == 1
-
       - info_result.fields[0].type == test_field_params.type
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -99,13 +92,9 @@
 - name: Update field
   stevefulme1.atlassian.jira_field:
     id: "{{ created_id }}"
-
     description: "updated_description_value"
-
     name: "updated_name_value"
-
     searcherKey: "updated_searcherKey_value"
-
     state: present
   register: update_result
 
@@ -121,13 +110,9 @@
 - name: Update field again (idempotency)
   stevefulme1.atlassian.jira_field:
     id: "{{ created_id }}"
-
     description: "updated_description_value"
-
     name: "updated_name_value"
-
     searcherKey: "updated_searcherKey_value"
-
     state: present
   register: update_idempotent
 

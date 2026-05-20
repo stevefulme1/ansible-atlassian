@@ -7,16 +7,15 @@
 
 - name: Set test variables
   ansible.builtin.set_fact:
-    test_project_params:
+    test_project_params: {}
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create project (check mode)
   stevefulme1.atlassian.jira_project:
-    "{{ test_project_params }}"
-
     state: present
+  args: "{{ test_project_params }}"
   check_mode: true
   register: create_check
 
@@ -28,9 +27,7 @@
 
 - name: Verify project was NOT actually created (check mode)
   stevefulme1.atlassian.jira_project_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -44,9 +41,8 @@
 # ============================================================
 - name: Create project
   stevefulme1.atlassian.jira_project:
-    "{{ test_project_params }}"
-
     state: present
+  args: "{{ test_project_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -64,9 +60,8 @@
 # ============================================================
 - name: Create project again (idempotency)
   stevefulme1.atlassian.jira_project:
-    "{{ test_project_params }}"
-
     state: present
+  args: "{{ test_project_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -87,7 +82,6 @@
   ansible.builtin.assert:
     that:
       - info_result.projects | length == 1
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -97,25 +91,15 @@
 - name: Update project
   stevefulme1.atlassian.jira_project:
     id: "{{ created_id }}"
-
     assigneeType: "updated_assigneeType_value"
-
     description: "updated_description_value"
-
     key: "updated_key_value"
-
     lead: "updated_lead_value"
-
     leadAccountId: "updated_leadAccountId_value"
-
     name: "updated_name_value"
-
     projectTemplateKey: "updated_projectTemplateKey_value"
-
     projectTypeKey: "updated_projectTypeKey_value"
-
     url: "updated_url_value"
-
     state: present
   register: update_result
 
@@ -131,25 +115,15 @@
 - name: Update project again (idempotency)
   stevefulme1.atlassian.jira_project:
     id: "{{ created_id }}"
-
     assigneeType: "updated_assigneeType_value"
-
     description: "updated_description_value"
-
     key: "updated_key_value"
-
     lead: "updated_lead_value"
-
     leadAccountId: "updated_leadAccountId_value"
-
     name: "updated_name_value"
-
     projectTemplateKey: "updated_projectTemplateKey_value"
-
     projectTypeKey: "updated_projectTypeKey_value"
-
     url: "updated_url_value"
-
     state: present
   register: update_idempotent
 

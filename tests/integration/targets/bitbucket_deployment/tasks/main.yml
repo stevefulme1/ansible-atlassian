@@ -7,16 +7,15 @@
 
 - name: Set test variables
   ansible.builtin.set_fact:
-    test_deployment_params:
+    test_deployment_params: {}
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create deployment (check mode)
   stevefulme1.atlassian.bitbucket_deployment:
-    "{{ test_deployment_params }}"
-
     state: present
+  args: "{{ test_deployment_params }}"
   check_mode: true
   register: create_check
 
@@ -28,7 +27,6 @@
 
 - name: Verify deployment was NOT actually created (check mode)
   stevefulme1.atlassian.bitbucket_deployment_info:
-
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -42,9 +40,8 @@
 # ============================================================
 - name: Create deployment
   stevefulme1.atlassian.bitbucket_deployment:
-    "{{ test_deployment_params }}"
-
     state: present
+  args: "{{ test_deployment_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -62,9 +59,8 @@
 # ============================================================
 - name: Create deployment again (idempotency)
   stevefulme1.atlassian.bitbucket_deployment:
-    "{{ test_deployment_params }}"
-
     state: present
+  args: "{{ test_deployment_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -85,7 +81,6 @@
   ansible.builtin.assert:
     that:
       - info_result.deployments | length == 1
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================

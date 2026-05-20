@@ -8,17 +8,15 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_content_restriction_params:
-
-      results: "{{ test_results | default("test_results_value") }}"
+      results: "{{ test_results | default('test_results_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create content_restriction (check mode)
   stevefulme1.atlassian.confluence_content_restriction:
-    "{{ test_content_restriction_params }}"
-
     state: present
+  args: "{{ test_content_restriction_params }}"
   check_mode: true
   register: create_check
 
@@ -30,7 +28,6 @@
 
 - name: Verify content_restriction was NOT actually created (check mode)
   stevefulme1.atlassian.confluence_content_restriction_info:
-
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -44,9 +41,8 @@
 # ============================================================
 - name: Create content_restriction
   stevefulme1.atlassian.confluence_content_restriction:
-    "{{ test_content_restriction_params }}"
-
     state: present
+  args: "{{ test_content_restriction_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -64,9 +60,8 @@
 # ============================================================
 - name: Create content_restriction again (idempotency)
   stevefulme1.atlassian.confluence_content_restriction:
-    "{{ test_content_restriction_params }}"
-
     state: present
+  args: "{{ test_content_restriction_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -87,9 +82,7 @@
   ansible.builtin.assert:
     that:
       - info_result.content_restrictions | length == 1
-
       - info_result.content_restrictions[0].results == test_content_restriction_params.results
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -99,9 +92,7 @@
 - name: Update content_restriction
   stevefulme1.atlassian.confluence_content_restriction:
     id: "{{ created_id }}"
-
     restrictionsHash: "updated_restrictionsHash_value"
-
     state: present
   register: update_result
 
@@ -117,9 +108,7 @@
 - name: Update content_restriction again (idempotency)
   stevefulme1.atlassian.confluence_content_restriction:
     id: "{{ created_id }}"
-
     restrictionsHash: "updated_restrictionsHash_value"
-
     state: present
   register: update_idempotent
 

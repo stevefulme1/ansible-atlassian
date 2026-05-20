@@ -8,21 +8,17 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_dashboard_params:
-
-      editPermissions: "{{ test_editPermissions | default("test_editPermissions_value") }}"
-
-      name: "{{ test_name | default("test_name_value") }}"
-
-      sharePermissions: "{{ test_sharePermissions | default("test_sharePermissions_value") }}"
+      editPermissions: "{{ test_editPermissions | default('test_editPermissions_value') }}"
+      name: "{{ test_name | default('test_name_value') }}"
+      sharePermissions: "{{ test_sharePermissions | default('test_sharePermissions_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create dashboard (check mode)
   stevefulme1.atlassian.jira_dashboard:
-    "{{ test_dashboard_params }}"
-
     state: present
+  args: "{{ test_dashboard_params }}"
   check_mode: true
   register: create_check
 
@@ -34,9 +30,7 @@
 
 - name: Verify dashboard was NOT actually created (check mode)
   stevefulme1.atlassian.jira_dashboard_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -50,9 +44,8 @@
 # ============================================================
 - name: Create dashboard
   stevefulme1.atlassian.jira_dashboard:
-    "{{ test_dashboard_params }}"
-
     state: present
+  args: "{{ test_dashboard_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -70,9 +63,8 @@
 # ============================================================
 - name: Create dashboard again (idempotency)
   stevefulme1.atlassian.jira_dashboard:
-    "{{ test_dashboard_params }}"
-
     state: present
+  args: "{{ test_dashboard_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -93,13 +85,9 @@
   ansible.builtin.assert:
     that:
       - info_result.dashboards | length == 1
-
       - info_result.dashboards[0].editPermissions == test_dashboard_params.editPermissions
-
       - info_result.dashboards[0].name == test_dashboard_params.name
-
       - info_result.dashboards[0].sharePermissions == test_dashboard_params.sharePermissions
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -109,9 +97,7 @@
 - name: Update dashboard
   stevefulme1.atlassian.jira_dashboard:
     id: "{{ created_id }}"
-
     description: "updated_description_value"
-
     state: present
   register: update_result
 
@@ -127,9 +113,7 @@
 - name: Update dashboard again (idempotency)
   stevefulme1.atlassian.jira_dashboard:
     id: "{{ created_id }}"
-
     description: "updated_description_value"
-
     state: present
   register: update_idempotent
 

@@ -8,17 +8,15 @@
 - name: Set test variables
   ansible.builtin.set_fact:
     test_filter_params:
-
-      name: "{{ test_name | default("test_name_value") }}"
+      name: "{{ test_name | default('test_name_value') }}"
 
 # ============================================================
 # CREATE - check mode
 # ============================================================
 - name: Create filter (check mode)
   stevefulme1.atlassian.jira_filter:
-    "{{ test_filter_params }}"
-
     state: present
+  args: "{{ test_filter_params }}"
   check_mode: true
   register: create_check
 
@@ -30,9 +28,7 @@
 
 - name: Verify filter was NOT actually created (check mode)
   stevefulme1.atlassian.jira_filter_info:
-
-    name: "{{ test_name | default("test_name_value") }}"
-
+    name: "{{ test_name | default('test_name_value') }}"
   register: check_verify
 
 - name: Assert resource does not exist after check mode create
@@ -46,9 +42,8 @@
 # ============================================================
 - name: Create filter
   stevefulme1.atlassian.jira_filter:
-    "{{ test_filter_params }}"
-
     state: present
+  args: "{{ test_filter_params }}"
   register: create_result
 
 - name: Assert create reports changed
@@ -66,9 +61,8 @@
 # ============================================================
 - name: Create filter again (idempotency)
   stevefulme1.atlassian.jira_filter:
-    "{{ test_filter_params }}"
-
     state: present
+  args: "{{ test_filter_params }}"
   register: create_idempotent
 
 - name: Assert create is idempotent
@@ -89,9 +83,7 @@
   ansible.builtin.assert:
     that:
       - info_result.filters | length == 1
-
       - info_result.filters[0].name == test_filter_params.name
-
     fail_msg: "Created resource does not match expected values"
 
 # ============================================================
@@ -101,19 +93,12 @@
 - name: Update filter
   stevefulme1.atlassian.jira_filter:
     id: "{{ created_id }}"
-
     approximateLastUsed: "updated_approximateLastUsed_value"
-
     description: "updated_description_value"
-
     jql: "updated_jql_value"
-
     searchUrl: "updated_searchUrl_value"
-
     self: "updated_self_value"
-
     viewUrl: "updated_viewUrl_value"
-
     state: present
   register: update_result
 
@@ -129,19 +114,12 @@
 - name: Update filter again (idempotency)
   stevefulme1.atlassian.jira_filter:
     id: "{{ created_id }}"
-
     approximateLastUsed: "updated_approximateLastUsed_value"
-
     description: "updated_description_value"
-
     jql: "updated_jql_value"
-
     searchUrl: "updated_searchUrl_value"
-
     self: "updated_self_value"
-
     viewUrl: "updated_viewUrl_value"
-
     state: present
   register: update_idempotent
 
