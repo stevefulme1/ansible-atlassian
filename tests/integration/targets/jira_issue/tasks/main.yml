@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.jira_issue
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -10,7 +9,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create jira_issue (check mode)
+- name: Create jira_issue (check mode)  # noqa: args[module]
   stevefulme1.atlassian.jira_issue:
     state: present
   args: "{{ test_jira_issue_params }}"
@@ -24,7 +23,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create jira_issue
+- name: Create jira_issue  # noqa: args[module]
   stevefulme1.atlassian.jira_issue:
     state: present
   args: "{{ test_jira_issue_params }}"
@@ -40,7 +39,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create jira_issue again (idempotency)
+- name: Create jira_issue again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_issue:
     state: present
   args: "{{ test_jira_issue_params }}"

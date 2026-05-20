@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.confluence_label
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -10,7 +9,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create confluence_label (check mode)
+- name: Create confluence_label (check mode)  # noqa: args[module]
   stevefulme1.atlassian.confluence_label:
     state: present
   args: "{{ test_confluence_label_params }}"
@@ -24,7 +23,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create confluence_label
+- name: Create confluence_label  # noqa: args[module]
   stevefulme1.atlassian.confluence_label:
     state: present
   args: "{{ test_confluence_label_params }}"
@@ -40,7 +39,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create confluence_label again (idempotency)
+- name: Create confluence_label again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_label:
     state: present
   args: "{{ test_confluence_label_params }}"

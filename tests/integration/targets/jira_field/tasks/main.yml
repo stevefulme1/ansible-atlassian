@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.jira_field
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -10,7 +9,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create jira_field (check mode)
+- name: Create jira_field (check mode)  # noqa: args[module]
   stevefulme1.atlassian.jira_field:
     state: present
   args: "{{ test_jira_field_params }}"
@@ -24,7 +23,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create jira_field
+- name: Create jira_field  # noqa: args[module]
   stevefulme1.atlassian.jira_field:
     state: present
   args: "{{ test_jira_field_params }}"
@@ -40,7 +39,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create jira_field again (idempotency)
+- name: Create jira_field again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_field:
     state: present
   args: "{{ test_jira_field_params }}"

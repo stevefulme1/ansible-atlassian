@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.confluence_attachment
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -14,7 +13,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create confluence_attachment (check mode)
+- name: Create confluence_attachment (check mode)  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment:
     state: present
   args: "{{ test_confluence_attachment_params }}"
@@ -28,7 +27,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create confluence_attachment
+- name: Create confluence_attachment  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment:
     state: present
   args: "{{ test_confluence_attachment_params }}"
@@ -44,7 +43,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create confluence_attachment again (idempotency)
+- name: Create confluence_attachment again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment:
     state: present
   args: "{{ test_confluence_attachment_params }}"

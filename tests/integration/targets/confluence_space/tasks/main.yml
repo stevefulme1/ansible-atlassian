@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.confluence_space
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -10,7 +9,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create confluence_space (check mode)
+- name: Create confluence_space (check mode)  # noqa: args[module]
   stevefulme1.atlassian.confluence_space:
     state: present
   args: "{{ test_confluence_space_params }}"
@@ -24,7 +23,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create confluence_space
+- name: Create confluence_space  # noqa: args[module]
   stevefulme1.atlassian.confluence_space:
     state: present
   args: "{{ test_confluence_space_params }}"
@@ -40,7 +39,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create confluence_space again (idempotency)
+- name: Create confluence_space again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_space:
     state: present
   args: "{{ test_confluence_space_params }}"

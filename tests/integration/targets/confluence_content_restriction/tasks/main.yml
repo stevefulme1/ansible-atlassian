@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.confluence_content_restriction
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -10,7 +9,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create confluence_content_restriction (check mode)
+- name: Create confluence_content_restriction (check mode)  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction:
     state: present
   args: "{{ test_confluence_content_restriction_params }}"
@@ -24,7 +23,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create confluence_content_restriction
+- name: Create confluence_content_restriction  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction:
     state: present
   args: "{{ test_confluence_content_restriction_params }}"
@@ -40,7 +39,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create confluence_content_restriction again (idempotency)
+- name: Create confluence_content_restriction again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction:
     state: present
   args: "{{ test_confluence_content_restriction_params }}"

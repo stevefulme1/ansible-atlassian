@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.jira_group
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -10,7 +9,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create jira_group (check mode)
+- name: Create jira_group (check mode)  # noqa: args[module]
   stevefulme1.atlassian.jira_group:
     state: present
   args: "{{ test_jira_group_params }}"
@@ -24,7 +23,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create jira_group
+- name: Create jira_group  # noqa: args[module]
   stevefulme1.atlassian.jira_group:
     state: present
   args: "{{ test_jira_group_params }}"
@@ -40,7 +39,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create jira_group again (idempotency)
+- name: Create jira_group again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_group:
     state: present
   args: "{{ test_jira_group_params }}"

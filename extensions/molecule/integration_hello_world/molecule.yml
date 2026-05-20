@@ -1,7 +1,6 @@
 ---
 platforms:
   - name: na
-
 provisioner:
   name: ansible
   playbooks:

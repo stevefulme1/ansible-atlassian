@@ -1,6 +1,5 @@
 ---
 # tasks file for stevefulme1.atlassian.run
-
 - name: Display the value of run_my_variable
   ansible.builtin.debug:
     msg: "The value of run_my_variable is {{ run_my_variable }}"

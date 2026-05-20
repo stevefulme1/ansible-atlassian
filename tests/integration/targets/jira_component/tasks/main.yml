@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.jira_component
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -10,7 +9,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create jira_component (check mode)
+- name: Create jira_component (check mode)  # noqa: args[module]
   stevefulme1.atlassian.jira_component:
     state: present
   args: "{{ test_jira_component_params }}"
@@ -24,7 +23,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create jira_component
+- name: Create jira_component  # noqa: args[module]
   stevefulme1.atlassian.jira_component:
     state: present
   args: "{{ test_jira_component_params }}"
@@ -40,7 +39,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create jira_component again (idempotency)
+- name: Create jira_component again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_component:
     state: present
   args: "{{ test_jira_component_params }}"

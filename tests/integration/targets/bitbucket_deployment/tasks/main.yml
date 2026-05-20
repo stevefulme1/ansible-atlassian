@@ -1,4 +1,3 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.bitbucket_deployment
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
@@ -10,7 +9,7 @@
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create bitbucket_deployment (check mode)
+- name: Create bitbucket_deployment (check mode)  # noqa: args[module]
   stevefulme1.atlassian.bitbucket_deployment:
     state: present
   args: "{{ test_bitbucket_deployment_params }}"
@@ -24,7 +23,7 @@
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create bitbucket_deployment
+- name: Create bitbucket_deployment  # noqa: args[module]
   stevefulme1.atlassian.bitbucket_deployment:
     state: present
   args: "{{ test_bitbucket_deployment_params }}"
@@ -40,7 +39,7 @@
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create bitbucket_deployment again (idempotency)
+- name: Create bitbucket_deployment again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.bitbucket_deployment:
     state: present
   args: "{{ test_bitbucket_deployment_params }}"
