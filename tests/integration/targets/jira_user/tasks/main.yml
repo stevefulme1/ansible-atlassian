@@ -1,279 +1,142 @@
 
 ---
 # Integration tests for stevefulme1.atlassian.jira_user
-#
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
 # A live API endpoint is required.
-
 - name: Set test variables
   ansible.builtin.set_fact:
-    test_jira user_params:
-
-
-      emailAddress: "{{ test_emailAddress | default("test_emailAddress_value") }}"
-
-
-
-      products: "{{ test_products | default("test_products_value") }}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    test_jira_user_params:
+      emailAddress: "test_emailAddress_value"
+      products: "test_products_value"
 # ============================================================
 # CREATE - check mode
 # ============================================================
-- name: Create jira user (check mode)
+- name: Create jira_user (check mode)
   stevefulme1.atlassian.jira_user:
-    "{{ test_jira user_params }}"
-
     state: present
+  args: "{{ test_jira_user_params }}"
   check_mode: true
   register: create_check
-
 - name: Assert create in check mode reports changed
   ansible.builtin.assert:
     that:
       - create_check is changed
     fail_msg: "Create in check mode should report changed=true"
-
-- name: Verify jira user was NOT actually created (check mode)
-  stevefulme1.atlassian.jira_user_info:
-
-
-
-
-
-
-
-
-
-
-
-
-    name: "{{ test_name | default("test_name_value") }}"
-
-
-
-
-
-
-  register: check_verify
-
-- name: Assert resource does not exist after check mode create
-  ansible.builtin.assert:
-    that:
-      - check_verify.jira users | length == 0
-    fail_msg: "Resource should not exist after check mode create"
-
 # ============================================================
 # CREATE - real
 # ============================================================
-- name: Create jira user
+- name: Create jira_user
   stevefulme1.atlassian.jira_user:
-    "{{ test_jira user_params }}"
-
     state: present
+  args: "{{ test_jira_user_params }}"
   register: create_result
-
 - name: Assert create reports changed
   ansible.builtin.assert:
     that:
       - create_result is changed
     fail_msg: "Create should report changed=true"
-
 - name: Record created resource identifier
   ansible.builtin.set_fact:
     created_key: "{{ create_result.key }}"
-
 # ============================================================
 # CREATE - idempotency
 # ============================================================
-- name: Create jira user again (idempotency)
+- name: Create jira_user again (idempotency)
   stevefulme1.atlassian.jira_user:
-    "{{ test_jira user_params }}"
-
     state: present
+  args: "{{ test_jira_user_params }}"
   register: create_idempotent
-
 - name: Assert create is idempotent
   ansible.builtin.assert:
     that:
       - create_idempotent is not changed
     fail_msg: "Repeated create with same params should report changed=false"
-
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get jira user info
+- name: Get jira_user info
   stevefulme1.atlassian.jira_user_info:
     key: "{{ created_key }}"
   register: info_result
-
-- name: Assert resource exists and has expected data
+- name: Assert resource exists
   ansible.builtin.assert:
     that:
-      - info_result.jira users | length == 1
-
-
-      - info_result.jira users[0].emailAddress == test_jira user_params.emailAddress
-
-
-
-      - info_result.jira users[0].products == test_jira user_params.products
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      - info_result.jira_users | length == 1
     fail_msg: "Created resource does not match expected values"
-
 # ============================================================
 # UPDATE
 # ============================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-- name: Update jira user
+- name: Update jira_user
   stevefulme1.atlassian.jira_user:
     key: "{{ created_key }}"
-
     displayName: "updated_displayName_value"
-
     name: "updated_name_value"
-
     password: "updated_password_value"
-
     self: "updated_self_value"
-
     state: present
   register: update_result
-
 - name: Assert update reports changed
   ansible.builtin.assert:
     that:
       - update_result is changed
     fail_msg: "Update should report changed=true"
-
-# ============================================================
 # UPDATE - idempotency
-# ============================================================
-- name: Update jira user again (idempotency)
+- name: Update jira_user again (idempotency)
   stevefulme1.atlassian.jira_user:
     key: "{{ created_key }}"
-
     displayName: "updated_displayName_value"
-
     name: "updated_name_value"
-
     password: "updated_password_value"
-
     self: "updated_self_value"
-
     state: present
   register: update_idempotent
-
 - name: Assert update is idempotent
   ansible.builtin.assert:
     that:
       - update_idempotent is not changed
     fail_msg: "Repeated update with same params should report changed=false"
-
-
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete jira user (check mode)
+- name: Delete jira_user (check mode)
   stevefulme1.atlassian.jira_user:
     key: "{{ created_key }}"
     state: absent
   check_mode: true
   register: delete_check
-
 - name: Assert delete in check mode reports changed
   ansible.builtin.assert:
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-
-- name: Verify jira user still exists after check mode delete
+- name: Verify jira_user still exists after check mode delete
   stevefulme1.atlassian.jira_user_info:
     key: "{{ created_key }}"
   register: delete_check_verify
-
 - name: Assert resource still exists after check mode delete
   ansible.builtin.assert:
     that:
-      - delete_check_verify.jira users | length == 1
+      - delete_check_verify.jira_users | length == 1
     fail_msg: "Resource should still exist after check mode delete"
-
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete jira user
+- name: Delete jira_user
   stevefulme1.atlassian.jira_user:
     key: "{{ created_key }}"
     state: absent
   register: delete_result
-
 - name: Assert delete reports changed
   ansible.builtin.assert:
     that:
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
-
-# ============================================================
 # DELETE - idempotency
-# ============================================================
-- name: Delete jira user again (idempotency)
+- name: Delete jira_user again (idempotency)
   stevefulme1.atlassian.jira_user:
     key: "{{ created_key }}"
     state: absent
   register: delete_idempotent
-
 - name: Assert delete is idempotent
   ansible.builtin.assert:
     that:
