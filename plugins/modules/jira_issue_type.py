@@ -33,17 +33,11 @@ options:
     type: int
 
 
-
-
-
   description:
     description:
       - >-
         The description of the issue type.
     type: str
-
-
-
 
 
   hierarchyLevel:
@@ -53,17 +47,11 @@ options:
     type: int
 
 
-
-
-
   name:
     description:
       - >-
         The unique name for the issue type. The maximum length is 60 characters.
     type: str
-
-
-
 
 
   type:
@@ -76,8 +64,6 @@ options:
     choices: ["subtask", "standard"]
 
 
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -88,18 +74,8 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_issue_type:
 
 
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/issuetype
-
 
 
 - name: Update a jira issue type
@@ -110,25 +86,20 @@ EXAMPLES = r"""
     avatarId: "updated_avatarId"
 
 
-
     description: "updated_description"
-
 
 
     hierarchyLevel: "updated_hierarchyLevel"
 
 
-
     name: "updated_name"
-
 
 
     type: "updated_type"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira issue type
@@ -247,7 +218,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -293,16 +263,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             description=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -311,16 +275,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             name=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -330,8 +288,6 @@ def main():
 
 
                 choices=['subtask', 'standard'],
-
-
 
 
             ),

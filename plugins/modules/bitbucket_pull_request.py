@@ -39,14 +39,12 @@ EXAMPLES = r"""
   # API: POST /repositories/{workspace}/{repo_slug}/pullrequests
 
 
-
 - name: Update a bitbucket pull request
   stevefulme1.atlassian.bitbucket_pull_request:
     id: "existing_id"
 
     state: present
-  # API:  
-
+  # API:
 
 
 """
@@ -86,7 +84,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):

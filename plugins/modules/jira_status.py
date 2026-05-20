@@ -35,9 +35,6 @@ options:
     required: true
 
 
-
-
-
   statuses:
     description:
       - >-
@@ -45,9 +42,6 @@ options:
     type: list
 
     required: true
-
-
-
 
 
 extends_documentation_fragment:
@@ -63,7 +57,6 @@ EXAMPLES = r"""
     scope: "example_scope"
 
 
-
     statuses: "example_statuses"
 
 
@@ -71,18 +64,13 @@ EXAMPLES = r"""
   # API: POST /rest/api/3/statuses
 
 
-
 - name: Update a jira status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
 
 
-
-
-
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira status
@@ -166,7 +154,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -205,18 +192,12 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             statuses=dict(
                 type="list",
 
                 required=True,
-
-
-
 
 
             ),

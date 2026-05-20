@@ -35,17 +35,11 @@ options:
     required: true
 
 
-
-
-
   approximateLastUsed:
     description:
       - >-
         \Experimental\ Approximate last used time. Returns the date and time when the filter was last...
     type: str
-
-
-
 
 
   description:
@@ -55,17 +49,11 @@ options:
     type: str
 
 
-
-
-
   editPermissions:
     description:
       - >-
         The groups and projects that can edit the filter.
     type: list
-
-
-
 
 
   favourite:
@@ -75,17 +63,11 @@ options:
     type: bool
 
 
-
-
-
   favouritedCount:
     description:
       - >-
         The count of how many users have selected this filter as a favorite, including the filter owner.
     type: int
-
-
-
 
 
   id:
@@ -95,17 +77,11 @@ options:
     type: str
 
 
-
-
-
   jql:
     description:
       - >-
         The JQL query for the filter. For example, project = SSP AND issuetype = Bug.
     type: str
-
-
-
 
 
   owner:
@@ -115,17 +91,11 @@ options:
     type: dict
 
 
-
-
-
   searchUrl:
     description:
       - >-
         A URL to view the filter results in Jira, using the Search for issues using...
     type: str
-
-
-
 
 
   self:
@@ -135,17 +105,11 @@ options:
     type: str
 
 
-
-
-
   sharePermissions:
     description:
       - >-
         The groups and projects that the filter is shared with.
     type: list
-
-
-
 
 
   sharedUsers:
@@ -155,9 +119,6 @@ options:
     type: dict
 
 
-
-
-
   subscriptions:
     description:
       - >-
@@ -165,17 +126,11 @@ options:
     type: dict
 
 
-
-
-
   viewUrl:
     description:
       - >-
         A URL to view the filter results in Jira, using the ID of the filter. For example,...
     type: str
-
-
-
 
 
 extends_documentation_fragment:
@@ -191,37 +146,8 @@ EXAMPLES = r"""
     name: "example_name"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/filter
-
 
 
 - name: Update a jira filter
@@ -229,64 +155,47 @@ EXAMPLES = r"""
     id: "existing_id"
 
 
-
-
     approximateLastUsed: "updated_approximateLastUsed"
-
 
 
     description: "updated_description"
 
 
-
     editPermissions: "updated_editPermissions"
-
 
 
     favourite: "updated_favourite"
 
 
-
     favouritedCount: "updated_favouritedCount"
-
-
-
 
 
     jql: "updated_jql"
 
 
-
     owner: "updated_owner"
-
 
 
     searchUrl: "updated_searchUrl"
 
 
-
     self: "updated_self"
-
 
 
     sharePermissions: "updated_sharePermissions"
 
 
-
     sharedUsers: "updated_sharedUsers"
 
 
-
     subscriptions: "updated_subscriptions"
-
 
 
     viewUrl: "updated_viewUrl"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira filter
@@ -420,7 +329,6 @@ def get_current_state(client, module):
     return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -498,16 +406,10 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             approximateLastUsed=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -516,16 +418,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             editPermissions=dict(
                 type="list",
-
-
-
 
 
             ),
@@ -534,16 +430,10 @@ def main():
                 type="bool",
 
 
-
-
-
             ),
 
             favouritedCount=dict(
                 type="int",
-
-
-
 
 
             ),
@@ -552,16 +442,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             jql=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -570,16 +454,10 @@ def main():
                 type="dict",
 
 
-
-
-
             ),
 
             searchUrl=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -588,16 +466,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             sharePermissions=dict(
                 type="list",
-
-
-
 
 
             ),
@@ -606,25 +478,16 @@ def main():
                 type="dict",
 
 
-
-
-
             ),
 
             subscriptions=dict(
                 type="dict",
 
 
-
-
-
             ),
 
             viewUrl=dict(
                 type="str",
-
-
-
 
 
             ),

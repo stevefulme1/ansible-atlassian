@@ -57,7 +57,6 @@ EXAMPLES = r"""
   register: result
 
 
-
 - name: List bitbucket deployment resources with pagination
   stevefulme1.atlassian.bitbucket_deployment_info:
     page: 1
@@ -96,14 +95,10 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
     """List bitbucket deployment resources with optional filtering and pagination."""
 
     params = {}
-
-
-
 
 
     page = module.params.get("page")
@@ -120,7 +115,6 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/repositories/{workspace}/{repo_slug}/deployments", params=params)
-
 
 
 def main():

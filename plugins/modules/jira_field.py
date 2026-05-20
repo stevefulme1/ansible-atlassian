@@ -35,9 +35,6 @@ options:
     required: true
 
 
-
-
-
   description:
     description:
       - >-
@@ -45,17 +42,11 @@ options:
     type: str
 
 
-
-
-
   name:
     description:
       - >-
         The name of the custom field. It doesn't have to be unique. The maximum length is 255 characters.
     type: str
-
-
-
 
 
   searcherKey:
@@ -94,9 +85,6 @@ options:
       - "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher"
 
 
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -110,15 +98,8 @@ EXAMPLES = r"""
     type: "example_type"
 
 
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/field
-
 
 
 - name: Update a jira field
@@ -126,22 +107,17 @@ EXAMPLES = r"""
     id: "existing_id"
 
 
-
-
     description: "updated_description"
 
 
-
     name: "updated_name"
-
 
 
     searcherKey: "updated_searcherKey"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira field
@@ -238,7 +214,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -283,25 +258,16 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             description=dict(
                 type="str",
 
 
-
-
-
             ),
 
             name=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -339,8 +305,6 @@ def main():
                     "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher",
 
                 ],
-
-
 
 
             ),

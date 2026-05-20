@@ -38,8 +38,7 @@ EXAMPLES = r"""
     id: "existing_id"
 
     state: present
-  # API:  
-
+  # API:
 
 
 """
@@ -79,7 +78,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):

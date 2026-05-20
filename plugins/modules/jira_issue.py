@@ -33,17 +33,11 @@ options:
     type: dict
 
 
-
-
-
   historyMetadata:
     description:
       - >-
         Details of issue history metadata.
     type: dict
-
-
-
 
 
   properties:
@@ -53,9 +47,6 @@ options:
     type: list
 
 
-
-
-
   transition:
     description:
       - >-
@@ -63,17 +54,11 @@ options:
     type: dict
 
 
-
-
-
   update:
     description:
       - >-
         A Map containing the field field name and a list of operations to perform on the issue screen...
     type: dict
-
-
-
 
 
 extends_documentation_fragment:
@@ -86,18 +71,8 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_issue:
 
 
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/issue
-
 
 
 - name: Update a jira issue
@@ -108,25 +83,20 @@ EXAMPLES = r"""
     fields: "updated_fields"
 
 
-
     historyMetadata: "updated_historyMetadata"
-
 
 
     properties: "updated_properties"
 
 
-
     transition: "updated_transition"
-
 
 
     update: "updated_update"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira issue
@@ -162,14 +132,14 @@ expand:
 
 fields:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 fieldsToInclude:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -260,7 +230,6 @@ def get_current_state(client, module):
     return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -306,16 +275,10 @@ def main():
                 type="dict",
 
 
-
-
-
             ),
 
             historyMetadata=dict(
                 type="dict",
-
-
-
 
 
             ),
@@ -324,25 +287,16 @@ def main():
                 type="list",
 
 
-
-
-
             ),
 
             transition=dict(
                 type="dict",
 
 
-
-
-
             ),
 
             update=dict(
                 type="dict",
-
-
-
 
 
             ),

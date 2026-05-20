@@ -39,14 +39,12 @@ EXAMPLES = r"""
   # API: POST /repositories/{workspace}/{repo_slug}/branch-restrictions
 
 
-
 - name: Update a bitbucket branch restriction
   stevefulme1.atlassian.bitbucket_branch_restriction:
     id: "existing_id"
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a bitbucket branch restriction
@@ -92,7 +90,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):

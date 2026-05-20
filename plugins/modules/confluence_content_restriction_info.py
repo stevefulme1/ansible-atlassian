@@ -30,18 +30,6 @@ options:
     required: false
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -69,7 +57,6 @@ EXAMPLES = r"""
   register: result
 
 
-
 - name: List confluence content restriction resources with pagination
   stevefulme1.atlassian.confluence_content_restriction_info:
     page: 1
@@ -87,13 +74,13 @@ confluence_content_restrictions:
 
     operation:
       description: >-
-        
+
       type: str
 
 
     restrictions:
       description: >-
-        
+
       type: dict
 
 
@@ -105,13 +92,13 @@ confluence_content_restrictions:
 
     _expandable:
       description: >-
-        
+
       type: dict
 
 
     _links:
       description: >-
-        
+
       type: dict
 
 
@@ -138,26 +125,10 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
     """List confluence content restriction resources with optional filtering and pagination."""
 
     params = {}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     page = module.params.get("page")
@@ -176,24 +147,11 @@ def fetch_list(client, module):
         return client.get_paginated("/wiki/rest/api/content/{id}/restriction", params=params)
 
 
-
 def main():
     spec = auth_argument_spec()
     spec.update(
         dict(
             id=dict(type="str", required=False),
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             page=dict(type="int", required=False),

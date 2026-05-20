@@ -33,17 +33,11 @@ options:
     type: int
 
 
-
-
-
   description:
     description:
       - >-
         The description of the priority.
     type: str
-
-
-
 
 
   iconUrl:
@@ -96,9 +90,6 @@ options:
       - "/images/icons/priorities/trivial_new.png"
 
 
-
-
-
   name:
     description:
       - >-
@@ -106,17 +97,11 @@ options:
     type: str
 
 
-
-
-
   statusColor:
     description:
       - >-
         The status color of the priority in 3-digit or 6-digit hexadecimal format.
     type: str
-
-
-
 
 
 extends_documentation_fragment:
@@ -129,18 +114,8 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_priority:
 
 
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/priority
-
 
 
 - name: Update a jira priority
@@ -151,25 +126,20 @@ EXAMPLES = r"""
     avatarId: "updated_avatarId"
 
 
-
     description: "updated_description"
-
 
 
     iconUrl: "updated_iconUrl"
 
 
-
     name: "updated_name"
-
 
 
     statusColor: "updated_statusColor"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira priority
@@ -226,7 +196,7 @@ name:
 
 schemes:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -281,7 +251,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -327,16 +296,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             description=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -390,24 +353,16 @@ def main():
                 ],
 
 
-
-
             ),
 
             name=dict(
                 type="str",
 
 
-
-
-
             ),
 
             statusColor=dict(
                 type="str",
-
-
-
 
 
             ),

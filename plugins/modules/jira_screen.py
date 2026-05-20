@@ -33,17 +33,11 @@ options:
     type: str
 
 
-
-
-
   name:
     description:
       - >-
         The name of the screen. The name must be unique. The maximum length is 255 characters.
     type: str
-
-
-
 
 
 extends_documentation_fragment:
@@ -56,12 +50,8 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_screen:
 
 
-
-
-
     state: present
   # API: POST /rest/api/3/screens
-
 
 
 - name: Update a jira screen
@@ -72,13 +62,11 @@ EXAMPLES = r"""
     description: "updated_description"
 
 
-
     name: "updated_name"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira screen
@@ -175,7 +163,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -212,16 +199,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             name=dict(
                 type="str",
-
-
-
 
 
             ),

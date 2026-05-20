@@ -33,9 +33,6 @@ options:
     type: list
 
 
-
-
-
   workflowIds:
     description:
       - >-
@@ -43,17 +40,11 @@ options:
     type: list
 
 
-
-
-
   workflowNames:
     description:
       - >-
         The list of workflow names to query.
     type: list
-
-
-
 
 
 extends_documentation_fragment:
@@ -66,14 +57,8 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_workflow:
 
 
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/workflows
-
 
 
 - name: Update a jira workflow
@@ -84,17 +69,14 @@ EXAMPLES = r"""
     projectAndIssueTypes: "updated_projectAndIssueTypes"
 
 
-
     workflowIds: "updated_workflowIds"
-
 
 
     workflowNames: "updated_workflowNames"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira workflow
@@ -137,7 +119,6 @@ def get_current_state(client, module):
     return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -177,25 +158,16 @@ def main():
                 type="list",
 
 
-
-
-
             ),
 
             workflowIds=dict(
                 type="list",
 
 
-
-
-
             ),
 
             workflowNames=dict(
                 type="list",
-
-
-
 
 
             ),

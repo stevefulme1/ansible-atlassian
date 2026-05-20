@@ -35,17 +35,11 @@ options:
     required: true
 
 
-
-
-
   alias:
     description:
       - >-
         This field will be used as the new identifier for the space in confluence page URLs. If the...
     type: str
-
-
-
 
 
   description:
@@ -55,9 +49,6 @@ options:
     type: dict
 
 
-
-
-
   key:
     description:
       - >-
@@ -65,17 +56,11 @@ options:
     type: str
 
 
-
-
-
   permissions:
     description:
       - >-
         The permissions for the new space. If no permissions are provided, the Confluence default space...
     type: list
-
-
-
 
 
 extends_documentation_fragment:
@@ -91,17 +76,8 @@ EXAMPLES = r"""
     name: "example_name"
 
 
-
-
-
-
-
-
-
-
     state: present
   # API: POST /wiki/rest/api/space/_private
-
 
 
 - name: Update a confluence space
@@ -109,26 +85,20 @@ EXAMPLES = r"""
     id: "existing_id"
 
 
-
-
     alias: "updated_alias"
-
 
 
     description: "updated_description"
 
 
-
     key: "updated_key"
-
 
 
     permissions: "updated_permissions"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 """
@@ -137,28 +107,28 @@ RETURN = r"""
 
 id:
   description: >-
-    
+
   returned: success
   type: int
 
 
 key:
   description: >-
-    
+
   returned: success
   type: str
 
 
 alias:
   description: >-
-    
+
   returned: success
   type: str
 
 
 name:
   description: >-
-    
+
   returned: success
   type: str
 
@@ -172,7 +142,7 @@ icon:
 
 description:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -186,77 +156,77 @@ homepage:
 
 type:
   description: >-
-    
+
   returned: success
   type: str
 
 
 metadata:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 operations:
   description: >-
-    
+
   returned: success
   type: list
 
 
 permissions:
   description: >-
-    
+
   returned: success
   type: list
 
 
 status:
   description: >-
-    
+
   returned: success
   type: str
 
 
 settings:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 theme:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 lookAndFeel:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 history:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 _expandable:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 _links:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -275,7 +245,6 @@ def get_current_state(client, module):
     """Retrieve the current state of the confluence space via GET."""
 
     return None
-
 
 
 def needs_update(current, desired):
@@ -325,16 +294,10 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             alias=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -343,25 +306,16 @@ def main():
                 type="dict",
 
 
-
-
-
             ),
 
             key=dict(
                 type="str",
 
 
-
-
-
             ),
 
             permissions=dict(
                 type="list",
-
-
-
 
 
             ),

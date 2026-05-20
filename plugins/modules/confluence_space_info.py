@@ -36,16 +36,6 @@ options:
     required: false
 
 
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -96,25 +86,25 @@ confluence_spaces:
 
     id:
       description: >-
-        
+
       type: int
 
 
     key:
       description: >-
-        
+
       type: str
 
 
     alias:
       description: >-
-        
+
       type: str
 
 
     name:
       description: >-
-        
+
       type: str
 
 
@@ -126,7 +116,7 @@ confluence_spaces:
 
     description:
       description: >-
-        
+
       type: dict
 
 
@@ -138,67 +128,67 @@ confluence_spaces:
 
     type:
       description: >-
-        
+
       type: str
 
 
     metadata:
       description: >-
-        
+
       type: dict
 
 
     operations:
       description: >-
-        
+
       type: list
 
 
     permissions:
       description: >-
-        
+
       type: list
 
 
     status:
       description: >-
-        
+
       type: str
 
 
     settings:
       description: >-
-        
+
       type: dict
 
 
     theme:
       description: >-
-        
+
       type: dict
 
 
     lookAndFeel:
       description: >-
-        
+
       type: dict
 
 
     history:
       description: >-
-        
+
       type: dict
 
 
     _expandable:
       description: >-
-        
+
       type: dict
 
 
     _links:
       description: >-
-        
+
       type: dict
 
 
@@ -218,12 +208,10 @@ def fetch_single(client, identifier):
     raise ClientError("GET by identifier is not supported for this resource")
 
 
-
 def fetch_list(client, module):
     """List confluence space resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
-
 
 
 def main():
@@ -233,16 +221,6 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
-
-
-
-
-
-
-
-
-
-
 
 
             page=dict(type="int", required=False),

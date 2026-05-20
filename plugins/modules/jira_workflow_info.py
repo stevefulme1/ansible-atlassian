@@ -30,12 +30,6 @@ options:
     required: false
 
 
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -61,7 +55,6 @@ EXAMPLES = r"""
 - name: List all jira workflow resources
   stevefulme1.atlassian.jira_workflow_info:
   register: result
-
 
 
 - name: List jira workflow resources with pagination
@@ -107,12 +100,10 @@ def fetch_single(client, identifier):
     raise ClientError("GET by identifier is not supported for this resource")
 
 
-
 def fetch_list(client, module):
     """List jira workflow resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
-
 
 
 def main():
@@ -120,12 +111,6 @@ def main():
     spec.update(
         dict(
             id=dict(type="str", required=False),
-
-
-
-
-
-
 
 
             page=dict(type="int", required=False),

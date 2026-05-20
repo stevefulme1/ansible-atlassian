@@ -29,33 +29,24 @@ options:
   results:
     description:
       - >-
-        
+
     type: list
 
     required: true
 
 
-
-
-
   _links:
     description:
       - >-
-        
+
     type: dict
-
-
-
 
 
   limit:
     description:
       - >-
-        
+
     type: int
-
-
-
 
 
   restrictionsHash:
@@ -65,27 +56,18 @@ options:
     type: str
 
 
-
-
-
   size:
     description:
       - >-
-        
+
     type: int
-
-
-
 
 
   start:
     description:
       - >-
-        
+
     type: int
-
-
-
 
 
 extends_documentation_fragment:
@@ -101,19 +83,8 @@ EXAMPLES = r"""
     results: "example_results"
 
 
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /wiki/rest/api/content/{id}/restriction
-
 
 
 - name: Update a confluence content restriction
@@ -121,30 +92,23 @@ EXAMPLES = r"""
     id: "existing_id"
 
 
-
-
     _links: "updated__links"
-
 
 
     limit: "updated_limit"
 
 
-
     restrictionsHash: "updated_restrictionsHash"
 
 
-
     size: "updated_size"
-
 
 
     start: "updated_start"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a confluence content restriction
@@ -159,14 +123,14 @@ RETURN = r"""
 
 operation:
   description: >-
-    
+
   returned: success
   type: str
 
 
 restrictions:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -180,14 +144,14 @@ content:
 
 _expandable:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 _links:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -225,7 +189,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):
@@ -278,16 +241,10 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             _links=dict(
                 type="dict",
-
-
-
 
 
             ),
@@ -296,16 +253,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             restrictionsHash=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -314,16 +265,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             start=dict(
                 type="int",
-
-
-
 
 
             ),

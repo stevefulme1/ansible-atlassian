@@ -35,19 +35,13 @@ options:
     required: true
 
 
-
-
-
   id:
     description:
       - >-
-        
+
     type: str
 
     required: true
-
-
-
 
 
   minorEdit:
@@ -59,9 +53,6 @@ options:
     required: true
 
 
-
-
-
   type:
     description:
       - >-
@@ -71,19 +62,13 @@ options:
     required: true
 
 
-
-
-
   version:
     description:
       - >-
-        
+
     type: dict
 
     required: true
-
-
-
 
 
   comment:
@@ -93,9 +78,6 @@ options:
     type: str
 
 
-
-
-
   container:
     description:
       - >-
@@ -103,47 +85,32 @@ options:
     type: dict
 
 
-
-
-
   extensions:
     description:
       - >-
-        
+
     type: dict
-
-
-
 
 
   metadata:
     description:
       - >-
-        
+
     type: dict
-
-
-
 
 
   status:
     description:
       - >-
-        
+
     type: str
-
-
-
 
 
   title:
     description:
       - >-
-        
+
     type: str
-
-
-
 
 
 extends_documentation_fragment:
@@ -159,37 +126,20 @@ EXAMPLES = r"""
     file: "example_file"
 
 
-
     id: "example_id"
-
 
 
     minorEdit: "example_minorEdit"
 
 
-
     type: "example_type"
-
 
 
     version: "example_version"
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /wiki/rest/api/content/{id}/child/attachment
-
 
 
 - name: Update a confluence attachment
@@ -197,42 +147,26 @@ EXAMPLES = r"""
     id: "existing_id"
 
 
-
-
-
-
-
-
-
-
-
-
     comment: "updated_comment"
-
 
 
     container: "updated_container"
 
 
-
     extensions: "updated_extensions"
-
 
 
     metadata: "updated_metadata"
 
 
-
     status: "updated_status"
-
 
 
     title: "updated_title"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 """
@@ -241,7 +175,7 @@ RETURN = r"""
 
 id:
   description: >-
-    
+
   returned: success
   type: str
 
@@ -255,56 +189,56 @@ type:
 
 status:
   description: >-
-    
+
   returned: success
   type: str
 
 
 title:
   description: >-
-    
+
   returned: success
   type: str
 
 
 space:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 history:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 version:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 ancestors:
   description: >-
-    
+
   returned: success
   type: list
 
 
 operations:
   description: >-
-    
+
   returned: success
   type: list
 
 
 children:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -318,7 +252,7 @@ childTypes:
 
 descendants:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -332,14 +266,14 @@ container:
 
 body:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 restrictions:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -353,28 +287,28 @@ metadata:
 
 macroRenderedOutput:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 extensions:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 _expandable:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 _links:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -393,7 +327,6 @@ def get_current_state(client, module):
     """Retrieve the current state of the confluence attachment via GET."""
 
     return None
-
 
 
 def needs_update(current, desired):
@@ -461,18 +394,12 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             id=dict(
                 type="str",
 
                 required=True,
-
-
-
 
 
             ),
@@ -483,18 +410,12 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             type=dict(
                 type="str",
 
                 required=True,
-
-
-
 
 
             ),
@@ -505,16 +426,10 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             comment=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -523,16 +438,10 @@ def main():
                 type="dict",
 
 
-
-
-
             ),
 
             extensions=dict(
                 type="dict",
-
-
-
 
 
             ),
@@ -541,25 +450,16 @@ def main():
                 type="dict",
 
 
-
-
-
             ),
 
             status=dict(
                 type="str",
 
 
-
-
-
             ),
 
             title=dict(
                 type="str",
-
-
-
 
 
             ),

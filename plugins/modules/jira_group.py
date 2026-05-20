@@ -35,9 +35,6 @@ options:
     required: true
 
 
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -55,16 +52,13 @@ EXAMPLES = r"""
   # API: POST /rest/api/3/group
 
 
-
 - name: Update a jira group
   stevefulme1.atlassian.jira_group:
     id: "existing_id"
 
 
-
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira group
@@ -134,7 +128,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -168,9 +161,6 @@ def main():
                 type="str",
 
                 required=True,
-
-
-
 
 
             ),

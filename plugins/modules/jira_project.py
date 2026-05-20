@@ -36,16 +36,11 @@ options:
     choices: ["PROJECT_LEAD", "UNASSIGNED"]
 
 
-
-
   avatarId:
     description:
       - >-
         An integer value for the project's avatar.
     type: int
-
-
-
 
 
   categoryId:
@@ -55,17 +50,11 @@ options:
     type: int
 
 
-
-
-
   description:
     description:
       - >-
         A brief description of the project.
     type: str
-
-
-
 
 
   fieldConfigurationScheme:
@@ -75,17 +64,11 @@ options:
     type: int
 
 
-
-
-
   fieldScheme:
     description:
       - >-
         The ID of the field scheme for the project. Use the Get field...
     type: int
-
-
-
 
 
   issueSecurityScheme:
@@ -95,17 +78,11 @@ options:
     type: int
 
 
-
-
-
   issueTypeScheme:
     description:
       - >-
         The ID of the issue type scheme for the project. Use the Get all issue type...
     type: int
-
-
-
 
 
   issueTypeScreenScheme:
@@ -115,17 +92,11 @@ options:
     type: int
 
 
-
-
-
   key:
     description:
       - >-
         Project keys must be unique and start with an uppercase letter followed by one or more uppercase...
     type: str
-
-
-
 
 
   lead:
@@ -135,17 +106,11 @@ options:
     type: str
 
 
-
-
-
   leadAccountId:
     description:
       - >-
         The account ID of the project lead. Cannot be provided with lead.
     type: str
-
-
-
 
 
   name:
@@ -155,9 +120,6 @@ options:
     type: str
 
 
-
-
-
   notificationScheme:
     description:
       - >-
@@ -165,17 +127,11 @@ options:
     type: int
 
 
-
-
-
   permissionScheme:
     description:
       - >-
         The ID of the permission scheme for the project. Use the Get all permission...
     type: int
-
-
-
 
 
   projectTemplateKey:
@@ -268,9 +224,6 @@ options:
       - "com.atlassian.jcs:customer-service-management"
 
 
-
-
-
   projectTypeKey:
     description:
       - >-
@@ -281,16 +234,11 @@ options:
     choices: ["software", "service_desk", "business"]
 
 
-
-
   releasedProjectKeys:
     description:
       - >-
         Previous project keys to be released from the current project. Released keys must belong to the...
     type: list
-
-
-
 
 
   url:
@@ -300,17 +248,11 @@ options:
     type: str
 
 
-
-
-
   workflowScheme:
     description:
       - >-
         The ID of the workflow scheme for the project. Use the Get all workflow...
     type: int
-
-
-
 
 
 extends_documentation_fragment:
@@ -323,48 +265,8 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_project:
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/project
-
 
 
 - name: Update a jira project
@@ -375,85 +277,65 @@ EXAMPLES = r"""
     assigneeType: "updated_assigneeType"
 
 
-
     avatarId: "updated_avatarId"
-
 
 
     categoryId: "updated_categoryId"
 
 
-
     description: "updated_description"
-
 
 
     fieldConfigurationScheme: "updated_fieldConfigurationScheme"
 
 
-
     fieldScheme: "updated_fieldScheme"
-
 
 
     issueSecurityScheme: "updated_issueSecurityScheme"
 
 
-
     issueTypeScheme: "updated_issueTypeScheme"
-
 
 
     issueTypeScreenScheme: "updated_issueTypeScreenScheme"
 
 
-
     key: "updated_key"
-
 
 
     lead: "updated_lead"
 
 
-
     leadAccountId: "updated_leadAccountId"
-
 
 
     name: "updated_name"
 
 
-
     notificationScheme: "updated_notificationScheme"
-
 
 
     permissionScheme: "updated_permissionScheme"
 
 
-
     projectTemplateKey: "updated_projectTemplateKey"
-
 
 
     projectTypeKey: "updated_projectTypeKey"
 
 
-
     releasedProjectKeys: "updated_releasedProjectKeys"
 
 
-
     url: "updated_url"
-
 
 
     workflowScheme: "updated_workflowScheme"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira project
@@ -496,7 +378,7 @@ assigneeType:
 
 avatarUrls:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -601,7 +483,7 @@ key:
 
 landingPageInfo:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -740,7 +622,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -834,15 +715,10 @@ def main():
                 choices=['PROJECT_LEAD', 'UNASSIGNED'],
 
 
-
-
             ),
 
             avatarId=dict(
                 type="int",
-
-
-
 
 
             ),
@@ -851,16 +727,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             description=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -869,16 +739,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             fieldScheme=dict(
                 type="int",
-
-
-
 
 
             ),
@@ -887,16 +751,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             issueTypeScheme=dict(
                 type="int",
-
-
-
 
 
             ),
@@ -905,16 +763,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             key=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -923,16 +775,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             leadAccountId=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -941,25 +787,16 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             notificationScheme=dict(
                 type="int",
 
 
-
-
-
             ),
 
             permissionScheme=dict(
                 type="int",
-
-
-
 
 
             ),
@@ -1053,8 +890,6 @@ def main():
                 ],
 
 
-
-
             ),
 
             projectTypeKey=dict(
@@ -1064,15 +899,10 @@ def main():
                 choices=['software', 'service_desk', 'business'],
 
 
-
-
             ),
 
             releasedProjectKeys=dict(
                 type="list",
-
-
-
 
 
             ),
@@ -1081,16 +911,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             workflowScheme=dict(
                 type="int",
-
-
-
 
 
             ),

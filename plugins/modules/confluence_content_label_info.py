@@ -86,25 +86,25 @@ confluence_content_labels:
 
     prefix:
       description: >-
-        
+
       type: str
 
 
     name:
       description: >-
-        
+
       type: str
 
 
     id:
       description: >-
-        
+
       type: str
 
 
     label:
       description: >-
-        
+
       type: str
 
 
@@ -124,12 +124,10 @@ def fetch_single(client, identifier):
     raise ClientError("GET by identifier is not supported for this resource")
 
 
-
 def fetch_list(client, module):
     """List confluence content label resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
-
 
 
 def main():

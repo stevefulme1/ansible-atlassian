@@ -36,44 +36,6 @@ options:
     required: false
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -252,12 +214,10 @@ def fetch_single(client, identifier):
     raise ClientError("GET by identifier is not supported for this resource")
 
 
-
 def fetch_list(client, module):
     """List jira version resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
-
 
 
 def main():
@@ -267,44 +227,6 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             page=dict(type="int", required=False),

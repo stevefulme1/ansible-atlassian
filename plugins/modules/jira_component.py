@@ -33,17 +33,11 @@ options:
     type: str
 
 
-
-
-
   assignee:
     description:
       - >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
-
-
-
 
 
   assigneeType:
@@ -56,16 +50,11 @@ options:
     choices: ["PROJECT_DEFAULT", "COMPONENT_LEAD", "PROJECT_LEAD", "UNASSIGNED"]
 
 
-
-
   description:
     description:
       - >-
         The description for the component. Optional when creating or updating a component.
     type: str
-
-
-
 
 
   id:
@@ -75,17 +64,11 @@ options:
     type: str
 
 
-
-
-
   isAssigneeTypeValid:
     description:
       - >-
         Whether a user is associated with assigneeType. For example, if the assigneeType is set to...
     type: bool
-
-
-
 
 
   lead:
@@ -95,17 +78,11 @@ options:
     type: dict
 
 
-
-
-
   leadAccountId:
     description:
       - >-
         The accountId of the component's lead user. The accountId uniquely identifies the user across...
     type: str
-
-
-
 
 
   leadUserName:
@@ -115,17 +92,11 @@ options:
     type: str
 
 
-
-
-
   metadata:
     description:
       - >-
         Compass component's metadata. Can't be updated. Not required for creating a Project Component.
     type: dict
-
-
-
 
 
   name:
@@ -135,17 +106,11 @@ options:
     type: str
 
 
-
-
-
   project:
     description:
       - >-
         The key of the project the component is assigned to. Required when creating a component. Can't...
     type: str
-
-
-
 
 
   projectId:
@@ -155,17 +120,11 @@ options:
     type: int
 
 
-
-
-
   realAssignee:
     description:
       - >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
-
-
-
 
 
   realAssigneeType:
@@ -178,16 +137,11 @@ options:
     choices: ["PROJECT_DEFAULT", "COMPONENT_LEAD", "PROJECT_LEAD", "UNASSIGNED"]
 
 
-
-
   self:
     description:
       - >-
         The URL of the component.
     type: str
-
-
-
 
 
 extends_documentation_fragment:
@@ -200,40 +154,8 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_component:
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/component
-
 
 
 - name: Update a jira component
@@ -244,67 +166,50 @@ EXAMPLES = r"""
     ari: "updated_ari"
 
 
-
     assignee: "updated_assignee"
-
 
 
     assigneeType: "updated_assigneeType"
 
 
-
     description: "updated_description"
-
-
-
 
 
     isAssigneeTypeValid: "updated_isAssigneeTypeValid"
 
 
-
     lead: "updated_lead"
-
 
 
     leadAccountId: "updated_leadAccountId"
 
 
-
     leadUserName: "updated_leadUserName"
-
 
 
     metadata: "updated_metadata"
 
 
-
     name: "updated_name"
-
 
 
     project: "updated_project"
 
 
-
     projectId: "updated_projectId"
-
 
 
     realAssignee: "updated_realAssignee"
 
 
-
     realAssigneeType: "updated_realAssigneeType"
-
 
 
     self: "updated_self"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira component
@@ -465,7 +370,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -544,16 +448,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             assignee=dict(
                 type="dict",
-
-
-
 
 
             ),
@@ -565,15 +463,10 @@ def main():
                 choices=['PROJECT_DEFAULT', 'COMPONENT_LEAD', 'PROJECT_LEAD', 'UNASSIGNED'],
 
 
-
-
             ),
 
             description=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -582,16 +475,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             isAssigneeTypeValid=dict(
                 type="bool",
-
-
-
 
 
             ),
@@ -600,16 +487,10 @@ def main():
                 type="dict",
 
 
-
-
-
             ),
 
             leadAccountId=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -618,16 +499,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             metadata=dict(
                 type="dict",
-
-
-
 
 
             ),
@@ -636,16 +511,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             project=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -654,16 +523,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             realAssignee=dict(
                 type="dict",
-
-
-
 
 
             ),
@@ -675,15 +538,10 @@ def main():
                 choices=['PROJECT_DEFAULT', 'COMPONENT_LEAD', 'PROJECT_LEAD', 'UNASSIGNED'],
 
 
-
-
             ),
 
             self=dict(
                 type="str",
-
-
-
 
 
             ),

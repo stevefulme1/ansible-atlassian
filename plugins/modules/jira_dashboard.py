@@ -35,9 +35,6 @@ options:
     required: true
 
 
-
-
-
   name:
     description:
       - >-
@@ -45,9 +42,6 @@ options:
     type: str
 
     required: true
-
-
-
 
 
   sharePermissions:
@@ -59,17 +53,11 @@ options:
     required: true
 
 
-
-
-
   description:
     description:
       - >-
         The description of the dashboard.
     type: str
-
-
-
 
 
 extends_documentation_fragment:
@@ -85,19 +73,14 @@ EXAMPLES = r"""
     editPermissions: "example_editPermissions"
 
 
-
     name: "example_name"
-
 
 
     sharePermissions: "example_sharePermissions"
 
 
-
-
     state: present
   # API: POST /rest/api/3/dashboard
-
 
 
 - name: Update a jira dashboard
@@ -105,18 +88,11 @@ EXAMPLES = r"""
     id: "existing_id"
 
 
-
-
-
-
-
-
     description: "updated_description"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira dashboard
@@ -138,7 +114,7 @@ automaticRefreshMs:
 
 description:
   description: >-
-    
+
   returned: success
   type: str
 
@@ -180,7 +156,7 @@ name:
 
 owner:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -263,7 +239,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -308,18 +283,12 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             name=dict(
                 type="str",
 
                 required=True,
-
-
-
 
 
             ),
@@ -330,16 +299,10 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             description=dict(
                 type="str",
-
-
-
 
 
             ),

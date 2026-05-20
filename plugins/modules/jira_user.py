@@ -35,9 +35,6 @@ options:
     required: true
 
 
-
-
-
   products:
     description:
       - >-
@@ -47,17 +44,11 @@ options:
     required: true
 
 
-
-
-
   applicationKeys:
     description:
       - >-
         Deprecated, do not use.
     type: list
-
-
-
 
 
   displayName:
@@ -67,17 +58,11 @@ options:
     type: str
 
 
-
-
-
   key:
     description:
       - >-
         This property is no longer available. See the migration guide for details.
     type: str
-
-
-
 
 
   name:
@@ -87,9 +72,6 @@ options:
     type: str
 
 
-
-
-
   password:
     description:
       - >-
@@ -97,17 +79,11 @@ options:
     type: str
 
 
-
-
-
   self:
     description:
       - >-
         The URL of the user.
     type: str
-
-
-
 
 
 extends_documentation_fragment:
@@ -123,25 +99,11 @@ EXAMPLES = r"""
     emailAddress: "example_emailAddress"
 
 
-
     products: "example_products"
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     state: present
   # API: POST /rest/api/3/user
-
 
 
 - name: Update a jira user
@@ -149,34 +111,23 @@ EXAMPLES = r"""
     key: "existing_id"
 
 
-
-
-
-
     applicationKeys: "updated_applicationKeys"
-
 
 
     displayName: "updated_displayName"
 
 
-
-
-
     name: "updated_name"
 
 
-
     password: "updated_password"
-
 
 
     self: "updated_self"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira user
@@ -219,14 +170,14 @@ appType:
 
 applicationRoles:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 avatarUrls:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -254,7 +205,7 @@ expand:
 
 groups:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -337,7 +288,6 @@ def get_current_state(client, module):
         return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -394,9 +344,6 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             products=dict(
@@ -405,16 +352,10 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             applicationKeys=dict(
                 type="list",
-
-
-
 
 
             ),
@@ -423,16 +364,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             key=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -441,25 +376,16 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             password=dict(
                 type="str",
 
 
-
-
-
             ),
 
             self=dict(
                 type="str",
-
-
-
 
 
             ),

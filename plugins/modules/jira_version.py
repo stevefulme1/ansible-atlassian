@@ -33,17 +33,11 @@ options:
     type: list
 
 
-
-
-
   archived:
     description:
       - >-
         Indicates that the version is archived. Optional when creating or updating a version.
     type: bool
-
-
-
 
 
   description:
@@ -53,17 +47,11 @@ options:
     type: str
 
 
-
-
-
   driver:
     description:
       - >-
         The Atlassian account ID of the version driver. Optional when creating or updating a version. If...
     type: str
-
-
-
 
 
   expand:
@@ -73,17 +61,11 @@ options:
     type: str
 
 
-
-
-
   id:
     description:
       - >-
         The ID of the version.
     type: str
-
-
-
 
 
   issuesStatusForFixVersion:
@@ -93,17 +75,11 @@ options:
     type: dict
 
 
-
-
-
   moveUnfixedIssuesTo:
     description:
       - >-
         The URL of the self link to the version to which all unfixed issues are moved when a version is...
     type: str
-
-
-
 
 
   name:
@@ -113,17 +89,11 @@ options:
     type: str
 
 
-
-
-
   operations:
     description:
       - >-
         If the expand option operations is used, returns the list of operations available for this version.
     type: list
-
-
-
 
 
   overdue:
@@ -133,17 +103,11 @@ options:
     type: bool
 
 
-
-
-
   project:
     description:
       - >-
         Deprecated. Use projectId.
     type: str
-
-
-
 
 
   projectId:
@@ -153,17 +117,11 @@ options:
     type: int
 
 
-
-
-
   releaseDate:
     description:
       - >-
         The release date of the version. Expressed in ISO 8601 format (yyyy-mm-dd). Optional when...
     type: str
-
-
-
 
 
   released:
@@ -173,17 +131,11 @@ options:
     type: bool
 
 
-
-
-
   self:
     description:
       - >-
         The URL of the version.
     type: str
-
-
-
 
 
   startDate:
@@ -193,9 +145,6 @@ options:
     type: str
 
 
-
-
-
   userReleaseDate:
     description:
       - >-
@@ -203,17 +152,11 @@ options:
     type: str
 
 
-
-
-
   userStartDate:
     description:
       - >-
         The date on which work on this version is expected to start, expressed in the instance's...
     type: str
-
-
-
 
 
 extends_documentation_fragment:
@@ -226,46 +169,8 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_version:
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/version
-
 
 
 - name: Update a jira version
@@ -276,79 +181,59 @@ EXAMPLES = r"""
     approvers: "updated_approvers"
 
 
-
     archived: "updated_archived"
-
 
 
     description: "updated_description"
 
 
-
     driver: "updated_driver"
-
 
 
     expand: "updated_expand"
 
 
-
-
-
     issuesStatusForFixVersion: "updated_issuesStatusForFixVersion"
-
 
 
     moveUnfixedIssuesTo: "updated_moveUnfixedIssuesTo"
 
 
-
     name: "updated_name"
-
 
 
     operations: "updated_operations"
 
 
-
     overdue: "updated_overdue"
-
 
 
     project: "updated_project"
 
 
-
     projectId: "updated_projectId"
-
 
 
     releaseDate: "updated_releaseDate"
 
 
-
     released: "updated_released"
-
 
 
     self: "updated_self"
 
 
-
     startDate: "updated_startDate"
 
 
-
     userReleaseDate: "updated_userReleaseDate"
-
 
 
     userStartDate: "updated_userStartDate"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a jira version
@@ -510,7 +395,6 @@ def get_current_state(client, module):
     return None
 
 
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -598,16 +482,10 @@ def main():
                 type="list",
 
 
-
-
-
             ),
 
             archived=dict(
                 type="bool",
-
-
-
 
 
             ),
@@ -616,16 +494,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             driver=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -634,16 +506,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             id=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -652,16 +518,10 @@ def main():
                 type="dict",
 
 
-
-
-
             ),
 
             moveUnfixedIssuesTo=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -670,16 +530,10 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             operations=dict(
                 type="list",
-
-
-
 
 
             ),
@@ -688,16 +542,10 @@ def main():
                 type="bool",
 
 
-
-
-
             ),
 
             project=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -706,16 +554,10 @@ def main():
                 type="int",
 
 
-
-
-
             ),
 
             releaseDate=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -724,16 +566,10 @@ def main():
                 type="bool",
 
 
-
-
-
             ),
 
             self=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -742,25 +578,16 @@ def main():
                 type="str",
 
 
-
-
-
             ),
 
             userReleaseDate=dict(
                 type="str",
 
 
-
-
-
             ),
 
             userStartDate=dict(
                 type="str",
-
-
-
 
 
             ),

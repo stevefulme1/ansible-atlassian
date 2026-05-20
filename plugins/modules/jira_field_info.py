@@ -30,14 +30,6 @@ options:
     required: false
 
 
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -63,7 +55,6 @@ EXAMPLES = r"""
 - name: List all jira field resources
   stevefulme1.atlassian.jira_field_info:
   register: result
-
 
 
 - name: List jira field resources with pagination
@@ -146,22 +137,10 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
     """List jira field resources with optional filtering and pagination."""
 
     params = {}
-
-
-
-
-
-
-
-
-
-
-
 
 
     page = module.params.get("page")
@@ -180,20 +159,11 @@ def fetch_list(client, module):
         return client.get_paginated("/rest/api/3/projects/fields", params=params)
 
 
-
 def main():
     spec = auth_argument_spec()
     spec.update(
         dict(
             id=dict(type="str", required=False),
-
-
-
-
-
-
-
-
 
 
             page=dict(type="int", required=False),

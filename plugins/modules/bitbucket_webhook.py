@@ -39,14 +39,12 @@ EXAMPLES = r"""
   # API: POST /repositories/{workspace}/{repo_slug}/hooks
 
 
-
 - name: Update a bitbucket webhook
   stevefulme1.atlassian.bitbucket_webhook:
     id: "existing_id"
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a bitbucket webhook
@@ -92,7 +90,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):

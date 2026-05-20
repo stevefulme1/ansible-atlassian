@@ -39,14 +39,12 @@ EXAMPLES = r"""
   # API: POST /wiki/rest/api/content/{id}/label
 
 
-
 - name: Update a confluence label
   stevefulme1.atlassian.confluence_label:
     id: "existing_id"
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a confluence label
@@ -61,28 +59,28 @@ RETURN = r"""
 
 prefix:
   description: >-
-    
+
   returned: success
   type: str
 
 
 name:
   description: >-
-    
+
   returned: success
   type: str
 
 
 id:
   description: >-
-    
+
   returned: success
   type: str
 
 
 label:
   description: >-
-    
+
   returned: success
   type: str
 
@@ -101,7 +99,6 @@ def get_current_state(client, module):
     """Retrieve the current state of the confluence label via GET."""
 
     return None
-
 
 
 def needs_update(current, desired):

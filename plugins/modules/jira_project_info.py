@@ -36,46 +36,6 @@ options:
     required: false
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -150,7 +110,7 @@ jira_projects:
 
     avatarUrls:
       description: >-
-        
+
       type: dict
 
 
@@ -240,7 +200,7 @@ jira_projects:
 
     landingPageInfo:
       description: >-
-        
+
       type: dict
 
 
@@ -351,7 +311,6 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
     """List jira project resources with optional filtering and pagination."""
 
@@ -361,48 +320,6 @@ def fetch_list(client, module):
     name_filter = module.params.get("name")
     if name_filter is not None:
         params["name"] = name_filter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     page = module.params.get("page")
@@ -421,7 +338,6 @@ def fetch_list(client, module):
         return client.get_paginated("/rest/api/3/project", params=params)
 
 
-
 def main():
     spec = auth_argument_spec()
     spec.update(
@@ -429,46 +345,6 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             page=dict(type="int", required=False),

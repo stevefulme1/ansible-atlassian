@@ -35,9 +35,6 @@ options:
     required: true
 
 
-
-
-
   name:
     description:
       - >-
@@ -47,9 +44,6 @@ options:
     required: true
 
 
-
-
-
   templateId:
     description:
       - >-
@@ -57,9 +51,6 @@ options:
     type: str
 
     required: true
-
-
-
 
 
   templateType:
@@ -74,16 +65,11 @@ options:
     choices: ["page"]
 
 
-
-
   description:
     description:
       - >-
         A description of the template.
     type: str
-
-
-
 
 
   labels:
@@ -93,17 +79,11 @@ options:
     type: list
 
 
-
-
-
   space:
     description:
       - >-
         The key for the space of the template. Required if the template is a space template. Set this to...
     type: dict
-
-
-
 
 
 extends_documentation_fragment:
@@ -119,27 +99,17 @@ EXAMPLES = r"""
     body: "example_body"
 
 
-
     name: "example_name"
-
 
 
     templateId: "example_templateId"
 
 
-
     templateType: "example_templateType"
-
-
-
-
-
-
 
 
     state: present
   # API: POST /wiki/rest/api/template
-
 
 
 - name: Update a confluence template
@@ -147,28 +117,17 @@ EXAMPLES = r"""
     id: "existing_id"
 
 
-
-
-
-
-
-
-
-
     description: "updated_description"
 
 
-
     labels: "updated_labels"
-
 
 
     space: "updated_space"
 
 
     state: present
-  # API:  
-
+  # API:
 
 
 - name: Delete a confluence template
@@ -183,63 +142,63 @@ RETURN = r"""
 
 templateId:
   description: >-
-    
+
   returned: success
   type: str
 
 
 originalTemplate:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 referencingBlueprint:
   description: >-
-    
+
   returned: success
   type: str
 
 
 name:
   description: >-
-    
+
   returned: success
   type: str
 
 
 description:
   description: >-
-    
+
   returned: success
   type: str
 
 
 space:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 labels:
   description: >-
-    
+
   returned: success
   type: list
 
 
 templateType:
   description: >-
-    
+
   returned: success
   type: str
 
 
 editorVersion:
   description: >-
-    
+
   returned: success
   type: str
 
@@ -253,14 +212,14 @@ body:
 
 _expandable:
   description: >-
-    
+
   returned: success
   type: dict
 
 
 _links:
   description: >-
-    
+
   returned: success
   type: dict
 
@@ -279,7 +238,6 @@ def get_current_state(client, module):
     """Retrieve the current state of the confluence template via GET."""
 
     return None
-
 
 
 def needs_update(current, desired):
@@ -335,9 +293,6 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             name=dict(
@@ -346,18 +301,12 @@ def main():
                 required=True,
 
 
-
-
-
             ),
 
             templateId=dict(
                 type="str",
 
                 required=True,
-
-
-
 
 
             ),
@@ -371,15 +320,10 @@ def main():
                 choices=['page'],
 
 
-
-
             ),
 
             description=dict(
                 type="str",
-
-
-
 
 
             ),
@@ -388,16 +332,10 @@ def main():
                 type="list",
 
 
-
-
-
             ),
 
             space=dict(
                 type="dict",
-
-
-
 
 
             ),
