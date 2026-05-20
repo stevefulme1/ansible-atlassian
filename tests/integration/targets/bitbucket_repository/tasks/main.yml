@@ -52,7 +52,7 @@
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get bitbucket_repository info
+- name: Get bitbucket_repository info  # noqa: args[module]
   stevefulme1.atlassian.bitbucket_repository_info:
     id: "{{ created_id }}"
   register: info_result
@@ -68,7 +68,7 @@
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete bitbucket_repository (check mode)
+- name: Delete bitbucket_repository (check mode)  # noqa: args[module]
   stevefulme1.atlassian.bitbucket_repository:
     id: "{{ created_id }}"
     state: absent
@@ -79,7 +79,7 @@
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify bitbucket_repository still exists after check mode delete
+- name: Verify bitbucket_repository still exists after check mode delete  # noqa: args[module]
   stevefulme1.atlassian.bitbucket_repository_info:
     id: "{{ created_id }}"
   register: delete_check_verify
@@ -91,7 +91,7 @@
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete bitbucket_repository
+- name: Delete bitbucket_repository  # noqa: args[module]
   stevefulme1.atlassian.bitbucket_repository:
     id: "{{ created_id }}"
     state: absent
@@ -102,7 +102,7 @@
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
 # DELETE - idempotency
-- name: Delete bitbucket_repository again (idempotency)
+- name: Delete bitbucket_repository again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.bitbucket_repository:
     id: "{{ created_id }}"
     state: absent

@@ -52,7 +52,7 @@
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get confluence_content_restriction info
+- name: Get confluence_content_restriction info  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction_info:
     id: "{{ created_id }}"
   register: info_result
@@ -64,7 +64,7 @@
 # ============================================================
 # UPDATE
 # ============================================================
-- name: Update confluence_content_restriction
+- name: Update confluence_content_restriction  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction:
     id: "{{ created_id }}"
     restrictionsHash: "updated_restrictionsHash_value"
@@ -76,7 +76,7 @@
       - update_result is changed
     fail_msg: "Update should report changed=true"
 # UPDATE - idempotency
-- name: Update confluence_content_restriction again (idempotency)
+- name: Update confluence_content_restriction again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction:
     id: "{{ created_id }}"
     restrictionsHash: "updated_restrictionsHash_value"
@@ -90,7 +90,7 @@
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete confluence_content_restriction (check mode)
+- name: Delete confluence_content_restriction (check mode)  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction:
     id: "{{ created_id }}"
     state: absent
@@ -101,7 +101,7 @@
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify confluence_content_restriction still exists after check mode delete
+- name: Verify confluence_content_restriction still exists after check mode delete  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction_info:
     id: "{{ created_id }}"
   register: delete_check_verify
@@ -113,7 +113,7 @@
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete confluence_content_restriction
+- name: Delete confluence_content_restriction  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction:
     id: "{{ created_id }}"
     state: absent
@@ -124,7 +124,7 @@
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
 # DELETE - idempotency
-- name: Delete confluence_content_restriction again (idempotency)
+- name: Delete confluence_content_restriction again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_content_restriction:
     id: "{{ created_id }}"
     state: absent

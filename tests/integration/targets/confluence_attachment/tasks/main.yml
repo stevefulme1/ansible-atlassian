@@ -56,7 +56,7 @@
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get confluence_attachment info
+- name: Get confluence_attachment info  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment_info:
     id: "{{ created_id }}"
   register: info_result
@@ -68,7 +68,7 @@
 # ============================================================
 # UPDATE
 # ============================================================
-- name: Update confluence_attachment
+- name: Update confluence_attachment  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
     comment: "updated_comment_value"
@@ -82,7 +82,7 @@
       - update_result is changed
     fail_msg: "Update should report changed=true"
 # UPDATE - idempotency
-- name: Update confluence_attachment again (idempotency)
+- name: Update confluence_attachment again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
     comment: "updated_comment_value"
@@ -98,7 +98,7 @@
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete confluence_attachment (check mode)
+- name: Delete confluence_attachment (check mode)  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
     state: absent
@@ -109,7 +109,7 @@
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify confluence_attachment still exists after check mode delete
+- name: Verify confluence_attachment still exists after check mode delete  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment_info:
     id: "{{ created_id }}"
   register: delete_check_verify
@@ -121,7 +121,7 @@
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete confluence_attachment
+- name: Delete confluence_attachment  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
     state: absent
@@ -132,7 +132,7 @@
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
 # DELETE - idempotency
-- name: Delete confluence_attachment again (idempotency)
+- name: Delete confluence_attachment again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_attachment:
     id: "{{ created_id }}"
     state: absent

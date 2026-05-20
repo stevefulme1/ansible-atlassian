@@ -55,7 +55,7 @@
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get confluence_template info
+- name: Get confluence_template info  # noqa: args[module]
   stevefulme1.atlassian.confluence_template_info:
     id: "{{ created_id }}"
   register: info_result
@@ -67,7 +67,7 @@
 # ============================================================
 # UPDATE
 # ============================================================
-- name: Update confluence_template
+- name: Update confluence_template  # noqa: args[module]
   stevefulme1.atlassian.confluence_template:
     id: "{{ created_id }}"
     description: "updated_description_value"
@@ -79,7 +79,7 @@
       - update_result is changed
     fail_msg: "Update should report changed=true"
 # UPDATE - idempotency
-- name: Update confluence_template again (idempotency)
+- name: Update confluence_template again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_template:
     id: "{{ created_id }}"
     description: "updated_description_value"
@@ -93,7 +93,7 @@
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete confluence_template (check mode)
+- name: Delete confluence_template (check mode)  # noqa: args[module]
   stevefulme1.atlassian.confluence_template:
     id: "{{ created_id }}"
     state: absent
@@ -104,7 +104,7 @@
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify confluence_template still exists after check mode delete
+- name: Verify confluence_template still exists after check mode delete  # noqa: args[module]
   stevefulme1.atlassian.confluence_template_info:
     id: "{{ created_id }}"
   register: delete_check_verify
@@ -116,7 +116,7 @@
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete confluence_template
+- name: Delete confluence_template  # noqa: args[module]
   stevefulme1.atlassian.confluence_template:
     id: "{{ created_id }}"
     state: absent
@@ -127,7 +127,7 @@
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
 # DELETE - idempotency
-- name: Delete confluence_template again (idempotency)
+- name: Delete confluence_template again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_template:
     id: "{{ created_id }}"
     state: absent

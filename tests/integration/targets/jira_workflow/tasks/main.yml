@@ -52,7 +52,7 @@
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get jira_workflow info
+- name: Get jira_workflow info  # noqa: args[module]
   stevefulme1.atlassian.jira_workflow_info:
     id: "{{ created_id }}"
   register: info_result
@@ -68,7 +68,7 @@
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete jira_workflow (check mode)
+- name: Delete jira_workflow (check mode)  # noqa: args[module]
   stevefulme1.atlassian.jira_workflow:
     id: "{{ created_id }}"
     state: absent
@@ -79,7 +79,7 @@
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify jira_workflow still exists after check mode delete
+- name: Verify jira_workflow still exists after check mode delete  # noqa: args[module]
   stevefulme1.atlassian.jira_workflow_info:
     id: "{{ created_id }}"
   register: delete_check_verify
@@ -91,7 +91,7 @@
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete jira_workflow
+- name: Delete jira_workflow  # noqa: args[module]
   stevefulme1.atlassian.jira_workflow:
     id: "{{ created_id }}"
     state: absent
@@ -102,7 +102,7 @@
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
 # DELETE - idempotency
-- name: Delete jira_workflow again (idempotency)
+- name: Delete jira_workflow again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_workflow:
     id: "{{ created_id }}"
     state: absent

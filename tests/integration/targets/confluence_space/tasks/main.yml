@@ -52,7 +52,7 @@
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get confluence_space info
+- name: Get confluence_space info  # noqa: args[module]
   stevefulme1.atlassian.confluence_space_info:
     id: "{{ created_id }}"
   register: info_result
@@ -64,7 +64,7 @@
 # ============================================================
 # UPDATE
 # ============================================================
-- name: Update confluence_space
+- name: Update confluence_space  # noqa: args[module]
   stevefulme1.atlassian.confluence_space:
     id: "{{ created_id }}"
     alias: "updated_alias_value"
@@ -77,7 +77,7 @@
       - update_result is changed
     fail_msg: "Update should report changed=true"
 # UPDATE - idempotency
-- name: Update confluence_space again (idempotency)
+- name: Update confluence_space again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_space:
     id: "{{ created_id }}"
     alias: "updated_alias_value"
@@ -92,7 +92,7 @@
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete confluence_space (check mode)
+- name: Delete confluence_space (check mode)  # noqa: args[module]
   stevefulme1.atlassian.confluence_space:
     id: "{{ created_id }}"
     state: absent
@@ -103,7 +103,7 @@
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify confluence_space still exists after check mode delete
+- name: Verify confluence_space still exists after check mode delete  # noqa: args[module]
   stevefulme1.atlassian.confluence_space_info:
     id: "{{ created_id }}"
   register: delete_check_verify
@@ -115,7 +115,7 @@
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete confluence_space
+- name: Delete confluence_space  # noqa: args[module]
   stevefulme1.atlassian.confluence_space:
     id: "{{ created_id }}"
     state: absent
@@ -126,7 +126,7 @@
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
 # DELETE - idempotency
-- name: Delete confluence_space again (idempotency)
+- name: Delete confluence_space again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.confluence_space:
     id: "{{ created_id }}"
     state: absent

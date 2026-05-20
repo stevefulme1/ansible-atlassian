@@ -54,7 +54,7 @@
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get jira_dashboard info
+- name: Get jira_dashboard info  # noqa: args[module]
   stevefulme1.atlassian.jira_dashboard_info:
     id: "{{ created_id }}"
   register: info_result
@@ -66,7 +66,7 @@
 # ============================================================
 # UPDATE
 # ============================================================
-- name: Update jira_dashboard
+- name: Update jira_dashboard  # noqa: args[module]
   stevefulme1.atlassian.jira_dashboard:
     id: "{{ created_id }}"
     description: "updated_description_value"
@@ -78,7 +78,7 @@
       - update_result is changed
     fail_msg: "Update should report changed=true"
 # UPDATE - idempotency
-- name: Update jira_dashboard again (idempotency)
+- name: Update jira_dashboard again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_dashboard:
     id: "{{ created_id }}"
     description: "updated_description_value"
@@ -92,7 +92,7 @@
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete jira_dashboard (check mode)
+- name: Delete jira_dashboard (check mode)  # noqa: args[module]
   stevefulme1.atlassian.jira_dashboard:
     id: "{{ created_id }}"
     state: absent
@@ -103,7 +103,7 @@
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify jira_dashboard still exists after check mode delete
+- name: Verify jira_dashboard still exists after check mode delete  # noqa: args[module]
   stevefulme1.atlassian.jira_dashboard_info:
     id: "{{ created_id }}"
   register: delete_check_verify
@@ -115,7 +115,7 @@
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete jira_dashboard
+- name: Delete jira_dashboard  # noqa: args[module]
   stevefulme1.atlassian.jira_dashboard:
     id: "{{ created_id }}"
     state: absent
@@ -126,7 +126,7 @@
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
 # DELETE - idempotency
-- name: Delete jira_dashboard again (idempotency)
+- name: Delete jira_dashboard again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_dashboard:
     id: "{{ created_id }}"
     state: absent

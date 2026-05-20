@@ -52,7 +52,7 @@
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get jira_permission_scheme info
+- name: Get jira_permission_scheme info  # noqa: args[module]
   stevefulme1.atlassian.jira_permission_scheme_info:
     id: "{{ created_id }}"
   register: info_result
@@ -64,7 +64,7 @@
 # ============================================================
 # UPDATE
 # ============================================================
-- name: Update jira_permission_scheme
+- name: Update jira_permission_scheme  # noqa: args[module]
   stevefulme1.atlassian.jira_permission_scheme:
     id: "{{ created_id }}"
     description: "updated_description_value"
@@ -78,7 +78,7 @@
       - update_result is changed
     fail_msg: "Update should report changed=true"
 # UPDATE - idempotency
-- name: Update jira_permission_scheme again (idempotency)
+- name: Update jira_permission_scheme again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_permission_scheme:
     id: "{{ created_id }}"
     description: "updated_description_value"
@@ -94,7 +94,7 @@
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete jira_permission_scheme (check mode)
+- name: Delete jira_permission_scheme (check mode)  # noqa: args[module]
   stevefulme1.atlassian.jira_permission_scheme:
     id: "{{ created_id }}"
     state: absent
@@ -105,7 +105,7 @@
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-- name: Verify jira_permission_scheme still exists after check mode delete
+- name: Verify jira_permission_scheme still exists after check mode delete  # noqa: args[module]
   stevefulme1.atlassian.jira_permission_scheme_info:
     id: "{{ created_id }}"
   register: delete_check_verify
@@ -117,7 +117,7 @@
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete jira_permission_scheme
+- name: Delete jira_permission_scheme  # noqa: args[module]
   stevefulme1.atlassian.jira_permission_scheme:
     id: "{{ created_id }}"
     state: absent
@@ -128,7 +128,7 @@
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
 # DELETE - idempotency
-- name: Delete jira_permission_scheme again (idempotency)
+- name: Delete jira_permission_scheme again (idempotency)  # noqa: args[module]
   stevefulme1.atlassian.jira_permission_scheme:
     id: "{{ created_id }}"
     state: absent
