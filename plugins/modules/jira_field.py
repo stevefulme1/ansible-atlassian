@@ -63,9 +63,20 @@ options:
       - >-
         The searcher that defines the way the field is searched in Jira. It can be set to null,...
     type: str
-
-
-    choices: ["com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:daterange", "com.atlassian.jira.plugin.system.customfieldtypes:datetimerange", "com.atlassian.jira.plugin.system.customfieldtypes:exactnumber", "com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher", "com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:numberrange", "com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:textsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher"]
+    choices:
+      - com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher
+      - com.atlassian.jira.plugin.system.customfieldtypes:daterange
+      - com.atlassian.jira.plugin.system.customfieldtypes:datetimerange
+      - com.atlassian.jira.plugin.system.customfieldtypes:exactnumber
+      - com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher
+      - com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher
+      - com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher
+      - com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher
+      - com.atlassian.jira.plugin.system.customfieldtypes:numberrange
+      - com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher
+      - com.atlassian.jira.plugin.system.customfieldtypes:textsearcher
+      - com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher
+      - com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher
 
 
 
@@ -281,13 +292,21 @@ def main():
 
             searcherKey=dict(
                 type="str",
-
-
-                choices=['com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:daterange', 'com.atlassian.jira.plugin.system.customfieldtypes:datetimerange', 'com.atlassian.jira.plugin.system.customfieldtypes:exactnumber', 'com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:numberrange', 'com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:textsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher'],
-
-
-
-
+                choices=[
+                    'com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:daterange',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:datetimerange',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:exactnumber',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:numberrange',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:textsearcher',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher',
+                    'com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher',
+                ],
             ),
 
         )
