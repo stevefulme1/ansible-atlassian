@@ -17,7 +17,7 @@ description:
   - Retrieve a single permission_scheme by its identifier, or list all permission_scheme resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
@@ -134,34 +134,14 @@ def fetch_single(client, identifier):
             return item
     return None
 
-
-
 def fetch_list(client, module):
     """List permission_scheme resources with optional filtering and pagination."""
 
     params = {}
 
-
     name_filter = module.params.get("name")
     if name_filter is not None:
         params["name"] = name_filter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -178,8 +158,6 @@ def fetch_list(client, module):
     else:
         return client.get_paginated("/rest/api/3/permissionscheme", params=params)
 
-
-
 def main():
     spec = auth_argument_spec()
     spec.update(
@@ -187,21 +165,6 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -236,7 +199,6 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
-
 
 if __name__ == "__main__":
     main()

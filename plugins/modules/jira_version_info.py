@@ -17,7 +17,7 @@ description:
   - Retrieve a single version by its identifier, or list all version resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
@@ -187,14 +187,10 @@ def fetch_single(client, identifier):
 
     raise ClientError("GET by identifier is not supported for this resource")
 
-
-
 def fetch_list(client, module):
     """List version resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
-
-
 
 def main():
     spec = auth_argument_spec()
@@ -203,45 +199,6 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -276,7 +233,6 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
-
 
 if __name__ == "__main__":
     main()

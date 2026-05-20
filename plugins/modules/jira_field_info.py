@@ -17,7 +17,7 @@ description:
   - Retrieve a single field by its identifier, or list all field resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
@@ -123,24 +123,10 @@ def fetch_single(client, identifier):
             return item
     return None
 
-
-
 def fetch_list(client, module):
     """List field resources with optional filtering and pagination."""
 
     params = {}
-
-
-
-
-
-
-
-
-
-
-
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -157,22 +143,11 @@ def fetch_list(client, module):
     else:
         return client.get_paginated("/rest/api/3/projects/fields", params=params)
 
-
-
 def main():
     spec = auth_argument_spec()
     spec.update(
         dict(
             id=dict(type="str", required=False),
-
-
-
-
-
-
-
-
-
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
@@ -207,7 +182,6 @@ def main():
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
-
 
 if __name__ == "__main__":
     main()

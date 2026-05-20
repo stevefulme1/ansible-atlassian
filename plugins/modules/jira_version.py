@@ -17,7 +17,7 @@ description:
   - Create, update, and delete version resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
@@ -332,8 +332,6 @@ def get_current_state(client, module):
 
     return None
 
-
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -345,7 +343,6 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
-
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -410,7 +407,6 @@ def build_payload(module):
 
     return payload
 
-
 def main():
     spec = auth_argument_spec()
     spec.update(
@@ -420,171 +416,95 @@ def main():
             approvers=dict(
                 type="list",
 
-
-
-
-
             ),
 
             archived=dict(
                 type="bool",
-
-
-
-
 
             ),
 
             description=dict(
                 type="str",
 
-
-
-
-
             ),
 
             driver=dict(
                 type="str",
-
-
-
-
 
             ),
 
             expand=dict(
                 type="str",
 
-
-
-
-
             ),
 
             id=dict(
                 type="str",
-
-
-
-
 
             ),
 
             issuesStatusForFixVersion=dict(
                 type="dict",
 
-
-
-
-
             ),
 
             moveUnfixedIssuesTo=dict(
                 type="str",
-
-
-
-
 
             ),
 
             name=dict(
                 type="str",
 
-
-
-
-
             ),
 
             operations=dict(
                 type="list",
-
-
-
-
 
             ),
 
             overdue=dict(
                 type="bool",
 
-
-
-
-
             ),
 
             project=dict(
                 type="str",
-
-
-
-
 
             ),
 
             projectId=dict(
                 type="int",
 
-
-
-
-
             ),
 
             releaseDate=dict(
                 type="str",
-
-
-
-
 
             ),
 
             released=dict(
                 type="bool",
 
-
-
-
-
             ),
 
             self=dict(
                 type="str",
-
-
-
-
 
             ),
 
             startDate=dict(
                 type="str",
 
-
-
-
-
             ),
 
             userReleaseDate=dict(
                 type="str",
 
-
-
-
-
             ),
 
             userStartDate=dict(
                 type="str",
-
-
-
-
 
             ),
 
@@ -621,7 +541,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -639,7 +558,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -682,7 +600,6 @@ def main():
 
                 result["userStartDate"] = current.get("userStartDate")
 
-
         elif state == "absent":
             if current is not None:
                 result["changed"] = True
@@ -697,12 +614,10 @@ def main():
                     )
                     client.delete(path)
 
-
     except ClientError as e:
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
-
 
 if __name__ == "__main__":
     main()

@@ -17,7 +17,7 @@ description:
   - Create, update, and delete workflow resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
@@ -104,8 +104,6 @@ def get_current_state(client, module):
 
     return None
 
-
-
 def needs_update(current, desired):
     """Compare current state against desired params and return True if an update is needed."""
     if current is None:
@@ -117,7 +115,6 @@ def needs_update(current, desired):
         if current_value != value:
             return True
     return False
-
 
 def build_payload(module):
     """Build the API request payload from module params."""
@@ -134,7 +131,6 @@ def build_payload(module):
 
     return payload
 
-
 def main():
     spec = auth_argument_spec()
     spec.update(
@@ -144,27 +140,15 @@ def main():
             projectAndIssueTypes=dict(
                 type="list",
 
-
-
-
-
             ),
 
             workflowIds=dict(
                 type="list",
 
-
-
-
-
             ),
 
             workflowNames=dict(
                 type="list",
-
-
-
-
 
             ),
 
@@ -201,7 +185,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -220,14 +203,12 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             else:
                 # Resource exists and is up-to-date
 
                 result["statuses"] = current.get("statuses")
 
                 result["workflows"] = current.get("workflows")
-
 
         elif state == "absent":
             if current is not None:
@@ -243,12 +224,10 @@ def main():
                     )
                     client.delete(path)
 
-
     except ClientError as e:
         module.fail_json(msg=str(e), **result)
 
     module.exit_json(**result)
-
 
 if __name__ == "__main__":
     main()
