@@ -65,7 +65,6 @@ bitbucket_repositorys:
   returned: always
   type: list
   elements: dict
-  contains:
 """
 
 from ansible.module_utils.basic import AnsibleModule

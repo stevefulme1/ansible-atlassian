@@ -90,7 +90,7 @@ jira_screens:
       description: >-
         The number of items returned.
       type: int
-    values:
+    field_values:
       description: >-
         The list of items.
       type: list

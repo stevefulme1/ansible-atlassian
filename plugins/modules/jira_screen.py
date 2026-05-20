@@ -89,7 +89,7 @@ total:
     The number of items returned.
   returned: success
   type: int
-values:
+field_values:
   description: >-
     The list of items.
   returned: success
@@ -249,7 +249,7 @@ def main():
 
                 result["total"] = current.get("total")
 
-                result["values"] = current.get("values")
+                result["field_values"] = current.get("values")
 
                 pass
 
