@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete confluence template resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -62,12 +60,12 @@ options:
       - >-
         Labels for the template.
     type: list
+    elements: dict
   space:
     description:
       - >-
         The key for the space of the template. Required if the template is a space template. Set this to...
     type: dict
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -81,7 +79,6 @@ EXAMPLES = r"""
     templateType: "example_templateType"
     state: present
   # API: POST /wiki/rest/api/template
-
 - name: Update a confluence template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
@@ -90,7 +87,6 @@ EXAMPLES = r"""
     space: "updated_space"
     state: present
   # API:
-
 - name: Delete a confluence template
   stevefulme1.atlassian.confluence_template:
     id: "existing_id"
@@ -103,58 +99,47 @@ templateId:
   description: >-
   returned: success
   type: str
-
 originalTemplate:
   description: >-
   returned: success
   type: dict
-
 referencingBlueprint:
   description: >-
   returned: success
   type: str
-
 name:
   description: >-
   returned: success
   type: str
-
 description:
   description: >-
   returned: success
   type: str
-
 space:
   description: >-
   returned: success
   type: dict
-
 labels:
   description: >-
   returned: success
   type: list
-
 templateType:
   description: >-
   returned: success
   type: str
-
 editorVersion:
   description: >-
   returned: success
   type: str
-
 body:
   description: >-
     The body of the new content. Does not apply to attachments. Only one body format should be...
   returned: success
   type: dict
-
 _expandable:
   description: >-
   returned: success
   type: dict
-
 _links:
   description: >-
   returned: success
@@ -166,7 +151,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -226,45 +210,96 @@ def main():
             body=dict(
                 type="dict",
 
+
                 required=True,
+
+
+
+
+
+
 
             ),
 
             name=dict(
                 type="str",
 
+
                 required=True,
+
+
+
+
+
+
 
             ),
 
             templateId=dict(
                 type="str",
 
+
                 required=True,
+
+
+
+
+
+
 
             ),
 
             templateType=dict(
                 type="str",
 
+
                 required=True,
 
+
+
+
                 choices=['page'],
+
+
+
 
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             labels=dict(
                 type="list",
 
+                elements="dict",
+
+
+
+
+
+
+
+
             ),
 
             space=dict(
                 type="dict",
+
+
+
+
+
+
+
 
             ),
 

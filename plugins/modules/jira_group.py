@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira group resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -33,7 +31,6 @@ options:
         The name of the group.
     type: str
     required: true
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -44,13 +41,11 @@ EXAMPLES = r"""
     name: "example_name"
     state: present
   # API: POST /rest/api/3/group
-
 - name: Update a jira group
   stevefulme1.atlassian.jira_group:
     id: "existing_id"
     state: present
   # API:
-
 - name: Delete a jira group
   stevefulme1.atlassian.jira_group:
     id: "existing_id"
@@ -64,13 +59,11 @@ groupId:
     The ID of the group, which uniquely identifies the group across all Atlassian products. For...
   returned: success
   type: str
-
 name:
   description: >-
     The name of group.
   returned: success
   type: str
-
 self:
   description: >-
     The URL for these group details.
@@ -83,7 +76,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -145,7 +137,14 @@ def main():
             name=dict(
                 type="str",
 
+
                 required=True,
+
+
+
+
+
+
 
             ),
 

@@ -13,7 +13,6 @@ class ModuleDocFragment:
     """Documentation fragment for stevefulme1.atlassian authentication."""
 
     DOCUMENTATION = r"""
-
 options:
   api_key:
     description:

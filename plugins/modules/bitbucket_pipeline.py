@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete bitbucket pipeline resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -27,7 +25,6 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -37,7 +34,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.bitbucket_pipeline:
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/pipelines
-
 - name: Update a bitbucket pipeline
   stevefulme1.atlassian.bitbucket_pipeline:
     id: "existing_id"
@@ -54,7 +50,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 

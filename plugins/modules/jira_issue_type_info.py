@@ -13,17 +13,14 @@ DOCUMENTATION = r"""
 module: jira_issue_type_info
 short_description: >-
   Retrieve information about jira issue type resources
-
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single jira issue type by its identifier,
     or list all jira issue type resources.
   - This module always reports C(changed=False).
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   id:
     description:
@@ -48,7 +45,6 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -58,16 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_issue_type_info:
     id: "example_id"
   register: result
-
 - name: List all jira issue type resources
   stevefulme1.atlassian.jira_issue_type_info:
   register: result
-
 - name: List jira issue type resources filtered by name
   stevefulme1.atlassian.jira_issue_type_info:
     name: "my_jira issue type"
   register: result
-
 - name: List jira issue type resources with pagination
   stevefulme1.atlassian.jira_issue_type_info:
     page: 1
@@ -129,7 +122,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -178,6 +170,17 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),

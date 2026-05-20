@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira dashboard resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -32,6 +30,7 @@ options:
       - >-
         The edit permissions for the dashboard.
     type: list
+    elements: dict
     required: true
   name:
     description:
@@ -44,13 +43,13 @@ options:
       - >-
         The share permissions for the dashboard.
     type: list
+    elements: dict
     required: true
   description:
     description:
       - >-
         The description of the dashboard.
     type: str
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -63,14 +62,12 @@ EXAMPLES = r"""
     sharePermissions: "example_sharePermissions"
     state: present
   # API: POST /rest/api/3/dashboard
-
 - name: Update a jira dashboard
   stevefulme1.atlassian.jira_dashboard:
     id: "existing_id"
     description: "updated_description"
     state: present
   # API:
-
 - name: Delete a jira dashboard
   stevefulme1.atlassian.jira_dashboard:
     id: "existing_id"
@@ -84,77 +81,64 @@ automaticRefreshMs:
     The automatic refresh interval for the dashboard in milliseconds.
   returned: success
   type: int
-
 description:
   description: >-
   returned: success
   type: str
-
 editPermissions:
   description: >-
     The details of any edit share permissions for the dashboard.
   returned: success
   type: list
-
 id:
   description: >-
     The ID of the dashboard.
   returned: success
   type: str
-
 isFavourite:
   description: >-
     Whether the dashboard is selected as a favorite by the user.
   returned: success
   type: bool
-
 isWritable:
   description: >-
     Whether the current user has permission to edit the dashboard.
   returned: success
   type: bool
-
 name:
   description: >-
     The name of the dashboard.
   returned: success
   type: str
-
 owner:
   description: >-
   returned: success
   type: dict
-
 popularity:
   description: >-
     The number of users who have this dashboard as a favorite.
   returned: success
   type: int
-
 rank:
   description: >-
     The rank of this dashboard.
   returned: success
   type: int
-
 self:
   description: >-
     The URL of these dashboard details.
   returned: success
   type: str
-
 sharePermissions:
   description: >-
     The details of any view share permissions for the dashboard.
   returned: success
   type: list
-
 systemDashboard:
   description: >-
     Whether the current dashboard is system dashboard.
   returned: success
   type: bool
-
 view:
   description: >-
     The URL of the dashboard.
@@ -167,7 +151,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -238,26 +221,58 @@ def main():
             editPermissions=dict(
                 type="list",
 
+                elements="dict",
+
+
                 required=True,
+
+
+
+
+
+
 
             ),
 
             name=dict(
                 type="str",
 
+
                 required=True,
+
+
+
+
+
+
 
             ),
 
             sharePermissions=dict(
                 type="list",
 
+                elements="dict",
+
+
                 required=True,
+
+
+
+
+
+
 
             ),
 
             description=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 

@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira issue resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -42,6 +40,7 @@ options:
       - >-
         Details of issue properties to be add or update.
     type: list
+    elements: dict
   transition:
     description:
       - >-
@@ -52,7 +51,6 @@ options:
       - >-
         A Map containing the field field name and a list of operations to perform on the issue screen...
     type: dict
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -62,7 +60,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_issue:
     state: present
   # API: POST /rest/api/3/issue
-
 - name: Update a jira issue
   stevefulme1.atlassian.jira_issue:
     id: "existing_id"
@@ -73,7 +70,6 @@ EXAMPLES = r"""
     update: "updated_update"
     state: present
   # API:
-
 - name: Delete a jira issue
   stevefulme1.atlassian.jira_issue:
     id: "existing_id"
@@ -87,83 +83,69 @@ changelog:
     A page of changelogs.
   returned: success
   type: dict
-
 editmeta:
   description: >-
     A list of editable field details.
   returned: success
   type: dict
-
 expand:
   description: >-
     Expand options that include additional issue details in the response.
   returned: success
   type: str
-
 fields:
   description: >-
   returned: success
   type: dict
-
 fieldsToInclude:
   description: >-
   returned: success
   type: dict
-
 id:
   description: >-
     The ID of the issue.
   returned: success
   type: str
-
 key:
   description: >-
     The key of the issue.
   returned: success
   type: str
-
 names:
   description: >-
     The ID and name of each field present on the issue.
   returned: success
   type: dict
-
 operations:
   description: >-
     Details of the operations that can be performed on the issue.
   returned: success
   type: dict
-
 properties:
   description: >-
     Details of the issue properties identified in the request.
   returned: success
   type: dict
-
 renderedFields:
   description: >-
     The rendered value of each field present on the issue.
   returned: success
   type: dict
-
 schema:
   description: >-
     The schema describing each field present on the issue.
   returned: success
   type: dict
-
 self:
   description: >-
     The URL of the issue details.
   returned: success
   type: str
-
 transitions:
   description: >-
     The transitions that can be performed on the issue.
   returned: success
   type: list
-
 versionedRepresentations:
   description: >-
     The versions of each field on the issue.
@@ -176,7 +158,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -230,25 +211,62 @@ def main():
             fields=dict(
                 type="dict",
 
+
+
+
+
+
+
+
             ),
 
             historyMetadata=dict(
                 type="dict",
+
+
+
+
+
+
+
 
             ),
 
             properties=dict(
                 type="list",
 
+                elements="dict",
+
+
+
+
+
+
+
+
             ),
 
             transition=dict(
                 type="dict",
 
+
+
+
+
+
+
+
             ),
 
             update=dict(
                 type="dict",
+
+
+
+
+
+
+
 
             ),
 

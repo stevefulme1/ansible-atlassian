@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira component resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -109,7 +107,6 @@ options:
       - >-
         The URL of the component.
     type: str
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -119,7 +116,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_component:
     state: present
   # API: POST /rest/api/3/component
-
 - name: Update a jira component
   stevefulme1.atlassian.jira_component:
     id: "existing_id"
@@ -140,7 +136,6 @@ EXAMPLES = r"""
     self: "updated_self"
     state: present
   # API:
-
 - name: Delete a jira component
   stevefulme1.atlassian.jira_component:
     id: "existing_id"
@@ -154,91 +149,76 @@ ari:
     Compass component's ID. Can't be updated. Not required for creating a Project Component.
   returned: success
   type: str
-
 assignee:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 assigneeType:
   description: >-
     The nominal user type used to determine the assignee for issues created with this component. See...
   returned: success
   type: str
-
 description:
   description: >-
     The description for the component. Optional when creating or updating a component.
   returned: success
   type: str
-
 id:
   description: >-
     The unique identifier for the component.
   returned: success
   type: str
-
 isAssigneeTypeValid:
   description: >-
     Whether a user is associated with assigneeType. For example, if the assigneeType is set to...
   returned: success
   type: bool
-
 lead:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 leadAccountId:
   description: >-
     The accountId of the component's lead user. The accountId uniquely identifies the user across...
   returned: success
   type: str
-
 leadUserName:
   description: >-
     This property is no longer available and will be removed from the documentation soon. See the...
   returned: success
   type: str
-
 metadata:
   description: >-
     Compass component's metadata. Can't be updated. Not required for creating a Project Component.
   returned: success
   type: dict
-
 name:
   description: >-
     The unique name for the component in the project. Required when creating a component. Optional...
   returned: success
   type: str
-
 project:
   description: >-
     The key of the project the component is assigned to. Required when creating a component. Can't...
   returned: success
   type: str
-
 projectId:
   description: >-
     The ID of the project the component is assigned to.
   returned: success
   type: int
-
 realAssignee:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 realAssigneeType:
   description: >-
     The type of the assignee that is assigned to issues created with this component, when an...
   returned: success
   type: str
-
 self:
   description: >-
     The URL of the component.
@@ -251,7 +231,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -358,84 +337,196 @@ def main():
             ari=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             assignee=dict(
                 type="dict",
+
+
+
+
+
+
+
 
             ),
 
             assigneeType=dict(
                 type="str",
 
+
+
+
+
                 choices=['PROJECT_DEFAULT', 'COMPONENT_LEAD', 'PROJECT_LEAD', 'UNASSIGNED'],
+
+
+
 
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             id=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 
             isAssigneeTypeValid=dict(
                 type="bool",
 
+
+
+
+
+
+
+
             ),
 
             lead=dict(
                 type="dict",
+
+
+
+
+
+
+
 
             ),
 
             leadAccountId=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             leadUserName=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 
             metadata=dict(
                 type="dict",
 
+
+
+
+
+
+
+
             ),
 
             name=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 
             project=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             projectId=dict(
                 type="int",
+
+
+
+
+
+
+
 
             ),
 
             realAssignee=dict(
                 type="dict",
 
+
+
+
+
+
+
+
             ),
 
             realAssigneeType=dict(
                 type="str",
 
+
+
+
+
                 choices=['PROJECT_DEFAULT', 'COMPONENT_LEAD', 'PROJECT_LEAD', 'UNASSIGNED'],
+
+
+
 
             ),
 
             self=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 

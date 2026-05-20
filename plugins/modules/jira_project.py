@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira project resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -78,6 +76,7 @@ options:
       - >-
         Project keys must be unique and start with an uppercase letter followed by one or more uppercase...
     type: str
+    no_log: false
   lead:
     description:
       - >-
@@ -108,6 +107,7 @@ options:
       - >-
         A predefined configuration for a project. The type of the projectTemplateKey must match with the...
     type: str
+    no_log: false
     choices:
       - "com.pyxis.greenhopper.jira:gh-simplified-agility-kanban"
       - "com.pyxis.greenhopper.jira:gh-simplified-agility-scrum"
@@ -154,12 +154,14 @@ options:
       - >-
         The project type, which defines the application-specific feature set. If you don't specify the...
     type: str
+    no_log: false
     choices: ["software", "service_desk", "business"]
   releasedProjectKeys:
     description:
       - >-
         Previous project keys to be released from the current project. Released keys must belong to the...
     type: list
+    elements: dict
   url:
     description:
       - >-
@@ -170,7 +172,6 @@ options:
       - >-
         The ID of the workflow scheme for the project. Use the Get all workflow...
     type: int
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -180,7 +181,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_project:
     state: present
   # API: POST /rest/api/3/project
-
 - name: Update a jira project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
@@ -206,7 +206,6 @@ EXAMPLES = r"""
     workflowScheme: "updated_workflowScheme"
     state: present
   # API:
-
 - name: Delete a jira project
   stevefulme1.atlassian.jira_project:
     id: "existing_id"
@@ -220,197 +219,164 @@ archived:
     Whether the project is archived.
   returned: success
   type: bool
-
 archivedBy:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 archivedDate:
   description: >-
     The date when the project was archived.
   returned: success
   type: str
-
 assigneeType:
   description: >-
     The default assignee when creating issues for this project.
   returned: success
   type: str
-
 avatarUrls:
   description: >-
   returned: success
   type: dict
-
 components:
   description: >-
     List of the components contained in the project.
   returned: success
   type: list
-
 deleted:
   description: >-
     Whether the project is marked as deleted.
   returned: success
   type: bool
-
 deletedBy:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 deletedDate:
   description: >-
     The date when the project was marked as deleted.
   returned: success
   type: str
-
 description:
   description: >-
     A brief description of the project.
   returned: success
   type: str
-
 email:
   description: >-
     An email address associated with the project.
   returned: success
   type: str
-
 expand:
   description: >-
     Expand options that include additional project details in the response.
   returned: success
   type: str
-
 favourite:
   description: >-
     Whether the project is selected as a favorite.
   returned: success
   type: bool
-
 id:
   description: >-
     The ID of the project.
   returned: success
   type: str
-
 insight:
   description: >-
     Additional details about a project.
   returned: success
   type: dict
-
 isPrivate:
   description: >-
     Whether the project is private from the user's perspective. This means the user can't see the...
   returned: success
   type: bool
-
 issueTypeHierarchy:
   description: >-
     The project issue type hierarchy.
   returned: success
   type: dict
-
 issueTypes:
   description: >-
     List of the issue types available in the project.
   returned: success
   type: list
-
 key:
   description: >-
     The key of the project.
   returned: success
   type: str
-
 landingPageInfo:
   description: >-
   returned: success
   type: dict
-
 lead:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
 name:
   description: >-
     The name of the project.
   returned: success
   type: str
-
 permissions:
   description: >-
     Permissions which a user has on a project.
   returned: success
   type: dict
-
 projectCategory:
   description: >-
     A project category.
   returned: success
   type: dict
-
 projectTypeKey:
   description: >-
     The project type of the project.
   returned: success
   type: str
-
 properties:
   description: >-
     Map of project properties
   returned: success
   type: dict
-
 retentionTillDate:
   description: >-
     The date when the project is deleted permanently.
   returned: success
   type: str
-
 roles:
   description: >-
     The name and self URL for each role defined in the project. For more information, see Create...
   returned: success
   type: dict
-
 self:
   description: >-
     The URL of the project details.
   returned: success
   type: str
-
 simplified:
   description: >-
     Whether the project is simplified.
   returned: success
   type: bool
-
 style:
   description: >-
     The type of the project.
   returned: success
   type: str
-
 url:
   description: >-
     A link to information about this project, such as project documentation.
   returned: success
   type: str
-
 uuid:
   description: >-
     Unique ID for next-gen projects.
   returned: success
   type: str
-
 versions:
   description: >-
     The versions defined in the project. For more information, see Create...
@@ -423,7 +389,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -542,82 +507,195 @@ def main():
             assigneeType=dict(
                 type="str",
 
+
+
+
+
                 choices=['PROJECT_LEAD', 'UNASSIGNED'],
+
+
+
 
             ),
 
             avatarId=dict(
                 type="int",
 
+
+
+
+
+
+
+
             ),
 
             categoryId=dict(
                 type="int",
+
+
+
+
+
+
+
 
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             fieldConfigurationScheme=dict(
                 type="int",
+
+
+
+
+
+
+
 
             ),
 
             fieldScheme=dict(
                 type="int",
 
+
+
+
+
+
+
+
             ),
 
             issueSecurityScheme=dict(
                 type="int",
+
+
+
+
+
+
+
 
             ),
 
             issueTypeScheme=dict(
                 type="int",
 
+
+
+
+
+
+
+
             ),
 
             issueTypeScreenScheme=dict(
                 type="int",
+
+
+
+
+
+
+
 
             ),
 
             key=dict(
                 type="str",
 
+
+
+                no_log=False,
+
+
+
+
+
+
             ),
 
             lead=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 
             leadAccountId=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             name=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 
             notificationScheme=dict(
                 type="int",
 
+
+
+
+
+
+
+
             ),
 
             permissionScheme=dict(
                 type="int",
 
+
+
+
+
+
+
+
             ),
 
             projectTemplateKey=dict(
                 type="str",
+
+
+
+                no_log=False,
+
+
 
                 choices=[
 
@@ -703,27 +781,62 @@ def main():
 
                 ],
 
+
+
+
             ),
 
             projectTypeKey=dict(
                 type="str",
 
+
+
+                no_log=False,
+
+
+
                 choices=['software', 'service_desk', 'business'],
+
+
+
 
             ),
 
             releasedProjectKeys=dict(
                 type="list",
 
+                elements="dict",
+
+
+
+
+
+
+
+
             ),
 
             url=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             workflowScheme=dict(
                 type="int",
+
+
+
+
+
+
+
 
             ),
 

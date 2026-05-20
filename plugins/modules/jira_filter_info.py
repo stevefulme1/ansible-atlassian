@@ -13,17 +13,14 @@ DOCUMENTATION = r"""
 module: jira_filter_info
 short_description: >-
   Retrieve information about jira filter resources
-
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single jira filter by its identifier,
     or list all jira filter resources.
   - This module always reports C(changed=False).
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   id:
     description:
@@ -48,7 +45,6 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -58,16 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_filter_info:
     id: "example_id"
   register: result
-
 - name: List all jira filter resources
   stevefulme1.atlassian.jira_filter_info:
   register: result
-
 - name: List jira filter resources filtered by name
   stevefulme1.atlassian.jira_filter_info:
     name: "my_jira filter"
   register: result
-
 - name: List jira filter resources with pagination
   stevefulme1.atlassian.jira_filter_info:
     page: 1
@@ -149,7 +142,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -172,6 +164,37 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),

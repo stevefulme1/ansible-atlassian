@@ -13,17 +13,14 @@ DOCUMENTATION = r"""
 module: confluence_content_restriction_info
 short_description: >-
   Retrieve information about confluence content restriction resources
-
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single confluence content restriction by its identifier,
     or list all confluence content restriction resources.
   - This module always reports C(changed=False).
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   id:
     description:
@@ -43,7 +40,6 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -53,11 +49,9 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_content_restriction_info:
     id: "example_id"
   register: result
-
 - name: List all confluence content restriction resources
   stevefulme1.atlassian.confluence_content_restriction_info:
   register: result
-
 - name: List confluence content restriction resources with pagination
   stevefulme1.atlassian.confluence_content_restriction_info:
     page: 1
@@ -95,7 +89,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -138,6 +131,19 @@ def main():
     spec.update(
         dict(
             id=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),

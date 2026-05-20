@@ -13,17 +13,14 @@ DOCUMENTATION = r"""
 module: jira_user_info
 short_description: >-
   Retrieve information about jira user resources
-
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single jira user by its identifier,
     or list all jira user resources.
   - This module always reports C(changed=False).
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   key:
     description:
@@ -48,7 +45,6 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -58,16 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_user_info:
     key: "example_id"
   register: result
-
 - name: List all jira user resources
   stevefulme1.atlassian.jira_user_info:
   register: result
-
 - name: List jira user resources filtered by name
   stevefulme1.atlassian.jira_user_info:
     name: "my_jira user"
   register: result
-
 - name: List jira user resources with pagination
   stevefulme1.atlassian.jira_user_info:
     page: 1
@@ -150,7 +143,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -199,6 +191,23 @@ def main():
             key=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),

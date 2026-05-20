@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira screen resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -37,7 +35,6 @@ options:
       - >-
         The name of the screen. The name must be unique. The maximum length is 255 characters.
     type: str
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -47,7 +44,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_screen:
     state: present
   # API: POST /rest/api/3/screens
-
 - name: Update a jira screen
   stevefulme1.atlassian.jira_screen:
     id: "existing_id"
@@ -55,7 +51,6 @@ EXAMPLES = r"""
     name: "updated_name"
     state: present
   # API:
-
 - name: Delete a jira screen
   stevefulme1.atlassian.jira_screen:
     id: "existing_id"
@@ -69,37 +64,31 @@ isLast:
     Whether this is the last page.
   returned: success
   type: bool
-
 maxResults:
   description: >-
     The maximum number of items that could be returned.
   returned: success
   type: int
-
 nextPage:
   description: >-
     If there is another page of results, the URL of the next page.
   returned: success
   type: str
-
 self:
   description: >-
     The URL of the page.
   returned: success
   type: str
-
 startAt:
   description: >-
     The index of the first item returned.
   returned: success
   type: int
-
 total:
   description: >-
     The number of items returned.
   returned: success
   type: int
-
 values:
   description: >-
     The list of items.
@@ -112,7 +101,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -176,10 +164,24 @@ def main():
             description=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             name=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 

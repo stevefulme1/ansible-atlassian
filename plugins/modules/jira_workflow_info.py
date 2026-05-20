@@ -13,17 +13,14 @@ DOCUMENTATION = r"""
 module: jira_workflow_info
 short_description: >-
   Retrieve information about jira workflow resources
-
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single jira workflow by its identifier,
     or list all jira workflow resources.
   - This module always reports C(changed=False).
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   id:
     description:
@@ -43,7 +40,6 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -53,11 +49,9 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_workflow_info:
     id: "example_id"
   register: result
-
 - name: List all jira workflow resources
   stevefulme1.atlassian.jira_workflow_info:
   register: result
-
 - name: List jira workflow resources with pagination
   stevefulme1.atlassian.jira_workflow_info:
     page: 1
@@ -87,7 +81,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -108,6 +101,13 @@ def main():
     spec.update(
         dict(
             id=dict(type="str", required=False),
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),

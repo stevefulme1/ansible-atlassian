@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete confluence label resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -27,7 +25,6 @@ options:
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -37,13 +34,11 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_label:
     state: present
   # API: POST /wiki/rest/api/content/{id}/label
-
 - name: Update a confluence label
   stevefulme1.atlassian.confluence_label:
     id: "existing_id"
     state: present
   # API:
-
 - name: Delete a confluence label
   stevefulme1.atlassian.confluence_label:
     id: "existing_id"
@@ -56,17 +51,14 @@ prefix:
   description: >-
   returned: success
   type: str
-
 name:
   description: >-
   returned: success
   type: str
-
 id:
   description: >-
   returned: success
   type: str
-
 label:
   description: >-
   returned: success
@@ -78,7 +70,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 

@@ -13,17 +13,14 @@ DOCUMENTATION = r"""
 module: jira_permission_scheme_info
 short_description: >-
   Retrieve information about jira permission scheme resources
-
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single jira permission scheme by its identifier,
     or list all jira permission scheme resources.
   - This module always reports C(changed=False).
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   id:
     description:
@@ -48,7 +45,6 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -58,16 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_permission_scheme_info:
     id: "example_id"
   register: result
-
 - name: List all jira permission scheme resources
   stevefulme1.atlassian.jira_permission_scheme_info:
   register: result
-
 - name: List jira permission scheme resources filtered by name
   stevefulme1.atlassian.jira_permission_scheme_info:
     name: "my_jira permission scheme"
   register: result
-
 - name: List jira permission scheme resources with pagination
   stevefulme1.atlassian.jira_permission_scheme_info:
     page: 1
@@ -117,7 +110,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -166,6 +158,21 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),

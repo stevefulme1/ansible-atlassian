@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira workflow resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -32,17 +30,19 @@ options:
       - >-
         The list of projects and issue types to query.
     type: list
+    elements: dict
   workflowIds:
     description:
       - >-
         The list of workflow IDs to query.
     type: list
+    elements: dict
   workflowNames:
     description:
       - >-
         The list of workflow names to query.
     type: list
-
+    elements: dict
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -52,7 +52,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_workflow:
     state: present
   # API: POST /rest/api/3/workflows
-
 - name: Update a jira workflow
   stevefulme1.atlassian.jira_workflow:
     id: "existing_id"
@@ -61,7 +60,6 @@ EXAMPLES = r"""
     workflowNames: "updated_workflowNames"
     state: present
   # API:
-
 - name: Delete a jira workflow
   stevefulme1.atlassian.jira_workflow:
     id: "existing_id"
@@ -75,7 +73,6 @@ statuses:
     List of statuses.
   returned: success
   type: list
-
 workflows:
   description: >-
     List of workflows.
@@ -88,7 +85,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -136,15 +132,42 @@ def main():
             projectAndIssueTypes=dict(
                 type="list",
 
+                elements="dict",
+
+
+
+
+
+
+
+
             ),
 
             workflowIds=dict(
                 type="list",
 
+                elements="dict",
+
+
+
+
+
+
+
+
             ),
 
             workflowNames=dict(
                 type="list",
+
+                elements="dict",
+
+
+
+
+
+
+
 
             ),
 

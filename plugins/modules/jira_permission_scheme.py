@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira permission scheme resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -53,6 +51,7 @@ options:
       - >-
         The permission scheme to create or update. See About permission schemes and...
     type: list
+    elements: dict
   scope:
     description:
       - >-
@@ -63,7 +62,6 @@ options:
       - >-
         The URL of the permission scheme.
     type: str
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -74,7 +72,6 @@ EXAMPLES = r"""
     name: "example_name"
     state: present
   # API: POST /rest/api/3/permissionscheme
-
 - name: Update a jira permission scheme
   stevefulme1.atlassian.jira_permission_scheme:
     id: "existing_id"
@@ -85,7 +82,6 @@ EXAMPLES = r"""
     self: "updated_self"
     state: present
   # API:
-
 - name: Delete a jira permission scheme
   stevefulme1.atlassian.jira_permission_scheme:
     id: "existing_id"
@@ -99,37 +95,31 @@ description:
     A description for the permission scheme.
   returned: success
   type: str
-
 expand:
   description: >-
     The expand options available for the permission scheme.
   returned: success
   type: str
-
 id:
   description: >-
     The ID of the permission scheme.
   returned: success
   type: int
-
 name:
   description: >-
     The name of the permission scheme. Must be unique.
   returned: success
   type: str
-
 permissions:
   description: >-
     The permission scheme to create or update. See About permission schemes and...
   returned: success
   type: list
-
 scope:
   description: >-
     The projects the item is associated with. Indicated for items associated with next-gen projects.
   returned: success
   type: dict
-
 self:
   description: >-
     The URL of the permission scheme.
@@ -142,7 +132,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -222,37 +211,88 @@ def main():
             name=dict(
                 type="str",
 
+
                 required=True,
+
+
+
+
+
+
 
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             expand=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 
             id=dict(
                 type="int",
 
+
+
+
+
+
+
+
             ),
 
             permissions=dict(
                 type="list",
+
+                elements="dict",
+
+
+
+
+
+
+
 
             ),
 
             scope=dict(
                 type="dict",
 
+
+
+
+
+
+
+
             ),
 
             self=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 

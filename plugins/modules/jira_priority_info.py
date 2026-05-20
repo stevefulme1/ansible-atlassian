@@ -13,17 +13,14 @@ DOCUMENTATION = r"""
 module: jira_priority_info
 short_description: >-
   Retrieve information about jira priority resources
-
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single jira priority by its identifier,
     or list all jira priority resources.
   - This module always reports C(changed=False).
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   id:
     description:
@@ -48,7 +45,6 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -58,16 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_priority_info:
     id: "example_id"
   register: result
-
 - name: List all jira priority resources
   stevefulme1.atlassian.jira_priority_info:
   register: result
-
 - name: List jira priority resources filtered by name
   stevefulme1.atlassian.jira_priority_info:
     name: "my_jira priority"
   register: result
-
 - name: List jira priority resources with pagination
   stevefulme1.atlassian.jira_priority_info:
     page: 1
@@ -124,7 +117,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -173,6 +165,17 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),

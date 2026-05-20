@@ -16,10 +16,8 @@ version_added: "1.0.0"
 description:
   - Create, update, and delete jira priority resources.
   - Supports check mode and diff mode for safe operations.
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   state:
     description:
@@ -73,7 +71,6 @@ options:
       - >-
         The status color of the priority in 3-digit or 6-digit hexadecimal format.
     type: str
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -83,7 +80,6 @@ EXAMPLES = r"""
   stevefulme1.atlassian.jira_priority:
     state: present
   # API: POST /rest/api/3/priority
-
 - name: Update a jira priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
@@ -94,7 +90,6 @@ EXAMPLES = r"""
     statusColor: "updated_statusColor"
     state: present
   # API:
-
 - name: Delete a jira priority
   stevefulme1.atlassian.jira_priority:
     id: "existing_id"
@@ -108,48 +103,40 @@ avatarId:
     The avatarId of the avatar for the issue priority. This parameter is nullable and when set, this...
   returned: success
   type: int
-
 description:
   description: >-
     The description of the issue priority.
   returned: success
   type: str
-
 iconUrl:
   description: >-
     The URL of the icon for the issue priority.
   returned: success
   type: str
-
 id:
   description: >-
     The ID of the issue priority.
   returned: success
   type: str
-
 isDefault:
   description: >-
     Whether this priority is the default.
   returned: success
   type: bool
-
 name:
   description: >-
     The name of the issue priority.
   returned: success
   type: str
-
 schemes:
   description: >-
   returned: success
   type: dict
-
 self:
   description: >-
     The URL of the issue priority.
   returned: success
   type: str
-
 statusColor:
   description: >-
     The color used to indicate the issue priority.
@@ -162,7 +149,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -236,15 +222,33 @@ def main():
             avatarId=dict(
                 type="int",
 
+
+
+
+
+
+
+
             ),
 
             description=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             iconUrl=dict(
                 type="str",
+
+
+
+
 
                 choices=[
 
@@ -290,15 +294,32 @@ def main():
 
                 ],
 
+
+
+
             ),
 
             name=dict(
                 type="str",
 
+
+
+
+
+
+
+
             ),
 
             statusColor=dict(
                 type="str",
+
+
+
+
+
+
+
 
             ),
 

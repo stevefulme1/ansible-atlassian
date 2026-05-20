@@ -13,17 +13,14 @@ DOCUMENTATION = r"""
 module: confluence_space_info
 short_description: >-
   Retrieve information about confluence space resources
-
 version_added: "1.0.0"
 description:
   - >-
     Retrieve a single confluence space by its identifier,
     or list all confluence space resources.
   - This module always reports C(changed=False).
-
 author:
   - "Steve Fulmer (@stevefulme1)"
-
 options:
   id:
     description:
@@ -48,7 +45,6 @@ options:
       - Only applies when listing resources.
     type: int
     required: false
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
@@ -58,16 +54,13 @@ EXAMPLES = r"""
   stevefulme1.atlassian.confluence_space_info:
     id: "example_id"
   register: result
-
 - name: List all confluence space resources
   stevefulme1.atlassian.confluence_space_info:
   register: result
-
 - name: List confluence space resources filtered by name
   stevefulme1.atlassian.confluence_space_info:
     name: "my_confluence space"
   register: result
-
 - name: List confluence space resources with pagination
   stevefulme1.atlassian.confluence_space_info:
     page: 1
@@ -145,7 +138,6 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
     Client,
     ClientError,
     argument_spec as auth_argument_spec,
-
 )
 
 
@@ -168,6 +160,17 @@ def main():
             id=dict(type="str", required=False),
 
             name=dict(type="str", required=False),
+
+
+
+
+
+
+
+
+
+
+
 
             page=dict(type="int", required=False),
             page_size=dict(type="int", required=False),
