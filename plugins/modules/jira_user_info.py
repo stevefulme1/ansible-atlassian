@@ -110,12 +110,12 @@ users:
 
     displayName:
       description: >-
-        The display name of the user. Depending on the user’s privacy setting, this may return an...
+        The display name of the user. Depending on the user's privacy setting, this may return an...
       type: str
 
     emailAddress:
       description: >-
-        The email address of the user. Depending on the user’s privacy setting, this may be returned as null.
+        The email address of the user. Depending on the user's privacy setting, this may be returned as null.
       type: str
 
     expand:
@@ -140,7 +140,7 @@ users:
 
     locale:
       description: >-
-        The locale of the user. Depending on the user’s privacy setting, this may be returned as null.
+        The locale of the user. Depending on the user's privacy setting, this may be returned as null.
       type: str
 
     name:

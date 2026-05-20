@@ -158,13 +158,13 @@ avatarUrls:
 
 displayName:
   description: >-
-    The display name of the user. Depending on the user’s privacy setting, this may return an...
+    The display name of the user. Depending on the user's privacy setting, this may return an...
   returned: success
   type: str
 
 emailAddress:
   description: >-
-    The email address of the user. Depending on the user’s privacy setting, this may be returned as null.
+    The email address of the user. Depending on the user's privacy setting, this may be returned as null.
   returned: success
   type: str
 
@@ -194,7 +194,7 @@ key:
 
 locale:
   description: >-
-    The locale of the user. Depending on the user’s privacy setting, this may be returned as null.
+    The locale of the user. Depending on the user's privacy setting, this may be returned as null.
   returned: success
   type: str
 
