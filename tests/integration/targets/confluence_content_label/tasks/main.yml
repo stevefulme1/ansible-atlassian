@@ -1,14 +1,11 @@
-
 ---
 # Integration tests for stevefulme1.atlassian.confluence_content_label
 #
 # These tests verify full CRUD lifecycle with idempotency and check_mode.
 # A live API endpoint is required.
-
 - name: Set test variables
   ansible.builtin.set_fact:
     test_content_label_params: {}
-
 # ============================================================
 # CREATE - check mode
 # ============================================================
@@ -18,23 +15,19 @@
   args: "{{ test_content_label_params }}"
   check_mode: true
   register: create_check
-
 - name: Assert create in check mode reports changed
   ansible.builtin.assert:
     that:
       - create_check is changed
     fail_msg: "Create in check mode should report changed=true"
-
-- name: Verify content_label was NOT actually created (check mode)
+- name: Verify content_label was NOT actually created (check mode) # noqa: args[module]
   stevefulme1.atlassian.confluence_content_label_info:
   register: check_verify
-
 - name: Assert resource does not exist after check mode create
   ansible.builtin.assert:
     that:
       - check_verify.content_labels | length == 0
     fail_msg: "Resource should not exist after check mode create"
-
 # ============================================================
 # CREATE - real
 # ============================================================
@@ -43,17 +36,14 @@
     state: present
   args: "{{ test_content_label_params }}"
   register: create_result
-
 - name: Assert create reports changed
   ansible.builtin.assert:
     that:
       - create_result is changed
     fail_msg: "Create should report changed=true"
-
 - name: Record created resource identifier
   ansible.builtin.set_fact:
     created_id: "{{ create_result.id }}"
-
 # ============================================================
 # CREATE - idempotency
 # ============================================================
@@ -62,85 +52,72 @@
     state: present
   args: "{{ test_content_label_params }}"
   register: create_idempotent
-
 - name: Assert create is idempotent
   ansible.builtin.assert:
     that:
       - create_idempotent is not changed
     fail_msg: "Repeated create with same params should report changed=false"
-
 # ============================================================
 # READ - verify created resource
 # ============================================================
-- name: Get content_label info
+- name: Get content_label info # noqa: args[module]
   stevefulme1.atlassian.confluence_content_label_info:
     id: "{{ created_id }}"
   register: info_result
-
 - name: Assert resource exists and has expected data
   ansible.builtin.assert:
     that:
       - info_result.content_labels | length == 1
     fail_msg: "Created resource does not match expected values"
-
 # ============================================================
 # UPDATE
 # ============================================================
-
 # No optional string parameters available for update testing.
 # Update idempotency tests are skipped for this resource.
-
 # ============================================================
 # DELETE - check mode
 # ============================================================
-- name: Delete content_label (check mode)
+- name: Delete content_label (check mode) # noqa: args[module]
   stevefulme1.atlassian.confluence_content_label:
     id: "{{ created_id }}"
     state: absent
   check_mode: true
   register: delete_check
-
 - name: Assert delete in check mode reports changed
   ansible.builtin.assert:
     that:
       - delete_check is changed
     fail_msg: "Delete in check mode should report changed=true"
-
-- name: Verify content_label still exists after check mode delete
+- name: Verify content_label still exists after check mode delete # noqa: args[module]
   stevefulme1.atlassian.confluence_content_label_info:
     id: "{{ created_id }}"
   register: delete_check_verify
-
 - name: Assert resource still exists after check mode delete
   ansible.builtin.assert:
     that:
       - delete_check_verify.content_labels | length == 1
     fail_msg: "Resource should still exist after check mode delete"
-
 # ============================================================
 # DELETE - real
 # ============================================================
-- name: Delete content_label
+- name: Delete content_label # noqa: args[module]
   stevefulme1.atlassian.confluence_content_label:
     id: "{{ created_id }}"
     state: absent
   register: delete_result
-
 - name: Assert delete reports changed
   ansible.builtin.assert:
     that:
       - delete_result is changed
     fail_msg: "Delete should report changed=true"
-
 # ============================================================
 # DELETE - idempotency
 # ============================================================
-- name: Delete content_label again (idempotency)
+- name: Delete content_label again (idempotency) # noqa: args[module]
   stevefulme1.atlassian.confluence_content_label:
     id: "{{ created_id }}"
     state: absent
   register: delete_idempotent
-
 - name: Assert delete is idempotent
   ansible.builtin.assert:
     that:
