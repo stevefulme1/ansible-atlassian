@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,236 +14,143 @@ module: jira_issue
 short_description: Manage issues
 version_added: "1.0.0"
 description:
-  - Create, update, and delete issue resources.
+  - Create, update, and delete jira issue resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the issue resource.
+      - Desired state of the jira issue resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
   fields:
     description:
       - >-
         List of issue screen fields to update, specifying the sub-field to update and its value for each...
     type: dict
-
-
-
-
-
   historyMetadata:
     description:
       - >-
         Details of issue history metadata.
     type: dict
-
-
-
-
-
   properties:
     description:
       - >-
         Details of issue properties to be add or update.
     type: list
-
-
-
-
-
+    elements: dict
   transition:
     description:
       - >-
         Details of an issue transition.
     type: dict
-
-
-
-
-
   update:
     description:
       - >-
         A Map containing the field field name and a list of operations to perform on the issue screen...
     type: dict
-
-
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-- name: Create a issue
+- name: Create a jira issue
   stevefulme1.atlassian.jira_issue:
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/issue
-
-
-
-- name: Update a issue
+- name: Update a jira issue
   stevefulme1.atlassian.jira_issue:
     id: "existing_id"
-
-
     fields: "updated_fields"
-
-
-
     historyMetadata: "updated_historyMetadata"
-
-
-
     properties: "updated_properties"
-
-
-
     transition: "updated_transition"
-
-
-
     update: "updated_update"
-
-
     state: present
-  # API:  
-
-
-
-- name: Delete a issue
+  # API:
+- name: Delete a jira issue
   stevefulme1.atlassian.jira_issue:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/issue/{issueIdOrKey}
-
 """
 
 RETURN = r"""
-
 changelog:
   description: >-
     A page of changelogs.
   returned: success
   type: dict
-
-
 editmeta:
   description: >-
     A list of editable field details.
   returned: success
   type: dict
-
-
 expand:
   description: >-
     Expand options that include additional issue details in the response.
   returned: success
   type: str
-
-
 fields:
   description: >-
-    
   returned: success
   type: dict
-
-
 fieldsToInclude:
   description: >-
-    
   returned: success
   type: dict
-
-
 id:
   description: >-
     The ID of the issue.
   returned: success
   type: str
-
-
 key:
   description: >-
     The key of the issue.
   returned: success
   type: str
-
-
 names:
   description: >-
     The ID and name of each field present on the issue.
   returned: success
   type: dict
-
-
 operations:
   description: >-
     Details of the operations that can be performed on the issue.
   returned: success
   type: dict
-
-
 properties:
   description: >-
     Details of the issue properties identified in the request.
   returned: success
   type: dict
-
-
 renderedFields:
   description: >-
     The rendered value of each field present on the issue.
   returned: success
   type: dict
-
-
 schema:
   description: >-
     The schema describing each field present on the issue.
   returned: success
   type: dict
-
-
 self:
   description: >-
     The URL of the issue details.
   returned: success
   type: str
-
-
 transitions:
   description: >-
     The transitions that can be performed on the issue.
   returned: success
   type: list
-
-
 versionedRepresentations:
   description: >-
     The versions of each field on the issue.
   returned: success
   type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -255,10 +162,9 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the issue via GET."""
+    """Retrieve the current state of the jira issue via GET."""
 
     return None
-
 
 
 def needs_update(current, desired):
@@ -309,6 +215,8 @@ def main():
 
 
 
+
+
             ),
 
             historyMetadata=dict(
@@ -318,10 +226,16 @@ def main():
 
 
 
+
+
             ),
 
             properties=dict(
                 type="list",
+
+                elements="dict",
+
+
 
 
 
@@ -336,10 +250,14 @@ def main():
 
 
 
+
+
             ),
 
             update=dict(
                 type="dict",
+
+
 
 
 
@@ -380,7 +298,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -398,7 +315,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -433,6 +349,7 @@ def main():
 
                 result["versionedRepresentations"] = current.get("versionedRepresentations")
 
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -447,7 +364,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

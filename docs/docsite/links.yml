@@ -12,7 +12,6 @@ edit_on_github:
   # if the collection root is in a subdirectory ansible_collections/community/REPO_NAME
   # in your repository, you have to set path_prefix to 'ansible_collections/community/REPO_NAME'.
   path_prefix: ""
-
 # Here you can add arbitrary extra links. Please keep the number of links down to a
 # minimum! Also please keep the description short, since this will be the text put on
 # a button.
@@ -23,12 +22,10 @@ edit_on_github:
 #   2. A link to the homepage (if `homepage` is specified and does not equal the
 #      `documentation` or `repository` link);
 #   3. A link to the collection's repository (if `repository` is specified).
-
 extra_links:
   - description: Report an issue
     # TO-DO: Update this if your collection lives in a different GitHub organization.
     url: https://github.com/ansible-collections/stevefulme1.atlassian/issues/new/choose
-
 # Specify communication channels for your collection. We suggest to not specify more
 # than one place for communication per communication tool to avoid confusion.
 communication:

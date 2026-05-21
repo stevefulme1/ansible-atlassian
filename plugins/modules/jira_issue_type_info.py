@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,38 +11,28 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: jira_issue_type_info
-short_description: Retrieve information about issue_type resources
+short_description: >-
+  Retrieve information about jira issue type resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single issue_type by its identifier, or list all issue_type resources.
+  - >-
+    Retrieve a single jira issue type by its identifier,
+    or list all jira issue type resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the issue_type to retrieve.
-      - When omitted, all issue_type resources are listed.
+      - The unique identifier of the jira issue type to retrieve.
+      - When omitted, all jira issue type resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -60,23 +50,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific issue_type
+- name: Get a specific jira issue type
   stevefulme1.atlassian.jira_issue_type_info:
     id: "example_id"
   register: result
-
-- name: List all issue_type resources
+- name: List all jira issue type resources
   stevefulme1.atlassian.jira_issue_type_info:
   register: result
-
-
-- name: List issue_type resources filtered by name
+- name: List jira issue type resources filtered by name
   stevefulme1.atlassian.jira_issue_type_info:
-    name: "my_issue_type"
+    name: "my_jira issue type"
   register: result
-
-
-- name: List issue_type resources with pagination
+- name: List jira issue type resources with pagination
   stevefulme1.atlassian.jira_issue_type_info:
     page: 1
     page_size: 50
@@ -84,73 +69,52 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-issue_types:
-  description: List of issue_type resources matching the query.
+jira_issue_types:
+  description: List of jira issue type resources matching the query.
   returned: always
   type: list
   elements: dict
   contains:
-
     avatarId:
       description: >-
         The ID of the issue type's avatar.
       type: int
-
-
     description:
       description: >-
         The description of the issue type.
       type: str
-
-
     entityId:
       description: >-
         Unique ID for next-gen projects.
       type: str
-
-
     hierarchyLevel:
       description: >-
         Hierarchy level of the issue type.
       type: int
-
-
     iconUrl:
       description: >-
         The URL of the issue type's avatar.
       type: str
-
-
     id:
       description: >-
         The ID of the issue type.
       type: str
-
-
     name:
       description: >-
         The name of the issue type.
       type: str
-
-
     scope:
       description: >-
         The projects the item is associated with. Indicated for items associated with next-gen projects.
       type: dict
-
-
     self:
       description: >-
         The URL of these issue type details.
       type: str
-
-
     subtask:
       description: >-
         Whether this issue type is used to create subtasks.
       type: bool
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -162,7 +126,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single issue_type by identifier."""
+    """Retrieve a single jira issue type by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/rest/api/3/issuetype")
@@ -174,29 +138,14 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
-    """List issue_type resources with optional filtering and pagination."""
+    """List jira issue type resources with optional filtering and pagination."""
 
     params = {}
-
 
     name_filter = module.params.get("name")
     if name_filter is not None:
         params["name"] = name_filter
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -212,7 +161,6 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/rest/api/3/issuetype", params=params)
-
 
 
 def main():
@@ -250,7 +198,7 @@ def main():
 
     result = dict(
         changed=False,
-        issue_types=[],
+        jira_issue_types=[],
     )
 
     try:
@@ -259,9 +207,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["issue_types"] = [item] if item else []
+            result["jira_issue_types"] = [item] if item else []
         else:
-            result["issue_types"] = fetch_list(client, module)
+            result["jira_issue_types"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

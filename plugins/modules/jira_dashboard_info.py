@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,36 +11,28 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: jira_dashboard_info
-short_description: Retrieve information about dashboard resources
+short_description: >-
+  Retrieve information about jira dashboard resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single dashboard by its identifier, or list all dashboard resources.
+  - >-
+    Retrieve a single jira dashboard by its identifier,
+    or list all jira dashboard resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the dashboard to retrieve.
-      - When omitted, all dashboard resources are listed.
+      - The unique identifier of the jira dashboard to retrieve.
+      - When omitted, all jira dashboard resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -58,23 +50,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific dashboard
+- name: Get a specific jira dashboard
   stevefulme1.atlassian.jira_dashboard_info:
     id: "example_id"
   register: result
-
-- name: List all dashboard resources
+- name: List all jira dashboard resources
   stevefulme1.atlassian.jira_dashboard_info:
   register: result
-
-
-- name: List dashboard resources filtered by name
+- name: List jira dashboard resources filtered by name
   stevefulme1.atlassian.jira_dashboard_info:
-    name: "my_dashboard"
+    name: "my_jira dashboard"
   register: result
-
-
-- name: List dashboard resources with pagination
+- name: List jira dashboard resources with pagination
   stevefulme1.atlassian.jira_dashboard_info:
     page: 1
     page_size: 50
@@ -82,97 +69,66 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-dashboards:
-  description: List of dashboard resources matching the query.
+jira_dashboards:
+  description: List of jira dashboard resources matching the query.
   returned: always
   type: list
   elements: dict
   contains:
-
     automaticRefreshMs:
       description: >-
         The automatic refresh interval for the dashboard in milliseconds.
       type: int
-
-
     description:
       description: >-
-        
       type: str
-
-
     editPermissions:
       description: >-
         The details of any edit share permissions for the dashboard.
       type: list
-
-
     id:
       description: >-
         The ID of the dashboard.
       type: str
-
-
     isFavourite:
       description: >-
         Whether the dashboard is selected as a favorite by the user.
       type: bool
-
-
     isWritable:
       description: >-
         Whether the current user has permission to edit the dashboard.
       type: bool
-
-
     name:
       description: >-
         The name of the dashboard.
       type: str
-
-
     owner:
       description: >-
-        
       type: dict
-
-
     popularity:
       description: >-
         The number of users who have this dashboard as a favorite.
       type: int
-
-
     rank:
       description: >-
         The rank of this dashboard.
       type: int
-
-
     self:
       description: >-
         The URL of these dashboard details.
       type: str
-
-
     sharePermissions:
       description: >-
         The details of any view share permissions for the dashboard.
       type: list
-
-
     systemDashboard:
       description: >-
         Whether the current dashboard is system dashboard.
       type: bool
-
-
     view:
       description: >-
         The URL of the dashboard.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -184,7 +140,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single dashboard by identifier."""
+    """Retrieve a single jira dashboard by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/rest/api/3/dashboard")
@@ -196,27 +152,14 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
-    """List dashboard resources with optional filtering and pagination."""
+    """List jira dashboard resources with optional filtering and pagination."""
 
     params = {}
-
 
     name_filter = module.params.get("name")
     if name_filter is not None:
         params["name"] = name_filter
-
-
-
-
-
-
-
-
-
-
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -232,7 +175,6 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/rest/api/3/dashboard", params=params)
-
 
 
 def main():
@@ -268,7 +210,7 @@ def main():
 
     result = dict(
         changed=False,
-        dashboards=[],
+        jira_dashboards=[],
     )
 
     try:
@@ -277,9 +219,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["dashboards"] = [item] if item else []
+            result["jira_dashboards"] = [item] if item else []
         else:
-            result["dashboards"] = fetch_list(client, module)
+            result["jira_dashboards"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

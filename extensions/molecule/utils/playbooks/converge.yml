@@ -2,12 +2,10 @@
 - name: Shared integration test runner
   hosts: localhost
   gather_facts: false
-
   tasks:
     - name: Load the vars
       ansible.builtin.include_vars:
         file: ../../utils/vars/vars.yml
-
     - name: "Integration test: {{ test_name }}"
       ansible.builtin.include_role:
         name: "{{ test_path }}"

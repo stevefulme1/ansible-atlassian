@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,219 +14,136 @@ module: jira_dashboard
 short_description: Manage dashboards
 version_added: "1.0.0"
 description:
-  - Create, update, and delete dashboard resources.
+  - Create, update, and delete jira dashboard resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the dashboard resource.
+      - Desired state of the jira dashboard resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
   editPermissions:
     description:
       - >-
         The edit permissions for the dashboard.
     type: list
-
+    elements: dict
     required: true
-
-
-
-
-
   name:
     description:
       - >-
         The name of the dashboard.
     type: str
-
     required: true
-
-
-
-
-
   sharePermissions:
     description:
       - >-
         The share permissions for the dashboard.
     type: list
-
+    elements: dict
     required: true
-
-
-
-
-
   description:
     description:
       - >-
         The description of the dashboard.
     type: str
-
-
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-- name: Create a dashboard
+- name: Create a jira dashboard
   stevefulme1.atlassian.jira_dashboard:
-
-
     editPermissions: "example_editPermissions"
-
-
-
     name: "example_name"
-
-
-
     sharePermissions: "example_sharePermissions"
-
-
-
-
     state: present
   # API: POST /rest/api/3/dashboard
-
-
-
-- name: Update a dashboard
+- name: Update a jira dashboard
   stevefulme1.atlassian.jira_dashboard:
     id: "existing_id"
-
-
-
-
-
-
-
-
     description: "updated_description"
-
-
     state: present
-  # API:  
-
-
-
-- name: Delete a dashboard
+  # API:
+- name: Delete a jira dashboard
   stevefulme1.atlassian.jira_dashboard:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/dashboard/{id}
-
 """
 
 RETURN = r"""
-
 automaticRefreshMs:
   description: >-
     The automatic refresh interval for the dashboard in milliseconds.
   returned: success
   type: int
-
-
 description:
   description: >-
-    
   returned: success
   type: str
-
-
 editPermissions:
   description: >-
     The details of any edit share permissions for the dashboard.
   returned: success
   type: list
-
-
 id:
   description: >-
     The ID of the dashboard.
   returned: success
   type: str
-
-
 isFavourite:
   description: >-
     Whether the dashboard is selected as a favorite by the user.
   returned: success
   type: bool
-
-
 isWritable:
   description: >-
     Whether the current user has permission to edit the dashboard.
   returned: success
   type: bool
-
-
 name:
   description: >-
     The name of the dashboard.
   returned: success
   type: str
-
-
 owner:
   description: >-
-    
   returned: success
   type: dict
-
-
 popularity:
   description: >-
     The number of users who have this dashboard as a favorite.
   returned: success
   type: int
-
-
 rank:
   description: >-
     The rank of this dashboard.
   returned: success
   type: int
-
-
 self:
   description: >-
     The URL of these dashboard details.
   returned: success
   type: str
-
-
 sharePermissions:
   description: >-
     The details of any view share permissions for the dashboard.
   returned: success
   type: list
-
-
 systemDashboard:
   description: >-
     Whether the current dashboard is system dashboard.
   returned: success
   type: bool
-
-
 view:
   description: >-
     The URL of the dashboard.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -238,7 +155,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the dashboard via GET."""
+    """Retrieve the current state of the jira dashboard via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -261,7 +178,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):
@@ -305,7 +221,11 @@ def main():
             editPermissions=dict(
                 type="list",
 
+                elements="dict",
+
+
                 required=True,
+
 
 
 
@@ -316,7 +236,9 @@ def main():
             name=dict(
                 type="str",
 
+
                 required=True,
+
 
 
 
@@ -327,7 +249,11 @@ def main():
             sharePermissions=dict(
                 type="list",
 
+                elements="dict",
+
+
                 required=True,
+
 
 
 
@@ -337,6 +263,8 @@ def main():
 
             description=dict(
                 type="str",
+
+
 
 
 
@@ -377,7 +305,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -395,7 +322,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -428,6 +354,7 @@ def main():
 
                 result["view"] = current.get("view")
 
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -442,7 +369,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

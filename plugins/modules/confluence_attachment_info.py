@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,50 +11,28 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: confluence_attachment_info
-short_description: Retrieve information about attachment resources
+short_description: >-
+  Retrieve information about confluence attachment resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single attachment by its identifier, or list all attachment resources.
+  - >-
+    Retrieve a single confluence attachment by its identifier,
+    or list all confluence attachment resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the attachment to retrieve.
-      - When omitted, all attachment resources are listed.
+      - The unique identifier of the confluence attachment to retrieve.
+      - When omitted, all confluence attachment resources are listed.
     type: str
     required: false
-
   title:
     description:
       - Filter results by title.
     type: str
     required: false
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -72,23 +50,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific attachment
+- name: Get a specific confluence attachment
   stevefulme1.atlassian.confluence_attachment_info:
     id: "example_id"
   register: result
-
-- name: List all attachment resources
+- name: List all confluence attachment resources
   stevefulme1.atlassian.confluence_attachment_info:
   register: result
-
-
-- name: List attachment resources filtered by title
+- name: List confluence attachment resources filtered by title
   stevefulme1.atlassian.confluence_attachment_info:
-    title: "my_attachment"
+    title: "my_confluence attachment"
   register: result
-
-
-- name: List attachment resources with pagination
+- name: List confluence attachment resources with pagination
   stevefulme1.atlassian.confluence_attachment_info:
     page: 1
     page_size: 50
@@ -96,133 +69,76 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-attachments:
-  description: List of attachment resources matching the query.
+confluence_attachments:
+  description: List of confluence attachment resources matching the query.
   returned: always
   type: list
   elements: dict
   contains:
-
     id:
       description: >-
-        
       type: str
-
-
     type:
       description: >-
         Can be "page", "blogpost", "attachment" or "content"
       type: str
-
-
     status:
       description: >-
-        
       type: str
-
-
     title:
       description: >-
-        
       type: str
-
-
     space:
       description: >-
-        
       type: dict
-
-
     history:
       description: >-
-        
       type: dict
-
-
     version:
       description: >-
-        
       type: dict
-
-
     ancestors:
       description: >-
-        
       type: list
-
-
     operations:
       description: >-
-        
       type: list
-
-
     children:
       description: >-
-        
       type: dict
-
-
     childTypes:
       description: >-
         Shows whether a piece of content has attachments, comments, or child pages/whiteboards. Note,...
       type: dict
-
-
     descendants:
       description: >-
-        
       type: dict
-
-
     container:
       description: >-
         Container for content. This can be either a space (containing a page or blogpost) or a page/blog...
       type: dict
-
-
     body:
       description: >-
-        
       type: dict
-
-
     restrictions:
       description: >-
-        
       type: dict
-
-
     metadata:
       description: >-
         Metadata object for page, blogpost, comment content
       type: dict
-
-
     macroRenderedOutput:
       description: >-
-        
       type: dict
-
-
     extensions:
       description: >-
-        
       type: dict
-
-
     _expandable:
       description: >-
-        
       type: dict
-
-
     _links:
       description: >-
-        
       type: dict
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -234,17 +150,15 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single attachment by identifier."""
+    """Retrieve a single confluence attachment by identifier."""
 
     raise ClientError("GET by identifier is not supported for this resource")
 
 
-
 def fetch_list(client, module):
-    """List attachment resources with optional filtering and pagination."""
+    """List confluence attachment resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
-
 
 
 def main():
@@ -294,7 +208,7 @@ def main():
 
     result = dict(
         changed=False,
-        attachments=[],
+        confluence_attachments=[],
     )
 
     try:
@@ -303,9 +217,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["attachments"] = [item] if item else []
+            result["confluence_attachments"] = [item] if item else []
         else:
-            result["attachments"] = fetch_list(client, module)
+            result["confluence_attachments"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

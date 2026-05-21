@@ -1,7 +1,7 @@
 
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -13,7 +13,7 @@ import time
 
 from ansible.module_utils.urls import open_url
 from ansible.module_utils.six.moves.urllib.error import HTTPError, URLError
-from ansible.module_utils.six.moves.urllib.parse import urlencode, urljoin
+from ansible.module_utils.six.moves.urllib.parse import urlencode
 
 
 class ClientError(Exception):
@@ -62,9 +62,7 @@ class Client:
             "Accept": "application/json",
         }
 
-
         headers["X-API-Key"] = self.module.params["api_key"]
-
 
         return headers
 

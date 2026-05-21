@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,41 +14,31 @@ module: bitbucket_pull_request
 short_description: Manage pullrequests
 version_added: "1.0.0"
 description:
-  - Create, update, and delete pull_request resources.
+  - Create, update, and delete bitbucket pull request resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the pull_request resource.
+      - Desired state of the bitbucket pull request resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-- name: Create a pull_request
+- name: Create a bitbucket pull request
   stevefulme1.atlassian.bitbucket_pull_request:
-
     state: present
   # API: POST /repositories/{workspace}/{repo_slug}/pullrequests
-
-
-
-- name: Update a pull_request
+- name: Update a bitbucket pull request
   stevefulme1.atlassian.bitbucket_pull_request:
     id: "existing_id"
-
     state: present
-  # API:  
-
-
-
+  # API:
 """
 
 RETURN = r"""
@@ -64,7 +54,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the pull_request via GET."""
+    """Retrieve the current state of the bitbucket pull request via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -86,7 +76,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):
@@ -148,7 +137,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -167,11 +155,10 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             else:
                 # Resource exists and is up-to-date
-                pass
 
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -182,7 +169,6 @@ def main():
                 if not module.check_mode:
 
                     pass
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

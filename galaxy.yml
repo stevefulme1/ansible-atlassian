@@ -1,7 +1,7 @@
 ---
 namespace: stevefulme1
 name: atlassian
-version: 1.0.0
+version: 0.1.0
 readme: README.md
 authors:
   - Steve Fulmer
@@ -9,6 +9,9 @@ description: Ansible collection for Atlassian Jira, Confluence, and Bitbucket AP
 license:
   - GPL-3.0-or-later
 tags:
+  - application
+  - cloud
+  - tools
   - atlassian
   - jira
   - confluence

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,132 +14,86 @@ module: jira_screen
 short_description: Manage screens
 version_added: "1.0.0"
 description:
-  - Create, update, and delete screen resources.
+  - Create, update, and delete jira screen resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the screen resource.
+      - Desired state of the jira screen resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
   description:
     description:
       - >-
         The description of the screen. The maximum length is 255 characters.
     type: str
-
-
-
-
-
   name:
     description:
       - >-
         The name of the screen. The name must be unique. The maximum length is 255 characters.
     type: str
-
-
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-- name: Create a screen
+- name: Create a jira screen
   stevefulme1.atlassian.jira_screen:
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/screens
-
-
-
-- name: Update a screen
+- name: Update a jira screen
   stevefulme1.atlassian.jira_screen:
     id: "existing_id"
-
-
     description: "updated_description"
-
-
-
     name: "updated_name"
-
-
     state: present
-  # API:  
-
-
-
-- name: Delete a screen
+  # API:
+- name: Delete a jira screen
   stevefulme1.atlassian.jira_screen:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/screens/{screenId}
-
 """
 
 RETURN = r"""
-
 isLast:
   description: >-
     Whether this is the last page.
   returned: success
   type: bool
-
-
 maxResults:
   description: >-
     The maximum number of items that could be returned.
   returned: success
   type: int
-
-
 nextPage:
   description: >-
     If there is another page of results, the URL of the next page.
   returned: success
   type: str
-
-
 self:
   description: >-
     The URL of the page.
   returned: success
   type: str
-
-
 startAt:
   description: >-
     The index of the first item returned.
   returned: success
   type: int
-
-
 total:
   description: >-
     The number of items returned.
   returned: success
   type: int
-
-
-values:
+field_values:
   description: >-
     The list of items.
   returned: success
   type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -151,7 +105,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the screen via GET."""
+    """Retrieve the current state of the jira screen via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -173,7 +127,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):
@@ -215,10 +168,14 @@ def main():
 
 
 
+
+
             ),
 
             name=dict(
                 type="str",
+
+
 
 
 
@@ -259,7 +216,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -278,7 +234,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             else:
                 # Resource exists and is up-to-date
 
@@ -294,8 +249,9 @@ def main():
 
                 result["total"] = current.get("total")
 
-                result["values"] = current.get("values")
+                result["field_values"] = current.get("values")
 
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -310,7 +266,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

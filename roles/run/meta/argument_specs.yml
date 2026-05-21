@@ -1,6 +1,5 @@
 ---
 # argument spec file for stevefulme1.atlassian.run
-
 argument_specs:
   main:
     short_description: Role description.

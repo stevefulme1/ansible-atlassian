@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,122 +14,79 @@ module: jira_status
 short_description: Manage status
 version_added: "1.0.0"
 description:
-  - Create, update, and delete status resources.
+  - Create, update, and delete jira status resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the status resource.
+      - Desired state of the jira status resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
   scope:
     description:
       - >-
         The scope of the status.
     type: dict
-
     required: true
-
-
-
-
-
   statuses:
     description:
       - >-
         The list of statuses that will be updated.
     type: list
-
+    elements: dict
     required: true
-
-
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-- name: Create a status
+- name: Create a jira status
   stevefulme1.atlassian.jira_status:
-
-
     scope: "example_scope"
-
-
-
     statuses: "example_statuses"
-
-
     state: present
   # API: POST /rest/api/3/statuses
-
-
-
-- name: Update a status
+- name: Update a jira status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
-
-
-
-
-
     state: present
-  # API:  
-
-
-
-- name: Delete a status
+  # API:
+- name: Delete a jira status
   stevefulme1.atlassian.jira_status:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/statuses
-
 """
 
 RETURN = r"""
-
 description:
   description: >-
     The description of the status.
   returned: success
   type: str
-
-
 id:
   description: >-
     The ID of the status.
   returned: success
   type: str
-
-
 name:
   description: >-
     The name of the status.
   returned: success
   type: str
-
-
 scope:
   description: >-
     The scope of the status.
   returned: success
   type: dict
-
-
 statusCategory:
   description: >-
     The category of the status.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -141,7 +98,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the status via GET."""
+    """Retrieve the current state of the jira status via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -164,7 +121,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):
@@ -202,7 +158,9 @@ def main():
             scope=dict(
                 type="dict",
 
+
                 required=True,
+
 
 
 
@@ -213,7 +171,11 @@ def main():
             statuses=dict(
                 type="list",
 
+                elements="dict",
+
+
                 required=True,
+
 
 
 
@@ -254,7 +216,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -273,7 +234,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             else:
                 # Resource exists and is up-to-date
 
@@ -287,6 +247,7 @@ def main():
 
                 result["statusCategory"] = current.get("statusCategory")
 
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -301,7 +262,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

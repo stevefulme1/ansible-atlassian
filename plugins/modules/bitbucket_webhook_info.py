@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,22 +11,23 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: bitbucket_webhook_info
-short_description: Retrieve information about webhook resources
+short_description: >-
+  Retrieve information about bitbucket webhook resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single webhook by its identifier, or list all webhook resources.
+  - >-
+    Retrieve a single bitbucket webhook by its identifier,
+    or list all bitbucket webhook resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the webhook to retrieve.
-      - When omitted, all webhook resources are listed.
+      - The unique identifier of the bitbucket webhook to retrieve.
+      - When omitted, all bitbucket webhook resources are listed.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -44,18 +45,14 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific webhook
+- name: Get a specific bitbucket webhook
   stevefulme1.atlassian.bitbucket_webhook_info:
     id: "example_id"
   register: result
-
-- name: List all webhook resources
+- name: List all bitbucket webhook resources
   stevefulme1.atlassian.bitbucket_webhook_info:
   register: result
-
-
-
-- name: List webhook resources with pagination
+- name: List bitbucket webhook resources with pagination
   stevefulme1.atlassian.bitbucket_webhook_info:
     page: 1
     page_size: 50
@@ -63,13 +60,11 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-webhooks:
-  description: List of webhook resources matching the query.
+bitbucket_webhooks:
+  description: List of bitbucket webhook resources matching the query.
   returned: always
   type: list
   elements: dict
-  contains:
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -81,7 +76,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single webhook by identifier."""
+    """Retrieve a single bitbucket webhook by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/repositories/{workspace}/{repo_slug}/hooks")
@@ -93,15 +88,10 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
-    """List webhook resources with optional filtering and pagination."""
+    """List bitbucket webhook resources with optional filtering and pagination."""
 
     params = {}
-
-
-
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -117,7 +107,6 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/repositories/{workspace}/{repo_slug}/hooks", params=params)
-
 
 
 def main():
@@ -143,7 +132,7 @@ def main():
 
     result = dict(
         changed=False,
-        webhooks=[],
+        bitbucket_webhooks=[],
     )
 
     try:
@@ -152,9 +141,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["webhooks"] = [item] if item else []
+            result["bitbucket_webhooks"] = [item] if item else []
         else:
-            result["webhooks"] = fetch_list(client, module)
+            result["bitbucket_webhooks"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

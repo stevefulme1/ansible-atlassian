@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,28 +11,28 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: confluence_label_info
-short_description: Retrieve information about label resources
+short_description: >-
+  Retrieve information about confluence label resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single label by its identifier, or list all label resources.
+  - >-
+    Retrieve a single confluence label by its identifier,
+    or list all confluence label resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the label to retrieve.
-      - When omitted, all label resources are listed.
+      - The unique identifier of the confluence label to retrieve.
+      - When omitted, all confluence label resources are listed.
     type: str
     required: false
-
-  label:
+  name:
     description:
-      - Filter results by label.
+      - Filter results by name.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -50,23 +50,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific label
+- name: Get a specific confluence label
   stevefulme1.atlassian.confluence_label_info:
     id: "example_id"
   register: result
-
-- name: List all label resources
+- name: List all confluence label resources
   stevefulme1.atlassian.confluence_label_info:
   register: result
-
-
-- name: List label resources filtered by label
+- name: List confluence label resources filtered by name
   stevefulme1.atlassian.confluence_label_info:
-    label: "my_label"
+    name: "my_confluence label"
   register: result
-
-
-- name: List label resources with pagination
+- name: List confluence label resources with pagination
   stevefulme1.atlassian.confluence_label_info:
     page: 1
     page_size: 50
@@ -74,25 +69,24 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-labels:
-  description: List of label resources matching the query.
+confluence_labels:
+  description: List of confluence label resources matching the query.
   returned: always
   type: list
   elements: dict
   contains:
-
+    prefix:
+      description: >-
+      type: str
+    name:
+      description: >-
+      type: str
+    id:
+      description: >-
+      type: str
     label:
       description: >-
-        
-      type: dict
-
-
-    associatedContents:
-      description: >-
-        
-      type: dict
-
-
+      type: str
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -104,47 +98,15 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single label by identifier."""
+    """Retrieve a single confluence label by identifier."""
 
-    # No single-resource GET endpoint; filter from list
-    items = client.get("/wiki/rest/api/label")
-    if isinstance(items, dict):
-        items = items.get("results", items.get("data", items.get("items", [])))
-    for item in items:
-        if str(item.get("id")) == str(identifier):
-            return item
-    return None
-
+    raise ClientError("GET by identifier is not supported for this resource")
 
 
 def fetch_list(client, module):
-    """List label resources with optional filtering and pagination."""
+    """List confluence label resources with optional filtering and pagination."""
 
-    params = {}
-
-
-    name_filter = module.params.get("label")
-    if name_filter is not None:
-        params["label"] = name_filter
-
-
-
-
-    page = module.params.get("page")
-    page_size = module.params.get("page_size")
-
-    if page is not None or page_size is not None:
-        if page is not None:
-            params["page"] = page
-        if page_size is not None:
-            params["page_size"] = page_size
-        response = client.get("/wiki/rest/api/label", params=params)
-        if isinstance(response, dict):
-            return response.get("results", response.get("data", response.get("items", [])))
-        return response if isinstance(response, list) else []
-    else:
-        return client.get_paginated("/wiki/rest/api/label", params=params)
-
+    raise ClientError("List operation is not supported for this resource")
 
 
 def main():
@@ -153,7 +115,7 @@ def main():
         dict(
             id=dict(type="str", required=False),
 
-            label=dict(type="str", required=False),
+            name=dict(type="str", required=False),
 
 
             page=dict(type="int", required=False),
@@ -172,7 +134,7 @@ def main():
 
     result = dict(
         changed=False,
-        labels=[],
+        confluence_labels=[],
     )
 
     try:
@@ -181,9 +143,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["labels"] = [item] if item else []
+            result["confluence_labels"] = [item] if item else []
         else:
-            result["labels"] = fetch_list(client, module)
+            result["confluence_labels"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,212 +14,117 @@ module: jira_permission_scheme
 short_description: Manage permission schemes
 version_added: "1.0.0"
 description:
-  - Create, update, and delete permission_scheme resources.
+  - Create, update, and delete jira permission scheme resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the permission_scheme resource.
+      - Desired state of the jira permission scheme resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
   name:
     description:
       - >-
         The name of the permission scheme. Must be unique.
     type: str
-
     required: true
-
-
-
-
-
   description:
     description:
       - >-
         A description for the permission scheme.
     type: str
-
-
-
-
-
   expand:
     description:
       - >-
         The expand options available for the permission scheme.
     type: str
-
-
-
-
-
   id:
     description:
       - >-
         The ID of the permission scheme.
     type: int
-
-
-
-
-
   permissions:
     description:
       - >-
         The permission scheme to create or update. See About permission schemes and...
     type: list
-
-
-
-
-
+    elements: dict
   scope:
     description:
       - >-
         The projects the item is associated with. Indicated for items associated with next-gen projects.
     type: dict
-
-
-
-
-
   self:
     description:
       - >-
         The URL of the permission scheme.
     type: str
-
-
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-- name: Create a permission_scheme
+- name: Create a jira permission scheme
   stevefulme1.atlassian.jira_permission_scheme:
-
-
     name: "example_name"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/permissionscheme
-
-
-
-- name: Update a permission_scheme
+- name: Update a jira permission scheme
   stevefulme1.atlassian.jira_permission_scheme:
     id: "existing_id"
-
-
-
-
     description: "updated_description"
-
-
-
     expand: "updated_expand"
-
-
-
-
-
     permissions: "updated_permissions"
-
-
-
     scope: "updated_scope"
-
-
-
     self: "updated_self"
-
-
     state: present
-  # API:  
-
-
-
-- name: Delete a permission_scheme
+  # API:
+- name: Delete a jira permission scheme
   stevefulme1.atlassian.jira_permission_scheme:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/permissionscheme/{schemeId}
-
 """
 
 RETURN = r"""
-
 description:
   description: >-
     A description for the permission scheme.
   returned: success
   type: str
-
-
 expand:
   description: >-
     The expand options available for the permission scheme.
   returned: success
   type: str
-
-
 id:
   description: >-
     The ID of the permission scheme.
   returned: success
   type: int
-
-
 name:
   description: >-
     The name of the permission scheme. Must be unique.
   returned: success
   type: str
-
-
 permissions:
   description: >-
     The permission scheme to create or update. See About permission schemes and...
   returned: success
   type: list
-
-
 scope:
   description: >-
     The projects the item is associated with. Indicated for items associated with next-gen projects.
   returned: success
   type: dict
-
-
 self:
   description: >-
     The URL of the permission scheme.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -231,7 +136,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the permission_scheme via GET."""
+    """Retrieve the current state of the jira permission scheme via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -254,7 +159,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):
@@ -307,7 +211,9 @@ def main():
             name=dict(
                 type="str",
 
+
                 required=True,
+
 
 
 
@@ -322,10 +228,14 @@ def main():
 
 
 
+
+
             ),
 
             expand=dict(
                 type="str",
+
+
 
 
 
@@ -340,10 +250,16 @@ def main():
 
 
 
+
+
             ),
 
             permissions=dict(
                 type="list",
+
+                elements="dict",
+
+
 
 
 
@@ -358,10 +274,14 @@ def main():
 
 
 
+
+
             ),
 
             self=dict(
                 type="str",
+
+
 
 
 
@@ -402,7 +322,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -421,7 +340,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             else:
                 # Resource exists and is up-to-date
 
@@ -439,6 +357,7 @@ def main():
 
                 result["self"] = current.get("self")
 
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -453,7 +372,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

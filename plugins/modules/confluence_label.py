@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,55 +11,58 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: confluence_label
-short_description: Manage label info
+short_description: Manage content labels
 version_added: "1.0.0"
 description:
-  - Create, update, and delete label resources.
+  - Create, update, and delete confluence label resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the label resource.
+      - Desired state of the confluence label resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-
-- name: Update a label
+- name: Create a confluence label
+  stevefulme1.atlassian.confluence_label:
+    state: present
+  # API: POST /wiki/rest/api/content/{id}/label
+- name: Update a confluence label
   stevefulme1.atlassian.confluence_label:
     id: "existing_id"
-
     state: present
-  # API:  
-
-
-
+  # API:
+- name: Delete a confluence label
+  stevefulme1.atlassian.confluence_label:
+    id: "existing_id"
+    state: absent
+  # API: DELETE /wiki/rest/api/content/{id}/label/{label}
 """
 
 RETURN = r"""
-
+prefix:
+  description: >-
+  returned: success
+  type: str
+name:
+  description: >-
+  returned: success
+  type: str
+id:
+  description: >-
+  returned: success
+  type: str
 label:
   description: >-
-    
   returned: success
-  type: dict
-
-
-associatedContents:
-  description: >-
-    
-  returned: success
-  type: dict
-
-
+  type: str
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -71,30 +74,9 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the label via GET."""
+    """Retrieve the current state of the confluence label via GET."""
 
-    # No single-resource GET endpoint; fall back to list + filter
-    identifier = module.params.get("id")
-
-    name = module.params.get("label")
-    search_key = "label"
-    search_value = name if identifier is None else identifier
-
-    if search_value is None:
-        return None
-    try:
-        items = client.get("/wiki/rest/api/label")
-        if isinstance(items, dict):
-            items = items.get("results", items.get("data", items.get("items", [])))
-        for item in items:
-            if str(item.get(search_key)) == str(search_value):
-                return item
-            if str(item.get("id")) == str(search_value):
-                return item
-        return None
-    except ClientError:
-        return None
-
+    return None
 
 
 def needs_update(current, desired):
@@ -150,8 +132,11 @@ def main():
 
                 if not module.check_mode:
 
-                    pass
-
+                    response = client.POST(
+                        "/wiki/rest/api/content/{id}/label",
+                        data=desired,
+                    )
+                    result.update(response if isinstance(response, dict) else {})
 
             elif needs_update(current, desired):
                 # Resource exists but needs updating
@@ -171,14 +156,18 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             else:
                 # Resource exists and is up-to-date
 
+                result["prefix"] = current.get("prefix")
+
+                result["name"] = current.get("name")
+
+                result["id"] = current.get("id")
+
                 result["label"] = current.get("label")
 
-                result["associatedContents"] = current.get("associatedContents")
-
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -188,8 +177,11 @@ def main():
 
                 if not module.check_mode:
 
-                    pass
-
+                    identifier = current.get("id")
+                    path = "/wiki/rest/api/content/{id}/label/{label}".replace(
+                        "{id}", str(identifier)
+                    )
+                    client.delete(path)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,30 +11,23 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: jira_field_info
-short_description: Retrieve information about field resources
+short_description: >-
+  Retrieve information about jira field resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single field by its identifier, or list all field resources.
+  - >-
+    Retrieve a single jira field by its identifier,
+    or list all jira field resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the field to retrieve.
-      - When omitted, all field resources are listed.
+      - The unique identifier of the jira field to retrieve.
+      - When omitted, all jira field resources are listed.
     type: str
     required: false
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -52,18 +45,14 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific field
+- name: Get a specific jira field
   stevefulme1.atlassian.jira_field_info:
     id: "example_id"
   register: result
-
-- name: List all field resources
+- name: List all jira field resources
   stevefulme1.atlassian.jira_field_info:
   register: result
-
-
-
-- name: List field resources with pagination
+- name: List jira field resources with pagination
   stevefulme1.atlassian.jira_field_info:
     page: 1
     page_size: 50
@@ -71,55 +60,40 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-fields:
-  description: List of field resources matching the query.
+jira_fields:
+  description: List of jira field resources matching the query.
   returned: always
   type: list
   elements: dict
   contains:
-
     isLast:
       description: >-
         Whether this is the last page.
       type: bool
-
-
     maxResults:
       description: >-
         The maximum number of items that could be returned.
       type: int
-
-
     nextPage:
       description: >-
         If there is another page of results, the URL of the next page.
       type: str
-
-
     self:
       description: >-
         The URL of the page.
       type: str
-
-
     startAt:
       description: >-
         The index of the first item returned.
       type: int
-
-
     total:
       description: >-
         The number of items returned.
       type: int
-
-
-    values:
+    field_values:
       description: >-
         The list of items.
       type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -131,7 +105,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single field by identifier."""
+    """Retrieve a single jira field by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/rest/api/3/projects/fields")
@@ -143,23 +117,10 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
-    """List field resources with optional filtering and pagination."""
+    """List jira field resources with optional filtering and pagination."""
 
     params = {}
-
-
-
-
-
-
-
-
-
-
-
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -175,7 +136,6 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/rest/api/3/projects/fields", params=params)
-
 
 
 def main():
@@ -209,7 +169,7 @@ def main():
 
     result = dict(
         changed=False,
-        fields=[],
+        jira_fields=[],
     )
 
     try:
@@ -218,9 +178,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["fields"] = [item] if item else []
+            result["jira_fields"] = [item] if item else []
         else:
-            result["fields"] = fetch_list(client, module)
+            result["jira_fields"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

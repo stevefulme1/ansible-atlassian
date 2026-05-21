@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,421 +14,216 @@ module: jira_component
 short_description: Manage project components
 version_added: "1.0.0"
 description:
-  - Create, update, and delete component resources.
+  - Create, update, and delete jira component resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the component resource.
+      - Desired state of the jira component resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
   ari:
     description:
       - >-
         Compass component's ID. Can't be updated. Not required for creating a Project Component.
     type: str
-
-
-
-
-
   assignee:
     description:
       - >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
-
-
-
-
-
   assigneeType:
     description:
       - >-
         The nominal user type used to determine the assignee for issues created with this component. See...
     type: str
-
-
     choices: ["PROJECT_DEFAULT", "COMPONENT_LEAD", "PROJECT_LEAD", "UNASSIGNED"]
-
-
-
-
   description:
     description:
       - >-
         The description for the component. Optional when creating or updating a component.
     type: str
-
-
-
-
-
   id:
     description:
       - >-
         The unique identifier for the component.
     type: str
-
-
-
-
-
   isAssigneeTypeValid:
     description:
       - >-
         Whether a user is associated with assigneeType. For example, if the assigneeType is set to...
     type: bool
-
-
-
-
-
   lead:
     description:
       - >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
-
-
-
-
-
   leadAccountId:
     description:
       - >-
         The accountId of the component's lead user. The accountId uniquely identifies the user across...
     type: str
-
-
-
-
-
   leadUserName:
     description:
       - >-
         This property is no longer available and will be removed from the documentation soon. See the...
     type: str
-
-
-
-
-
   metadata:
     description:
       - >-
         Compass component's metadata. Can't be updated. Not required for creating a Project Component.
     type: dict
-
-
-
-
-
   name:
     description:
       - >-
         The unique name for the component in the project. Required when creating a component. Optional...
     type: str
-
-
-
-
-
   project:
     description:
       - >-
         The key of the project the component is assigned to. Required when creating a component. Can't...
     type: str
-
-
-
-
-
   projectId:
     description:
       - >-
         The ID of the project the component is assigned to.
     type: int
-
-
-
-
-
   realAssignee:
     description:
       - >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
     type: dict
-
-
-
-
-
   realAssigneeType:
     description:
       - >-
         The type of the assignee that is assigned to issues created with this component, when an...
     type: str
-
-
     choices: ["PROJECT_DEFAULT", "COMPONENT_LEAD", "PROJECT_LEAD", "UNASSIGNED"]
-
-
-
-
   self:
     description:
       - >-
         The URL of the component.
     type: str
-
-
-
-
-
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-- name: Create a component
+- name: Create a jira component
   stevefulme1.atlassian.jira_component:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/component
-
-
-
-- name: Update a component
+- name: Update a jira component
   stevefulme1.atlassian.jira_component:
     id: "existing_id"
-
-
     ari: "updated_ari"
-
-
-
     assignee: "updated_assignee"
-
-
-
     assigneeType: "updated_assigneeType"
-
-
-
     description: "updated_description"
-
-
-
-
-
     isAssigneeTypeValid: "updated_isAssigneeTypeValid"
-
-
-
     lead: "updated_lead"
-
-
-
     leadAccountId: "updated_leadAccountId"
-
-
-
     leadUserName: "updated_leadUserName"
-
-
-
     metadata: "updated_metadata"
-
-
-
     name: "updated_name"
-
-
-
     project: "updated_project"
-
-
-
     projectId: "updated_projectId"
-
-
-
     realAssignee: "updated_realAssignee"
-
-
-
     realAssigneeType: "updated_realAssigneeType"
-
-
-
     self: "updated_self"
-
-
     state: present
-  # API:  
-
-
-
-- name: Delete a component
+  # API:
+- name: Delete a jira component
   stevefulme1.atlassian.jira_component:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/component/{id}
-
 """
 
 RETURN = r"""
-
 ari:
   description: >-
     Compass component's ID. Can't be updated. Not required for creating a Project Component.
   returned: success
   type: str
-
-
 assignee:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
-
 assigneeType:
   description: >-
     The nominal user type used to determine the assignee for issues created with this component. See...
   returned: success
   type: str
-
-
 description:
   description: >-
     The description for the component. Optional when creating or updating a component.
   returned: success
   type: str
-
-
 id:
   description: >-
     The unique identifier for the component.
   returned: success
   type: str
-
-
 isAssigneeTypeValid:
   description: >-
     Whether a user is associated with assigneeType. For example, if the assigneeType is set to...
   returned: success
   type: bool
-
-
 lead:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
-
 leadAccountId:
   description: >-
     The accountId of the component's lead user. The accountId uniquely identifies the user across...
   returned: success
   type: str
-
-
 leadUserName:
   description: >-
     This property is no longer available and will be removed from the documentation soon. See the...
   returned: success
   type: str
-
-
 metadata:
   description: >-
     Compass component's metadata. Can't be updated. Not required for creating a Project Component.
   returned: success
   type: dict
-
-
 name:
   description: >-
     The unique name for the component in the project. Required when creating a component. Optional...
   returned: success
   type: str
-
-
 project:
   description: >-
     The key of the project the component is assigned to. Required when creating a component. Can't...
   returned: success
   type: str
-
-
 projectId:
   description: >-
     The ID of the project the component is assigned to.
   returned: success
   type: int
-
-
 realAssignee:
   description: >-
     A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
   returned: success
   type: dict
-
-
 realAssigneeType:
   description: >-
     The type of the assignee that is assigned to issues created with this component, when an...
   returned: success
   type: str
-
-
 self:
   description: >-
     The URL of the component.
   returned: success
   type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -440,7 +235,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the component via GET."""
+    """Retrieve the current state of the jira component via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -463,7 +258,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):
@@ -547,6 +341,8 @@ def main():
 
 
 
+
+
             ),
 
             assignee=dict(
@@ -556,10 +352,14 @@ def main():
 
 
 
+
+
             ),
 
             assigneeType=dict(
                 type="str",
+
+
 
 
                 choices=['PROJECT_DEFAULT', 'COMPONENT_LEAD', 'PROJECT_LEAD', 'UNASSIGNED'],
@@ -576,10 +376,14 @@ def main():
 
 
 
+
+
             ),
 
             id=dict(
                 type="str",
+
+
 
 
 
@@ -594,10 +398,14 @@ def main():
 
 
 
+
+
             ),
 
             lead=dict(
                 type="dict",
+
+
 
 
 
@@ -612,10 +420,14 @@ def main():
 
 
 
+
+
             ),
 
             leadUserName=dict(
                 type="str",
+
+
 
 
 
@@ -630,10 +442,14 @@ def main():
 
 
 
+
+
             ),
 
             name=dict(
                 type="str",
+
+
 
 
 
@@ -648,10 +464,14 @@ def main():
 
 
 
+
+
             ),
 
             projectId=dict(
                 type="int",
+
+
 
 
 
@@ -666,10 +486,14 @@ def main():
 
 
 
+
+
             ),
 
             realAssigneeType=dict(
                 type="str",
+
+
 
 
                 choices=['PROJECT_DEFAULT', 'COMPONENT_LEAD', 'PROJECT_LEAD', 'UNASSIGNED'],
@@ -681,6 +505,8 @@ def main():
 
             self=dict(
                 type="str",
+
+
 
 
 
@@ -721,7 +547,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -739,7 +564,6 @@ def main():
                         data=desired,
                     )
                     result.update(response if isinstance(response, dict) else {})
-
 
             else:
                 # Resource exists and is up-to-date
@@ -776,6 +600,7 @@ def main():
 
                 result["self"] = current.get("self")
 
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -790,7 +615,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

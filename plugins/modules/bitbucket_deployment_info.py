@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,22 +11,23 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: bitbucket_deployment_info
-short_description: Retrieve information about deployment resources
+short_description: >-
+  Retrieve information about bitbucket deployment resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single deployment by its identifier, or list all deployment resources.
+  - >-
+    Retrieve a single bitbucket deployment by its identifier,
+    or list all bitbucket deployment resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the deployment to retrieve.
-      - When omitted, all deployment resources are listed.
+      - The unique identifier of the bitbucket deployment to retrieve.
+      - When omitted, all bitbucket deployment resources are listed.
     type: str
     required: false
-
-
   page:
     description:
       - Page number for paginated results.
@@ -44,18 +45,14 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific deployment
+- name: Get a specific bitbucket deployment
   stevefulme1.atlassian.bitbucket_deployment_info:
     id: "example_id"
   register: result
-
-- name: List all deployment resources
+- name: List all bitbucket deployment resources
   stevefulme1.atlassian.bitbucket_deployment_info:
   register: result
-
-
-
-- name: List deployment resources with pagination
+- name: List bitbucket deployment resources with pagination
   stevefulme1.atlassian.bitbucket_deployment_info:
     page: 1
     page_size: 50
@@ -63,13 +60,11 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-deployments:
-  description: List of deployment resources matching the query.
+bitbucket_deployments:
+  description: List of bitbucket deployment resources matching the query.
   returned: always
   type: list
   elements: dict
-  contains:
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -81,7 +76,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single deployment by identifier."""
+    """Retrieve a single bitbucket deployment by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/repositories/{workspace}/{repo_slug}/deployments")
@@ -93,15 +88,10 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
-    """List deployment resources with optional filtering and pagination."""
+    """List bitbucket deployment resources with optional filtering and pagination."""
 
     params = {}
-
-
-
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -117,7 +107,6 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/repositories/{workspace}/{repo_slug}/deployments", params=params)
-
 
 
 def main():
@@ -143,7 +132,7 @@ def main():
 
     result = dict(
         changed=False,
-        deployments=[],
+        bitbucket_deployments=[],
     )
 
     try:
@@ -152,9 +141,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["deployments"] = [item] if item else []
+            result["bitbucket_deployments"] = [item] if item else []
         else:
-            result["deployments"] = fetch_list(client, module)
+            result["bitbucket_deployments"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

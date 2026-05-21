@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,32 +11,28 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: jira_status_info
-short_description: Retrieve information about status resources
+short_description: >-
+  Retrieve information about jira status resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single status by its identifier, or list all status resources.
+  - >-
+    Retrieve a single jira status by its identifier,
+    or list all jira status resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the status to retrieve.
-      - When omitted, all status resources are listed.
+      - The unique identifier of the jira status to retrieve.
+      - When omitted, all jira status resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -54,23 +50,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific status
+- name: Get a specific jira status
   stevefulme1.atlassian.jira_status_info:
     id: "example_id"
   register: result
-
-- name: List all status resources
+- name: List all jira status resources
   stevefulme1.atlassian.jira_status_info:
   register: result
-
-
-- name: List status resources filtered by name
+- name: List jira status resources filtered by name
   stevefulme1.atlassian.jira_status_info:
-    name: "my_status"
+    name: "my_jira status"
   register: result
-
-
-- name: List status resources with pagination
+- name: List jira status resources with pagination
   stevefulme1.atlassian.jira_status_info:
     page: 1
     page_size: 50
@@ -78,43 +69,32 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-statuss:
-  description: List of status resources matching the query.
+jira_statuss:
+  description: List of jira status resources matching the query.
   returned: always
   type: list
   elements: dict
   contains:
-
     description:
       description: >-
         The description of the status.
       type: str
-
-
     id:
       description: >-
         The ID of the status.
       type: str
-
-
     name:
       description: >-
         The name of the status.
       type: str
-
-
     scope:
       description: >-
         The scope of the status.
       type: dict
-
-
     statusCategory:
       description: >-
         The category of the status.
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -126,7 +106,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single status by identifier."""
+    """Retrieve a single jira status by identifier."""
 
     # No single-resource GET endpoint; filter from list
     items = client.get("/rest/api/3/statuses")
@@ -138,23 +118,14 @@ def fetch_single(client, identifier):
     return None
 
 
-
 def fetch_list(client, module):
-    """List status resources with optional filtering and pagination."""
+    """List jira status resources with optional filtering and pagination."""
 
     params = {}
-
 
     name_filter = module.params.get("name")
     if name_filter is not None:
         params["name"] = name_filter
-
-
-
-
-
-
-
 
     page = module.params.get("page")
     page_size = module.params.get("page_size")
@@ -170,7 +141,6 @@ def fetch_list(client, module):
         return response if isinstance(response, list) else []
     else:
         return client.get_paginated("/rest/api/3/statuses", params=params)
-
 
 
 def main():
@@ -202,7 +172,7 @@ def main():
 
     result = dict(
         changed=False,
-        statuss=[],
+        jira_statuss=[],
     )
 
     try:
@@ -211,9 +181,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["statuss"] = [item] if item else []
+            result["jira_statuss"] = [item] if item else []
         else:
-            result["statuss"] = fetch_list(client, module)
+            result["jira_statuss"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

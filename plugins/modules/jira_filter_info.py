@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -11,58 +11,28 @@ __metaclass__ = type
 DOCUMENTATION = r"""
 ---
 module: jira_filter_info
-short_description: Retrieve information about filter resources
+short_description: >-
+  Retrieve information about jira filter resources
 version_added: "1.0.0"
 description:
-  - Retrieve a single filter by its identifier, or list all filter resources.
+  - >-
+    Retrieve a single jira filter by its identifier,
+    or list all jira filter resources.
   - This module always reports C(changed=False).
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   id:
     description:
-      - The unique identifier of the filter to retrieve.
-      - When omitted, all filter resources are listed.
+      - The unique identifier of the jira filter to retrieve.
+      - When omitted, all jira filter resources are listed.
     type: str
     required: false
-
   name:
     description:
       - Filter results by name.
     type: str
     required: false
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   page:
     description:
       - Page number for paginated results.
@@ -80,23 +50,18 @@ extends_documentation_fragment:
 """
 
 EXAMPLES = r"""
-- name: Get a specific filter
+- name: Get a specific jira filter
   stevefulme1.atlassian.jira_filter_info:
     id: "example_id"
   register: result
-
-- name: List all filter resources
+- name: List all jira filter resources
   stevefulme1.atlassian.jira_filter_info:
   register: result
-
-
-- name: List filter resources filtered by name
+- name: List jira filter resources filtered by name
   stevefulme1.atlassian.jira_filter_info:
-    name: "my_filter"
+    name: "my_jira filter"
   register: result
-
-
-- name: List filter resources with pagination
+- name: List jira filter resources with pagination
   stevefulme1.atlassian.jira_filter_info:
     page: 1
     page_size: 50
@@ -104,103 +69,72 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-filters:
-  description: List of filter resources matching the query.
+jira_filters:
+  description: List of jira filter resources matching the query.
   returned: always
   type: list
   elements: dict
   contains:
-
     approximateLastUsed:
       description: >-
         \Experimental\ Approximate last used time. Returns the date and time when the filter was last...
       type: str
-
-
     description:
       description: >-
         A description of the filter.
       type: str
-
-
     editPermissions:
       description: >-
         The groups and projects that can edit the filter.
       type: list
-
-
     favourite:
       description: >-
         Whether the filter is selected as a favorite.
       type: bool
-
-
     favouritedCount:
       description: >-
         The count of how many users have selected this filter as a favorite, including the filter owner.
       type: int
-
-
     id:
       description: >-
         The unique identifier for the filter.
       type: str
-
-
     jql:
       description: >-
         The JQL query for the filter. For example, project = SSP AND issuetype = Bug.
       type: str
-
-
     name:
       description: >-
         The name of the filter. Must be unique.
       type: str
-
-
     owner:
       description: >-
         A user with details as permitted by the user's Atlassian Account privacy settings. However, be...
       type: dict
-
-
     searchUrl:
       description: >-
         A URL to view the filter results in Jira, using the Search for issues using...
       type: str
-
-
     self:
       description: >-
         The URL of the filter.
       type: str
-
-
     sharePermissions:
       description: >-
         The groups and projects that the filter is shared with.
       type: list
-
-
     sharedUsers:
       description: >-
         A paginated list of users sharing the filter. This includes users that are members of the groups...
       type: dict
-
-
     subscriptions:
       description: >-
         A paginated list of subscriptions to a filter.
       type: dict
-
-
     viewUrl:
       description: >-
         A URL to view the filter results in Jira, using the ID of the filter. For example,...
       type: str
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -212,17 +146,15 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def fetch_single(client, identifier):
-    """Retrieve a single filter by identifier."""
+    """Retrieve a single jira filter by identifier."""
 
     raise ClientError("GET by identifier is not supported for this resource")
 
 
-
 def fetch_list(client, module):
-    """List filter resources with optional filtering and pagination."""
+    """List jira filter resources with optional filtering and pagination."""
 
     raise ClientError("List operation is not supported for this resource")
-
 
 
 def main():
@@ -280,7 +212,7 @@ def main():
 
     result = dict(
         changed=False,
-        filters=[],
+        jira_filters=[],
     )
 
     try:
@@ -289,9 +221,9 @@ def main():
 
         if identifier is not None:
             item = fetch_single(client, identifier)
-            result["filters"] = [item] if item else []
+            result["jira_filters"] = [item] if item else []
         else:
-            result["filters"] = fetch_list(client, module)
+            result["jira_filters"] = fetch_list(client, module)
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2024, Steve Fulmer
+# Copyright: (c) 2024, Steve Fulmer (@stevefulme1)
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import absolute_import, division, print_function
@@ -14,168 +14,113 @@ module: jira_field
 short_description: Manage issue fields
 version_added: "1.0.0"
 description:
-  - Create, update, and delete field resources.
+  - Create, update, and delete jira field resources.
   - Supports check mode and diff mode for safe operations.
 author:
-  - "Steve Fulmer"
+  - "Steve Fulmer (@stevefulme1)"
 options:
   state:
     description:
-      - Desired state of the field resource.
+      - Desired state of the jira field resource.
     type: str
     choices: ['present', 'absent']
     default: present
-
   type:
     description:
       - >-
         The type of the custom field. These built-in custom field types are available: cascadingselect:...
     type: str
-
     required: true
-
-
-
-
-
   description:
     description:
       - >-
         The description of the custom field. The maximum length is 40000 characters.
     type: str
-
-
-
-
-
   name:
     description:
       - >-
         The name of the custom field. It doesn't have to be unique. The maximum length is 255 characters.
     type: str
-
-
-
-
-
   searcherKey:
     description:
       - >-
         The searcher that defines the way the field is searched in Jira. It can be set to null,...
     type: str
-
-
-    choices: ["com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:daterange", "com.atlassian.jira.plugin.system.customfieldtypes:datetimerange", "com.atlassian.jira.plugin.system.customfieldtypes:exactnumber", "com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher", "com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:numberrange", "com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:textsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher", "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher"]
-
-
-
-
+    choices:
+      - "com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:daterange"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:datetimerange"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:exactnumber"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:numberrange"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:textsearcher"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher"
+      - "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher"
 extends_documentation_fragment:
   - stevefulme1.atlassian.auth
 """
 
 EXAMPLES = r"""
-
-- name: Create a field
+- name: Create a jira field
   stevefulme1.atlassian.jira_field:
-
-
     type: "example_type"
-
-
-
-
-
-
-
-
     state: present
   # API: POST /rest/api/3/field
-
-
-
-- name: Update a field
+- name: Update a jira field
   stevefulme1.atlassian.jira_field:
     id: "existing_id"
-
-
-
-
     description: "updated_description"
-
-
-
     name: "updated_name"
-
-
-
     searcherKey: "updated_searcherKey"
-
-
     state: present
-  # API:  
-
-
-
-- name: Delete a field
+  # API:
+- name: Delete a jira field
   stevefulme1.atlassian.jira_field:
     id: "existing_id"
     state: absent
   # API: DELETE /rest/api/3/field/{id}
-
 """
 
 RETURN = r"""
-
 isLast:
   description: >-
     Whether this is the last page.
   returned: success
   type: bool
-
-
 maxResults:
   description: >-
     The maximum number of items that could be returned.
   returned: success
   type: int
-
-
 nextPage:
   description: >-
     If there is another page of results, the URL of the next page.
   returned: success
   type: str
-
-
 self:
   description: >-
     The URL of the page.
   returned: success
   type: str
-
-
 startAt:
   description: >-
     The index of the first item returned.
   returned: success
   type: int
-
-
 total:
   description: >-
     The number of items returned.
   returned: success
   type: int
-
-
-values:
+field_values:
   description: >-
     The list of items.
   returned: success
   type: list
-
-
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -187,7 +132,7 @@ from ansible_collections.stevefulme1.atlassian.plugins.module_utils.api_client i
 
 
 def get_current_state(client, module):
-    """Retrieve the current state of the field via GET."""
+    """Retrieve the current state of the jira field via GET."""
 
     # No single-resource GET endpoint; fall back to list + filter
     identifier = module.params.get("id")
@@ -209,7 +154,6 @@ def get_current_state(client, module):
         return None
     except ClientError:
         return None
-
 
 
 def needs_update(current, desired):
@@ -253,7 +197,9 @@ def main():
             type=dict(
                 type="str",
 
+
                 required=True,
+
 
 
 
@@ -268,10 +214,14 @@ def main():
 
 
 
+
+
             ),
 
             name=dict(
                 type="str",
+
+
 
 
 
@@ -283,7 +233,39 @@ def main():
                 type="str",
 
 
-                choices=['com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:daterange', 'com.atlassian.jira.plugin.system.customfieldtypes:datetimerange', 'com.atlassian.jira.plugin.system.customfieldtypes:exactnumber', 'com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:numberrange', 'com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:textsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher', 'com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher'],
+
+                no_log=False,
+
+
+                choices=[
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:cascadingselectsearcher",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:daterange",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:datetimerange",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:exactnumber",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:exacttextsearcher",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:grouppickersearcher",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:labelsearcher",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:numberrange",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:projectsearcher",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:textsearcher",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:userpickergroupsearcher",
+
+                    "com.atlassian.jira.plugin.system.customfieldtypes:versionsearcher",
+
+                ],
 
 
 
@@ -323,7 +305,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             elif needs_update(current, desired):
                 # Resource exists but needs updating
                 result["changed"] = True
@@ -342,7 +323,6 @@ def main():
                     )
                     result.update(response if isinstance(response, dict) else {})
 
-
             else:
                 # Resource exists and is up-to-date
 
@@ -358,8 +338,9 @@ def main():
 
                 result["total"] = current.get("total")
 
-                result["values"] = current.get("values")
+                result["field_values"] = current.get("values")
 
+                pass
 
         elif state == "absent":
             if current is not None:
@@ -374,7 +355,6 @@ def main():
                         "{id}", str(identifier)
                     )
                     client.delete(path)
-
 
     except ClientError as e:
         module.fail_json(msg=str(e), **result)
