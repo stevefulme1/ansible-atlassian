@@ -17,7 +17,6 @@ def _build_resource(**overrides):
         "name": "test-name",
         "alias": "test-alias",
         "description": "test-description",
-        "homepage": "test-homepage",
         "key": "test-key"
     }
     base.update(overrides)
@@ -33,14 +32,11 @@ def resource_args(module_args):
         "api_url": "https://api.example.com",
         "validate_certs": True,
         "request_timeout": 30,
+        "name": "test-name",
         "alias": None,
         "description": None,
-        "homepage": None,
         "key": None,
-        "name": None,
-        "permissions": None,
-        "status": None,
-        "type": None
+        "permissions": None
     })
     return module_args
 
@@ -240,17 +236,17 @@ class TestUpdate:
     @patch(f"{MODULE_PATH}.AnsibleModule")
     def test_update_when_changed(self, mock_ansible_cls, mock_client_cls, resource_args):
         """Updating a resource when values differ sets changed=True."""
-        resource_args["alias"] = "new-value"
+        resource_args["name"] = "new-value"
         mock_module = MagicMock()
         mock_module.params = resource_args
         mock_module.check_mode = False
         mock_ansible_cls.return_value = mock_module
 
         mock_client = MagicMock()
-        mock_client.put.return_value = _build_resource(alias="new-value")
+        mock_client.put.return_value = _build_resource(name="new-value")
         mock_client_cls.return_value = mock_client
 
-        existing = _build_resource(alias="old-value")
+        existing = _build_resource(name="old-value")
         with patch(f"{MODULE_PATH}.get_current_state", return_value=existing), \
              patch(f"{MODULE_PATH}.needs_update", return_value=True):
             from ansible_collections.stevefulme1.atlassian.plugins.modules.confluence_space import main
